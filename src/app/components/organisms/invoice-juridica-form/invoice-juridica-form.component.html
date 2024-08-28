@@ -1,127 +1,81 @@
-@if (loading) {
+@if(loading) {
   <div class="loader">
-    <div class="custom-loader"></div>
-</div>
-} @else {
-  <form [formGroup]="invoiceJuridicaForm" (ngSubmit)="onSubmit()" id="invoice-natural-form">
-    @for(poControl of getPurchaseOrdersControls(); track poControl) {
-      <div class="row">
-        <app-select-input
-          [label]="'Orden de compra'"
-          [control]="poControl"
-          [options]="availableOptions[$index] || []"
-          [optionName]="'optionName'"
-          [optionValue]="'optionValue'"
-          class="col-6"
-        ></app-select-input>
-        @if($index > 0) {
-          <a class="col-1 flex-column justify-end align-center margin-bottom" (click)="deletePurchaseOrderControl($index)">
-             <mat-icon class="red">delete_outline</mat-icon>
-          </a>
-        }
-        @if($index === getPurchaseOrdersControls().length - 1 && selectOptionsPo && $index < selectOptionsPo.length - 1) {
-          <a class="col-5 flex-column justify-end align-center margin-bottom" (click)="addPurchaseOrderControl()">
-            + Agregar nuevo número de orden
-          </a>
-        }
-      </div>
-    }
-    <div class="row">
-      <app-text-input
-        [label]="'Tipo de persona'"
-        [control]="getControl('personType')"
-        [type]="'text'"
-        class="col-6"
-      ></app-text-input>
-      <app-text-input
-        [label]="'Tipo de documento'"
-        [control]="getControl('documentType')"
-        [type]="'text'"
-        class="col-6"
-      ></app-text-input>
-      <app-text-input
-        [label]="'Número de documento'"
-        [control]="getControl('documentNumber')"
-        [type]="'number'"
-        class="col-6"
-      ></app-text-input>
-      <app-text-input
-        [label]="'Nombres y Apellidos'"
-        [control]="getControl('companyName')"
-        [type]="'text'"
-        class="col-6"
-      ></app-text-input>
-      <app-text-input
-        [label]="'Dirección'"
-        [control]="getControl('address')"
-        [type]="'text'"
-        class="col-6"
-      ></app-text-input>
-      <app-text-input
-        [label]="'Email'"
-        [control]="getControl('email')"
-        [type]="'email'"
-        class="col-6"
-      ></app-text-input>
-    </div>
-    <app-subtitle [subtitle]="'DOCUMENTOS PRECARGADOS'"></app-subtitle>
-    @if(invoiceJuridicaForm.get('electronicInvoice')?.value.url) {
+      <div class="custom-loader"></div>
+  </div>
+} 
+
+<form [formGroup]="invoiceJuridicaForm" (ngSubmit)="onSubmit()" id="invoice-juridica-form">
+  <app-subtitle [subtitle]="'DOCUMENTOS PRECARGADOS'"></app-subtitle>
+  
+  @if (thereArePrechargedDocs()) {
+    @if (invoiceJuridicaForm.get('electronicInvoice')?.value?.url) {
       <div class="link-wrapper">
-        <p><b>Factura Electrónica</b> <a>  Ver aquí</a></p>
+        <b><p>Factura Electrónica</p></b>
+        <a [href]="invoiceJuridicaForm.get('electronicInvoice')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
-    @if(invoiceJuridicaForm.get('socialSecurity')?.value.url) {
+    @if (invoiceJuridicaForm.get('socialSecurity')?.value?.url) {
       <div class="link-wrapper">
-        <p><b>Pago seguridad social mes vigente</b> <a>  Ver aquí</a></p>
+        <b><p>Pago seguridad social mes vigente</p></b>
+        <a [href]="invoiceJuridicaForm.get('socialSecurity')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
-    @if(invoiceJuridicaForm.get('taxAuditorCertificate')?.value.url) {
+    @if (invoiceJuridicaForm.get('taxAuditorCertificate')?.value?.url) {
       <div class="link-wrapper">
-        <p><b>Planilla seguridad Social con Riesgo Laboral del Empleado</b> <a>  Ver aquí</a></p>
+        <b><p>Planilla seguridad Social con Riesgo Laboral del Empleado</p></b>
+        <a [href]="invoiceJuridicaForm.get('taxAuditorCertificate')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
-    @if(invoiceJuridicaForm.get('arlCertificate')?.value.url) {
+    @if (invoiceJuridicaForm.get('arlCertificate')?.value?.url) {
       <div class="link-wrapper">
-        <p><b>Certificado ARL / Contratista con Vinculación</b> <a>  Ver aquí</a></p>
+        <b><p>Certificado ARL / Contratista con Vinculación</p></b>
+        <a [href]="invoiceJuridicaForm.get('arlCertificate')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
-    @for(anexo of getOtherAnexesControls(); track $index) {
-      @if(anexo.value.url) {
+    @for (anexo of getOtherAnexesControls(); track $index) {
+      @if (anexo.value?.url) {
         <div class="link-wrapper">
-          <p><b>Anexo {{$index + 1}}</b> <a>  Ver aquí</a></p>
+          <b><p>Anexo {{ $index + 1 }}</p></b>
+          <a [href]="anexo.value.url" target="_blank">Ver documento</a>
         </div>
       }
     }
-    <app-subtitle [subtitle]="'Documentos solicitados'"></app-subtitle>
-    <label>Factura Electrónica*</label>
-    <app-filebox [control]="getControl('electronicInvoice')"></app-filebox>
-    <label>Pago seguridad social mes vigente*</label>
-    <app-filebox [control]="getControl('socialSecurity')"></app-filebox>
-    <label>Planilla seguridad Social con Riesgo Laboral del Empleado</label>
-    <app-filebox [control]="getControl('taxAuditorCertificate')"></app-filebox>
-    <label>Certificado ARL / Contratista con Vinculación*</label>
-    <app-filebox [control]="getControl('arlCertificate')"></app-filebox>
-    @for(anexo of getOtherAnexesControls(); track $index) {
-      <div class="anexo-container">
-        @if($index > 0){
-          <button type="button" class="delete-button delete-button-anexo" (click)="deleteAnnex($index)">
-            <span class="material-symbols-outlined">
-              delete
-            </span>
-          </button>
-        }
-        <label>Otros Anexos*</label>
-        <app-filebox [control]="anexo" [id]="'otherAnexes-' + $index"></app-filebox>
-      </div>
-    }
-    <a (click)="addNewAnexFormGroup()">+ Agregar anexo</a>
-  
-    <div class="row margin-top padding-bottom">
-      <button class="col-12 btn-purpple margin-top" type="submit">Finalizar</button>
+  } @else {
+    <p>Todavía no hay documentos precargados para mostrar.</p>
+  }
+
+  <app-subtitle [subtitle]="'Documentos solicitados'"></app-subtitle>
+
+  <label>Factura Electrónica*</label>
+  <app-filebox [control]="invoiceJuridicaForm.get('electronicInvoice')!"></app-filebox>
+
+  <label>Pago seguridad social mes vigente*</label>
+  <app-filebox [control]="invoiceJuridicaForm.get('socialSecurity')!"></app-filebox>
+
+  <label>Planilla seguridad Social con Riesgo Laboral del Empleado</label>
+  <app-filebox [control]="invoiceJuridicaForm.get('taxAuditorCertificate')!"></app-filebox>
+
+  <label>Certificado ARL / Contratista con Vinculación*</label>
+  <app-filebox [control]="invoiceJuridicaForm.get('arlCertificate')!"></app-filebox>
+
+  @for (anexo of getOtherAnexesControls(); track $index) {
+    <div class="anexo-container">
+      @if ($index > 0) {
+        <button type="button" class="delete-button delete-button-anexo" (click)="deleteAnnex($index)">
+          <span class="material-symbols-outlined">delete</span>
+        </button>
+      }
+      <label>Otros Anexos*</label>
+      <app-filebox [control]="anexo" [id]="'otherAnexes-' + $index"></app-filebox>
     </div>
-  </form>
-}
+  }
+  <a (click)="addNewAnexFormGroup()">+ Agregar anexo</a>
+
+  <div class="row margin-top padding-bottom">
+    <button class="col-12 btn-purpple margin-top" type="submit">Finalizar</button>
+  </div>
+</form>
