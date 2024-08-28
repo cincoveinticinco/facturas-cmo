@@ -137,4 +137,18 @@ export class InvoiceLodgingService {
       headers: this.headers
     });
   }
+
+  signUrl(document: any) {
+    this.setHeaders();
+    let params = {
+      'document': document,
+    }
+
+    return this.http.get(`${environment.apiUrl}cmo/sign_document`, { 
+      headers: this.headers,
+      params: params
+    }).pipe(
+      map((response: any) => response));
+  }
+
 }

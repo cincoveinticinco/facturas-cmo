@@ -219,12 +219,14 @@ export class InvoiceJuridicaFormComponent {
           if (!uploadFile) return of(false);
           const document_url = uploadFile?.url ? `${vendorId}/${nameFile}` : '';
           const formControlCurrentValue = formControl.value;
-          formControl.setValue({
-            document_id: formControlCurrentValue?.document_id,
-            name: value.name,
-            url: uploadFile.url,
-            document_url: document_url
-          });
+          this.ilsService.signUrl(document_url).subscribe((res: any) => {
+            formControl.setValue({
+              document_id: formControlCurrentValue?.document_id,
+              name: value.name,
+              url: res.url,
+              document_url: document_url
+            });
+          })
           return of(true);
         })
       )
