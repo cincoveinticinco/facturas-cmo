@@ -54,7 +54,7 @@ export class AuthService {
     this.route.params.subscribe((params: any) => {
       this.vendorId = params.id;
       localStorage.clear();
-      window.location.href = this.loginApiUrl + 'home/' + vendorId;
+      window.location.href = this.loginApiUrl + '/' + vendorId;
     })
   }
 }

@@ -12,6 +12,6 @@ export class OcInfoErrorComponent {
   constructor(public router: Router) {}
 
   goBack() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 }
