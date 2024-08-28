@@ -1,0 +1,47 @@
+<app-subtitle [subtitle]="'Personas expuestas políticamente'" />
+<p>
+  Persona Expuesta Políticamente (PEP): Las personas expuestas políticamente conforme al
+  (Decreto 1674 de 2016) son los representantes legales de organizaciones internacionales y las
+  personas que gozan de reconocimiento público. Además, los individuos que desempeñan o han
+  desempeñado funciones públicas destacadas como jefes de Estado, políticos de alta jerarquía,
+  funcionarios gubernamentales, judiciales o militares de alta jerarquía, altos ejecutivos (directores y
+  gerentes) de empresas sociales, industriales y comerciales del estado y de sociedades de
+  economía mixta, unidades administrativas especiales, y funcionarios importantes de partidos
+  políticos. Las personas descritas anteriormente son PEP durante el periodo en que ocupen sus
+  cargos y durante los dos (2) años siguientes a su dejación, renuncia, despido o declaración de
+  insubsistencia del nombramiento, o de cualquier otra forma de desvinculación.
+</p>
+<app-checkbox-input
+  [label]="'¿Es persona expuesta políticamente?'"
+  [control]="getControl('is_pep')"
+  [controlName]="'is_pep'"
+  class="col-12"
+/>
+
+
+@if (getControl('is_pep').value == '1') {
+  <div class="row">
+    <app-text-input
+    [label]="'Fecha desde'"
+    [control]="getControl('pep_start_date')"
+    class="col-4"
+    [type]="'date'"
+    ></app-text-input>
+    <app-text-input
+    [label]="'Fecha hasta'"
+    [control]="getControl('pep_end_date')"
+    class="col-4"
+    [type]="'date'"
+    ></app-text-input>
+    <app-text-input
+        [label]="'Término'"
+        [control]="getControl('pep_term')"
+        class="col-4"
+      ></app-text-input>
+    <app-text-input
+        [label]="'Cargo'"
+        [control]="getControl('pep_position')"
+        class="col-4"
+      ></app-text-input>
+  </div>
+}

@@ -1,0 +1,14 @@
+.panel-buttons-container {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+}
+
+@media (max-width: 768px) {
+  .panel-buttons-container {
+    position: absolute;
+    top: 24px;
+    display: flex;
+    gap: 12px;
+  }
+}

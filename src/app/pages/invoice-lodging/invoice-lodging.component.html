@@ -1,0 +1,69 @@
+@if (loading) {
+  <div class="loader">
+    <div class="custom-loader"></div>
+  </div>
+}
+
+@if (validationPending) {
+  <app-validate-oc-info></app-validate-oc-info>
+} @else {
+  <div class="invoice-lodging-container">
+    <div class="invoice-lodging-header">
+      <app-logo></app-logo>
+      <h1>BIENVENIDO AL MODULO DE RADICACIÓN</h1>
+      <p>En esta plataforma podrá radicar de manera fácil y segura los documentos y facturas correspondientes a las órdenes de compra recibidas.</p>
+    </div>
+    <div class="invoice-lodging-tabs-container">
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="mat-tabs-group" (selectedTabChange)="onTabChange($event)">
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span class="mat-tab">Persona Natural</span>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span class="mat-tab">Persona Jurídica</span>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+      <form [formGroup]="invoiceLodgingForm" (ngSubmit)="sendForm()" class="row align-end" id="invoice-lodging-form">
+        <app-select-input
+          [label]="'Tipo de documento'"
+          [control]="getControl('documentType')"
+          [options]="formattedDocumentTypes"
+          [optionName]="'optionName'"
+          [optionValue]="'optionValue'"
+          class="col-12"
+        ></app-select-input>
+        <app-text-input
+          [label]="'Número de documento'"
+          [control]="getControl('documentNumber')"
+          [type]="'number'"
+          [pattern]="getDocumentPattern()"
+          class="col-12"
+        ></app-text-input>
+        <p class="col-1 justify-end">
+          <b>OC-</b>
+        </p>
+        <app-text-input
+          [label]="'Número de orden'"          
+          [control]="getControl('orderNumber')"
+          class="col-11"
+        ></app-text-input>
+      </form>
+    </div>
+    @if (formErrors.length > 0) {
+      <div class="error-container">
+          @for (error of formErrors; track error) {
+            <span class="error-message">{{ error }}</span>
+          }
+      </div>
+    }
+    <div class="invoice-lodging-footer">
+      <p>¿Necesita recibir el número de orden? <a (click)="receivePurchaseOrders()">Click aquí.</a></p>
+      <button mat-raised-button color="primary" class="btn-purpple" form="invoice-lodging-form" type="submit">INGRESAR</button>
+    </div>
+  </div>
+}
+
+

@@ -1,0 +1,23 @@
+<app-subtitle [subtitle]="'datos del contacto comercial'" />
+<div class="row">
+  <app-text-input
+    [label]="'Nombre Responsable'"
+    [control]="getControl('commercialresponsiblename')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Celular'"
+    [control]="getControl('commercialresponsibletelephone')"
+    class="col-4"
+    [pattern]="'^[0-9+-]+$'"
+  />
+  <app-text-input
+    [label]="'Correo electrónico'"
+    [control]="getControl('commercialresponsibleemail')"
+    class="col-4"
+    [type]="'email'"
+  />
+  <p class="col-12">
+    El abajo firmante actuando como representante legal indicado en la firma (EL TITULAR) por medio del presente documento, manifiesto que autorizo a CMO INTERNACIONAL S.A.S., CMO PRODUCCIONES SAS y a CMO STUDIOS SAS. (en adelante, “CMO”). Y declara que comprende y acepta lo siguiente:
+  </p>
+</div>

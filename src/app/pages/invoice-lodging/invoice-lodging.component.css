@@ -1,0 +1,65 @@
+.invoice-lodging-container {
+  width: 700px;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .invoice-lodging-header {
+    text-align: center;
+
+    p {
+      text-align: center;
+    }
+  }
+
+  .invoice-lodging-tabs-container {
+    width: 400px;
+    margin: auto;
+    margin-top: 3rem;
+  }
+
+  .invoice-lodging-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+
+    .btn-purpple {
+      width: 400px;
+      border-radius: 12px;
+    }
+  }
+
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3rem;
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .invoice-lodging-container {
+    width: 100%;
+    padding: 0 1rem;
+
+    .invoice-lodging-tabs-container {
+      width: 100%;
+    }
+
+    .invoice-lodging-footer {
+      .btn-purpple {
+        width: 100%;
+      }
+    }
+  }
+}

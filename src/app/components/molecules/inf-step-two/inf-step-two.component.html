@@ -1,0 +1,221 @@
+@if(loading) {
+  <div class="loader">
+    <div class="custom-loader"></div>
+</div>
+} @else {@if (!renderDependentsForm) {
+  <form [formGroup]="invoiceNaturalForm" (ngSubmit)="onSubmit()">
+      <app-subtitle [subtitle]="'DECLARACIÓN FUNDAMENTADA'"></app-subtitle>
+      <div class="row">
+        <app-text-input
+          label="Nombres y Apellidos"
+          [control]="getControl('fullName')"
+          type="text"
+          class="col-6"
+        ></app-text-input>
+        
+        <app-text-input
+          label="Tipo de Documento"
+          [control]="getControl('documentType')"
+          type="text"
+          class="col-6"
+        ></app-text-input>
+        
+        <app-text-input
+          label="Número de Documento"
+          [control]="getControl('documentNumber')"
+          [pattern]="'^[0-9]+$'"
+          type="number"
+          class="col-6"
+        ></app-text-input>
+        
+        <app-text-input
+          label="Número de Contrato"
+          [control]="getControl('contractNumber')"
+          type="text"
+          class="col-6"
+        ></app-text-input>
+        
+        <app-text-input
+          label="Dirección"
+          [control]="getControl('address')"
+          type="text"
+          class="col-6"
+        ></app-text-input>
+        
+        <app-text-input
+          [pattern]="'^[0-9+-]+$'"
+          [control]="getControl('phone')"
+          label="Teléfono"
+          type="tel"
+          class="col-6"
+          id="phone"
+        ></app-text-input>
+        
+        <app-text-input
+          label="Correo Personal"
+          [control]="getControl('email')"
+          type="email"
+          class="col-6"
+        ></app-text-input>
+        
+        <app-text-input
+          label="Correo Institucional"
+          [control]="getControl('institutionalEmail')"
+          type="email"
+          class="col-6"
+          id="institutionalEmail"
+        ></app-text-input>
+      </div> 
+      <app-subtitle [subtitle]="'DECLARACIÓN FUNDAMENTADA'"></app-subtitle>
+      
+      <app-checkbox-input
+        label="1. Estoy obligado a presentar declaración de renta por el año gravable inmediatamente anterior:"
+        [control]="getControl('incomeTaxReturn')"
+        controlName="incomeTaxReturn"
+        [form]="invoiceNaturalForm"
+        [boldLabel]="false"
+        id="incomeTaxReturn"
+      ></app-checkbox-input>
+      
+      <app-checkbox-input
+        label="2. La totalidad de mi ingreso base de cotización por el respectivo periodo excede el tope de los 25 salarios mínimos legales mensuales vigentes:"
+        [control]="getControl('exceedsIncome')"
+        controlName="exceedsIncome"
+        [form]="invoiceNaturalForm"
+        [boldLabel]="false"
+        id="exceedsIncome"
+      ></app-checkbox-input>
+      
+      <app-checkbox-input
+        label="3. Respecto al Impuesto Sobre las Ventas-IVA mi condición tributaria es:"
+        [control]="getControl('taxCondition')"
+        controlName="taxCondition"
+        [form]="invoiceNaturalForm"
+        [customCheckboxLabel]="{
+          true: 'Responsable',
+          false: 'No responsable'
+        }"
+        [boldLabel]="false"
+        id="taxCondition"
+      ></app-checkbox-input>
+    
+      <app-subtitle [subtitle]="'DEDUCCIONES'"></app-subtitle>
+      <app-checkbox-input
+        [label]="'1. Certificación por concepto de medicina prepagada. (se deberá enviar el certificado del valor pagado en el año inmediatamente anterior en el cual el contribuyente debe tener la titularidad del contrato.)'"
+        [control]="getControl('medicalPrepaid')"
+        [controlName]="'medicalPrepaid'"
+        [form]="invoiceNaturalForm"
+        [boldLabel]="false"
+        id="medicalPrepaid"
+      ></app-checkbox-input>
+      @if (getValue('medicalPrepaid') === '1') {
+        <label>*Adjuntar soporte</label>
+        <app-filebox
+          id="medicalPrepaidFile"
+          [control]="getControl('medicalPrepaidFile')"
+        ></app-filebox>
+      }
+      <app-checkbox-input
+        [label]="'2. Certificación por concepto de intereses o corrección monetaria en créditos de vivienda. (Anexar certificado de la entidad financiera o bancaria, a 31 de diciembre del año inmediatamente anterior)'"
+        [control]="getControl('housingCredit')"
+        [controlName]="'housingCredit'"
+        [form]="invoiceNaturalForm"
+        [boldLabel]="false"
+        [controlersWhenTrue]="['housingCreditFile']"
+        id="housingCredit"
+      ></app-checkbox-input>
+      @if (getValue('housingCredit') === '1') {
+        <label>*Adjuntar soporte</label>
+        <app-filebox
+          [control]="getControl('housingCreditFile')"
+          id="housingCreditFile"
+        ></app-filebox>
+      }
+      <app-checkbox-input
+        [label]="'3.Información de dependientes. (Diligencie el formato al continuar)'"
+        [control]="getControl('dependents')"
+        [controlName]="'dependents'"
+        [form]="invoiceNaturalForm"
+        [boldLabel]="false"
+        id="dependents"
+      ></app-checkbox-input>
+    
+      <app-subtitle [subtitle]="'RENTAS EXENTAS'"></app-subtitle>
+    
+      <app-checkbox-input
+        [label]="'1. Aportes AFC (Si aplica se debe incluir el pdf de soporte de pago mes anterior)'"
+        [control]="getControl('afcContributions')"
+        [controlName]="'afcContributions'"
+        [controlersWhenTrue]="['afcContributionsFile']"
+        [form]="invoiceNaturalForm"
+        [boldLabel]="false"
+      ></app-checkbox-input>
+      
+      @if(getValue('afcContributions') === '1') {
+        <div class="row">
+          <label class="col-12">*Adjuntar soporte</label>
+          <app-filebox
+            class="col-12"
+            [control]="getControl('afcContributionsFile')"
+            id="afcContributionsFile"
+          ></app-filebox>
+        </div>
+      }
+      <!-- similar to afc for Aportes Pensiones Voluntarias. -->
+      <app-checkbox-input
+        [label]="'2. Aportes Pensiones Voluntarias (Si aplica se debe incluir el pdf de soporte de pago mes anterior)'"
+        [control]="getControl('voluntaryPensionContributions')"
+        [controlName]="'voluntaryPensionContributions'"
+        [form]="invoiceNaturalForm"
+        [boldLabel]="false"
+        [controlersWhenTrue]="['voluntaryPensionContributionsFile']"
+        id="voluntaryPensionContributions"
+      ></app-checkbox-input>
+      @if(getValue('voluntaryPensionContributions') === '1') {
+        <div class="row">
+          <label class="col-12">*Adjuntar soporte</label>
+          <app-filebox
+            class="col-12"
+            [control]="getControl('voluntaryPensionContributionsFile')"
+            id="voluntaryPensionContributionsFile"
+          ></app-filebox>
+        </div>
+      }
+      <app-electronic-signature-auth
+        id="signatureTwo"
+        [form]="invoiceNaturalForm"
+        [controlNames]="{
+          signature: 'signatureTwo',
+          signatureAuth: 'signatureAuthTwo'
+        }"></app-electronic-signature-auth>
+        <div class="row margin-top buttons-wrapper">
+          <button mat-raised-button type="button" class="col-6 btn-gray" (click)="handlePreviousStep()">REGRESAR</button>
+          <button mat-raised-button type="submit" class="col-6 btn-black">CONTINUAR</button>
+        </div>
+    </form>
+  } @else {
+    @for (dependent of getDependentsForms(); track $index) {
+      <div class="dependent-form-container">
+        @if($index > 0){
+          <button type="button" class="delete-button" (click)="deleteDependent($index)">
+            <span class="material-symbols-outlined">
+              delete
+            </span>
+          </button>
+        }
+        <app-inf-dependent-certification
+          [dependentForm]="dependent"
+          [dependentIndex]="$index + 1"
+        ></app-inf-dependent-certification>
+    </div>
+    }    
+    <div class="add-dependent-wrapper">
+      <img src="./assets/images/AddUser.svg" alt="Agregar usuario" class="plus-icon">
+      <a (click)="addNewDependentFormGroup()">Agregar dependiente</a>
+    </div>
+    <div class="row margin-top buttons-wrapper padding-bottom">
+      <button mat-raised-button type="button" class="col-6 btn-gray" (click)="handlePreviousStep()">REGRESAR</button>
+      <button mat-raised-button type="submit" class="col-6 btn-black" (click)="onSubmit()">CONTINUAR</button>
+    </div>
+  }
+}

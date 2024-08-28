@@ -1,0 +1,83 @@
+button:not(.mat-mdc-snack-bar-action), .button:not(.mat-mdc-snack-bar-action) {
+  background-color: var(--dark-color);
+  text-transform: uppercase;
+  display: block;
+  border: none;
+  padding: 0.6rem;
+  color: white;
+  font-weight: bold;
+  min-width: 150px;
+  cursor: pointer;
+  margin-bottom: var(--size-gap);
+  text-align: center;
+  text-decoration: none;
+  margin: 24px auto;
+
+  &:hover:not(:disabled){
+    background-color: var(--secondary-color);
+  }
+
+  &.btn-center{
+    margin: 0 auto var(--size-gap);
+  }
+
+  &:disabled{
+    opacity: 0.6;
+    cursor: auto;
+  }
+
+  &.form-button{
+    border-radius: 34px;
+    background: var(--background-light-color);
+    color: var(--dark-color);
+    font-weight: normal;
+    font-size: var(--small-font-size);
+    margin-top: 5px;
+
+    &:hover{
+      color: white;
+    }
+  }
+
+  &.delete-button{
+    margin: 0 !important;
+    background: transparent;
+    color: red;
+    min-width: auto;
+    padding: 0;
+
+    &:hover{
+      background-color: transparent;
+    }
+  }
+
+  &.tiny-button{
+    padding: 0.4rem;
+    min-width: 109px;
+    font-size: var(--small-font-size);
+  }
+
+  &.header-button{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    min-width: auto;
+  }
+
+  &.inline-button{
+    margin: 0;
+    width: 100%;
+  }
+
+  .button-text{
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  button:not(.mat-mdc-snack-bar-action), .button:not(.mat-mdc-snack-bar-action){
+    min-width: 100px;
+    font-size: 10px;
+  }
+}

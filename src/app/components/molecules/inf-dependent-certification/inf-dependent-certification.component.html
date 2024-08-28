@@ -1,0 +1,127 @@
+<form [formGroup]="dependentForm" [id]="dependentIndex">
+  <app-subtitle [subtitle]="'ANEXO 1. CERTIFICACIÓN DE DEPENDIENTE #' + dependentIndex"></app-subtitle>
+  <p>Bajo la gravedad del juramento, y en cumplimiento de lo previsto en el Artículo 387 del Estatuto Tributario, informo que la(s) persona(s) relacionadas a continuación tiene(n) la calidad de dependiente a mi cargo:</p>
+  <div class="row">
+    <app-select-input
+      [label]="'Tipo de documento'"
+      [control]="getControl('dependentDocumentTypeId')"
+      [options]="documentTypesOptions"
+      [optionName]="'documentTypeEsp'"
+      [optionValue]="'id'"
+      class="col-6"
+      [id]="'dependentDocumentTypeId-' + dependentIndex"
+    ></app-select-input>
+    <app-text-input
+      [label]="'Número de documento'"
+      [control]="getControl('dependentDocumentNumber')"
+      [type]="'number'"
+      [pattern]="getDocumentPattern()"
+      class="col-6"
+      [id]="'dependentDocumentNumber-' + dependentIndex"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Nombres y Apellidos'"
+      [control]="getControl('dependentFullName')"
+      [type]="'text'"
+      [id]="'dependentFullName-' + dependentIndex"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Parentesco'"
+      [control]="getControl('dependentKinship')"
+      [type]="'text'"
+      [id]="'dependentKinship-' + dependentIndex"
+      class="col-6"
+    ></app-text-input>
+  </div>
+  <div class="row">
+    <div class="checkbox-container">
+      <input 
+        type="checkbox" 
+        class="col-1" 
+        [formControl]="getControl('decreaseInTaxBase')" 
+        [id]="'decreaseInTaxBase-' + dependentIndex"
+      >
+    </div>
+    <p class="col-11">
+      Las Partes aceptan que el presente documento será firmado electrónicamente haciendo uso de cualquier herramienta de firma electrónica. Bajo ese entendido, Las Partes declaran y aceptan que la firma electrónica que figure en este documento es una manifestación de su consentimiento y voluntad para obligarse en los términos y condiciones dispuestos en el presente documento.
+    </p>
+  </div>
+  <app-subtitle [subtitle]="'TIPO DE DEPENDIENTE'"></app-subtitle>
+  <app-checkbox-input
+    [label]="'1. Los hijos del contribuyente que tengan hasta 18 años de edad. (Registro civil o tarjeta de identidad)'"
+    [boldLabel]="false"
+    [control]="getControl('minorChildren')"
+    [controlName]="'minorChildren'"
+    [customName]="'minorChildren-' + dependentIndex"
+    [form]="dependentForm"
+    [id]="'minorChildren'"
+  ></app-checkbox-input>
+  @if(getValue('minorChildren') === '1') {
+    <app-filebox
+      [control]="getControl('minorChildrenFile')"
+      [id]="'minorChildrenFile-' + dependentIndex"
+    ></app-filebox>
+  }
+  <app-checkbox-input
+    [label]="'2. Los hijos del contribuyente con edad entre 18 y 25 años, cuando el padre o madre contribuyente persona natural se encuentre financiando su educación en instituciones formales de educación superior certificadas por el ICFES, o la autoridad oficial correspondiente; o en los programas técnicos de educación no formal debidamente acreditados por la autoridad competente. (Certificado de estudio expedido por la institución de educación con vigencia de este año)'"
+    [boldLabel]="false"
+    [control]="getControl('childrenStudyCertificate')"
+    [controlName]="'childrenStudyCertificate'"
+    [controlersWhenTrue]="['childrenStudyCertificateFile']"
+    [form]="dependentForm"
+    [customName]="'childrenStudyCertificate-' + dependentIndex"
+    [id]="'childrenStudyCertificate-' + dependentIndex"
+  ></app-checkbox-input>
+  @if(getValue('childrenStudyCertificate') === '1') {
+    <app-filebox
+      [control]="getControl('childrenStudyCertificateFile')"
+      [id]="'childrenStudyCertificateFile-' + dependentIndex"
+    ></app-filebox>
+  }
+  <app-checkbox-input
+    [label]="'3. Los hijos del contribuyente mayores de dieciocho (18) años que se encuentren en situación de dependencia originada en factores físicos o psicológicos que sean certificados por el Ministerio de Salud y Protecciór Social o la entidad determinada por las normas vigente.'"
+    [boldLabel]="false"
+    [control]="getControl('childrenMedicineCertificate')"
+    [controlName]="'childrenMedicineCertificate'"
+    [customName]="'childrenMedicineCertificate-' + dependentIndex"
+    [form]="dependentForm"
+    [id]="'childrenMedicineCertificate-' + dependentIndex"
+  ></app-checkbox-input>
+  @if(getValue('childrenMedicineCertificate') === '1') {
+    <app-filebox
+      [control]="getControl('childrenMedicineCertificateFile')"
+   
+    ></app-filebox>
+  }
+  <app-checkbox-input
+    [label]="'4. El cónyuge o compañero permanente del contribuyente que se encuentre en situación de dependencia sea por ausencia de ingresos o ingresos en el año menores a doscientas sesenta (260) UVT, certificada por contador público, o por dependencia originada en factores físicos o psicolóigicos que sean certificados por Medicina Legal.'"
+    [boldLabel]="false"
+    [control]="getControl('partnerMedicineCertificate')"
+    [controlName]="'partnerMedicineCertificate'"
+    [customName]="'partnerMedicineCertificate-' + dependentIndex"
+    [form]="dependentForm"
+    [id]="'partnerMedicineCertificate-' + dependentIndex"
+  ></app-checkbox-input>
+  @if(getValue('partnerMedicineCertificate') === '1') {
+    <app-filebox
+      [control]="getControl('partnerMedicineCertificateFile')"
+      [id]="'partnerMedicineCertificateFile-' + dependentIndex"
+    ></app-filebox>
+  }
+  <app-checkbox-input
+    [label]="'5. Los padres y los hermanos del contribuyente que se encuentren en situación de dependencia, sea por ausencia de ingresos o ingresos en el año menores a doscientas sesenta (260) UVT, certificada por contador público, o por dependencia originada en factores físicos o psicológicos que sean certificados por Medicina Legal.'"
+    [boldLabel]="false"
+    [control]="getControl('familyMedicineCertificate')"
+    [controlName]="'familyMedicineCertificate'"
+    [customName]="'familyMedicineCertificate-' + dependentIndex"
+    [form]="dependentForm"
+    [id]="'familyMedicineCertificate-' + dependentIndex"
+  ></app-checkbox-input>
+  @if(getValue('familyMedicineCertificate') === '1') {
+    <app-filebox
+      [control]="getControl('familyMedicineCertificateFile')"
+      [id]="'familyMedicineCertificateFile-' + dependentIndex"
+    ></app-filebox>
+  }
+</form>

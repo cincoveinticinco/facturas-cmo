@@ -1,0 +1,38 @@
+.padding-bottom {
+  padding-bottom: 100px;
+}
+
+.green-anchor {
+  color: var(--dark-success-color) !important;
+
+  &:hover {
+    color: var(--success-color) !important;
+  }
+}
+
+.link-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+a {
+  margin-left: 6px;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+p {
+  margin-bottom: 0px;
+}
+
+.anexo-container {
+  position: relative !important;
+  
+  .delete-button-anexo {
+    position: absolute;
+    top: 0px;
+    right: 0;
+    border: 0px solid black !important;
+  }
+}

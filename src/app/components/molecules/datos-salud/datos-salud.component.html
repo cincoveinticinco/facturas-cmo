@@ -1,0 +1,109 @@
+<app-subtitle [subtitle]="'Datos de Seguridad Social'"></app-subtitle>
+<div class="row">
+  <app-text-input 
+    [label]="'EPS'" 
+    [control]="getControl('eps')"
+    class="col-4"
+  ></app-text-input>
+  <app-text-input 
+    [label]="'Pensión'"
+    [control]="getControl('afp')"
+    class="col-4"></app-text-input>
+  <app-text-input 
+    [label]="'Cesantias'"
+    [control]="getControl('layoffs')" 
+    class="col-4"></app-text-input>
+  <app-text-input 
+    [label]="'ARL'" 
+    [control]="getControl('arl')"
+    class="col-4"></app-text-input>
+    <app-select-input
+  [label]="'RH'"
+  [control]="getControl('blood_type_id')"
+  [options]="lists?.bloodTypes"
+  [optionName]="'name'"
+  [optionValue]="'id'"
+  class="col-4"></app-select-input>
+  <p class="col-4"></p>
+  <app-select-input 
+    [label]="'Nivel de riesgo'"
+    [control]="getControl('risk_level')"
+    [options]="lists?.riskLevels"
+    [optionName]="'name'"
+    [optionValue]="'id'"
+    (change)="getRiskPercentage()"
+    class="col-4"></app-select-input>
+  <p class="col-6 align-end">
+    {{percentageRiskLevel || 0 | percent: '1.0-2'}}
+  </p>
+  @if (['4', '5', 4, 5].includes(getControl('risk_level').value)) {
+    <p class="col-12 align-end">
+      Si elige riesgo IV o V recuerde que la productora realizará su afiliación a la ARL.
+    </p>
+  }
+  <app-checkbox-input
+    [label]="'¿Sufre de alguna enfermedad?'"
+    [controlName]="'illness'"
+    [control]="getControl('illness')" 
+    class="col-12"
+  />
+  @if(showDescription('illness') === '1') {
+    <app-text-input 
+      [label]="'¿Cuál(es)?'"
+      [control]="getControl('illness_description')"
+      class="col-4"
+    ></app-text-input>
+  }
+  <app-checkbox-input 
+    [label]="'¿Toma algún medicamento?'"
+    [controlName]="'medicines'"
+    [control]="getControl('medicines')" 
+    class="col-12"
+  />
+  @if(showDescription('medicines')  === '1') {
+    <app-text-input 
+      [label]="'¿Cuál(es)?'"
+      [control]="getControl('medicines_description')"
+      class="col-4"
+    ></app-text-input>
+  }
+  <app-checkbox-input 
+    [label]="'¿Sufre de alguna fobia?'"
+    [controlName]="'phobias'"
+    [control]="getControl('phobias')" 
+    class="col-12"
+  />
+  @if(showDescription('phobias')  === '1') {
+    <app-text-input 
+      [label]="'¿Cuál(es)?'"
+      [control]="getControl('phobias_description')"
+      class="col-4"
+    ></app-text-input>
+  }
+  <app-checkbox-input 
+    [label]="'¿Sufre de alergias?'"
+    [controlName]="'allergies'"
+    [control]="getControl('allergies')" 
+    class="col-12"
+  />
+  @if(showDescription('allergies')  === '1') {
+    <app-text-input 
+      [label]="'¿Cuál(es)?'"
+      [control]="getControl('allergies_description')"
+      class="col-4"
+    ></app-text-input>
+  }
+  <app-checkbox-input 
+    [label]="'¿Tiene alguna restricción alimenticia?'"
+    [controlName]="'food_restrictions'"
+    [control]="getControl('food_restrictions')"
+    class="col-12"
+  />
+  @if(showDescription('food_restrictions')  === '1') {
+    <app-text-input 
+      [label]="'¿Cuál(es)?'"
+      [control]="getControl('food_restrictions_description')"
+      class="col-4"
+    ></app-text-input>
+  }
+</div>

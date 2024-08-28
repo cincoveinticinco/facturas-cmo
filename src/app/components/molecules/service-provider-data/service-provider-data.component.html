@@ -1,0 +1,28 @@
+<app-subtitle [subtitle]="'datos de la persona que presta el servicio'" />
+<div class="row">
+  <app-text-input
+    [label]="'Nombres y Apellidos Completos'"
+    [description]="'(tal como aparece en su documento de identidad)'"
+    [control]="getControl('responsible_responsibles_name')"
+    class="col-4"
+  />
+  <app-select-input
+    [label]="'Tipos de documento'"
+    [options]="lists?.documentTypes"
+    [optionName]="'document_type_esp'"
+    [optionValue]="'id'"
+    [control]="getControl('responsible_f_document_type_id')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Número de documento'"
+    [control]="getControl('responsible_responsibles_document')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Correo electrónico'"
+    [control]="getControl('responsible_responsibles_email')"
+    class="col-4"
+    [type]="'email'"
+  />
+</div>

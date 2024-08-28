@@ -1,0 +1,26 @@
+<app-subtitle [subtitle]="'datos representante legal'" />
+<div class="row">
+  <app-text-input
+    [label]="'Nombres y Apellidos Completos'"
+    [description]="'(tal como aparece en su documento de identidad)'"
+    [control]="getControl('legal_representative_name')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Número de documento'"
+    [control]="getControl('f_document_representative')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Celular'"
+    [control]="getControl('legal_representative_telephone')"
+    class="col-4"
+    [pattern]="'^[0-9+-]+$'"
+  />
+  <app-text-input
+    [label]="'Correo electrónico'"
+    [control]="getControl('legal_representative_email')"
+    class="col-4"
+    [type]="'email'"
+  />
+</div>

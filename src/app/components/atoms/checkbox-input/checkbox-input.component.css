@@ -1,0 +1,42 @@
+.checkbox-label {
+  text-wrap: nowrap;
+  font-weight: 400 !important;
+}
+
+.input-choose-option {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.input-choose-option input[type="radio"] {
+  height: 16px;
+  width: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border-radius: 100%;
+  border: 1px solid #CFD3D4 !important;
+  outline: none;
+  cursor: pointer;
+  padding: 8px !important
+}
+
+.input-choose-option input[type="radio"]:checked {
+  background: radial-gradient(circle, rgba(109,68,205,1) 56%, rgba(255,255,255,1) 72%)!important;
+  border-color: var(--secondary-color);
+}
+
+.input-choose-option input[type="radio"]:checked::before {
+  display: block;
+  text-align: center;
+  color: #fff;
+}
+
+.not-bold {
+  font-weight: 400 !important;
+  font-size: 12px;
+  line-height: 20px;
+}
+

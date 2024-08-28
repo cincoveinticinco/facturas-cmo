@@ -1,0 +1,85 @@
+<app-subtitle [subtitle]="'datos financieros'" />
+<div class="row">
+  <p class="col-12">
+    Valor de los Activos
+  </p>
+  <app-text-input 
+    [label]="'Último cierre contable'"
+    [control]="getControl('last_close_assets')" 
+    [type]="'number'"
+    class="col-4" />
+  <app-text-input 
+    [label]="'Año anterior'"
+    [control]="getControl('last_year_assets')"
+    [type]="'number'"
+    class="col-4" 
+  />
+</div>
+<div class="row">
+  <p class="col-12">
+    Valor de los pasivos
+  </p>
+  <app-text-input 
+    [label]="'Último cierre contable'"
+    [control]="getControl('last_close_liabilities')"
+    [type]="'number'"
+    class="col-4" 
+  />
+  <app-text-input 
+    [label]="'Año anterior'"
+    [control]="getControl('last_year_liabilities')"
+    [type]="'number'"
+    class="col-4" 
+  />
+</div>
+<div class="row">
+  <p class="col-12">
+    Valor de patrimonio
+  </p>
+  <app-text-input 
+    [label]="'Último cierre contable'"
+    [control]="getControl('last_close_equity')"
+    [type]="'number'"
+    class="col-4" 
+  />
+  <app-text-input 
+    [label]="'Año anterior'"
+    [control]="getControl('last_year_equity')"
+    [type]="'number'"
+    class="col-4" 
+  />
+</div>
+<div class="row">
+  <p class="col-12">
+    Ingresos
+  </p>
+  <app-text-input 
+    [label]="'Último cierre contable'"
+    [control]="getControl('last_close_income')"
+    [type]="'number'"
+    class="col-4" 
+  />
+  <app-text-input 
+    [label]="'Año anterior'"
+    [control]="getControl('last_year_income')"
+    [type]="'number'"
+    class="col-4" 
+  />
+</div>
+<div class="row">
+  <p class="col-12">
+    Egresos
+  </p>
+  <app-text-input 
+    [label]="'Último cierre contable'"
+    [control]="getControl('last_close_expense')"
+    [type]="'number'"
+    class="col-4" 
+  />
+  <app-text-input 
+    [label]="'Año anterior'"
+    [control]="getControl('last_year_expenses')"
+    [type]="'number'"
+    class="col-4"
+  />
+</div>

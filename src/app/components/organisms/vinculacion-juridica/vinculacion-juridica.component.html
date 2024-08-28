@@ -1,0 +1,32 @@
+<app-panel-buttons (saveForm)="saveForm()"/>
+<form [formGroup]="juridicaForm" (ngSubmit)="sendForm()">
+  <app-initial-data [form]="juridicaForm" />
+  <app-datos-empresa [form]="juridicaForm" />
+  <app-datos-representante-legal [form]="juridicaForm" />
+  <app-service-provider-data [form]="juridicaForm" [lists]="lists"/>
+  <app-datos-factura-electronica [form]="juridicaForm" />
+  <app-datos-contabilidad [form]="juridicaForm" />
+  <app-datos-fiscales [form]="juridicaForm" [lists]="lists" />
+  <app-datos-tesoreria [form]="juridicaForm" />
+  <app-datos-contacto-comercial [form]="juridicaForm" />
+  <app-autorizacion-datos-personales />
+  <app-personas-expuestas-politicamente [form]="juridicaForm" />
+  @if(juridicaForm.get('is_pep')?.value == '1'){
+    <app-declaracion-pep [lists]="lists"  />
+  }
+  <app-declaracion-sagrilaft />
+  <app-acuerdo-confidencialidad
+  [lists]="lists"
+    [form]="juridicaForm"
+  />
+  <app-informacion-financiera [form]="juridicaForm" />
+  <app-persona-diligencia-formulario [form]="juridicaForm" />
+  <app-additional-info [lists]="lists" />
+  <div class="row">
+      <app-black-button
+        [name]="'enviar formulario'"
+        [type]="'submit'"
+        class="col-4 col-start-third center-element big-gap"
+      ></app-black-button>
+  </div>
+</form>

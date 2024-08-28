@@ -1,0 +1,57 @@
+<app-subtitle [subtitle]="'datos contables y fiscales'" />
+<div class="row">
+  <app-text-input 
+    [label]="'Correo Electrónico de contador o persona a cargo de temas contables(si aplica) y si es diferente al del contratista'"
+    [control]="getControl('accounting_responsible_email')"
+    class="col-10"
+    [type]="'email'"
+  />
+  <app-checkbox-input
+    [label]="'¿Es declarante de Impuestos de Renta?'"
+    [control]="getControl('income_tax_declarant')"
+    [controlName]="'income_tax_declarant'"
+    class="col-12"
+  />
+  <app-checkbox-input
+    [label]="'¿Tienes personas dependientes a su cargo?'"
+    [control]="getControl('dependents')"
+    [controlName]="'dependents'"
+    class="col-12"
+  />
+  <app-checkbox-input
+    [label]="'¿Tiene un contrato de Medicina Prepagada vigente a su nombre?'"
+    [control]="getControl('prepaid_medicine')"
+    [controlName]="'prepaid_medicine'"
+    class="col-12"
+  />
+  <app-checkbox-input
+    [label]="'¿Tiene un crédito o leasing hipotecario vigente a su nombre?'"
+    [control]="getControl('mortgage_credit')"
+    [controlName]="'mortgage_credit'"
+    class="col-12"
+  />
+  <app-checkbox-input
+    [label]="'¿Hace aportes Voluntarios a un Fondo de Pensiones?'"
+    [control]="getControl('voluntary_contributions')"
+    [controlName]="'voluntary_contributions'"
+    class="col-12"
+  />
+  <app-checkbox-input
+    [label]="'¿Tiene cuenta AFC vigente a su nombre?'"
+    [control]="getControl('afc_account')"
+    [controlName]="'afc_account'"
+    class="col-12"
+  />
+  <app-checkbox-input
+    [label]="'¿Es responsable de facturar IVA?'"
+    [control]="getControl('vat_responsible')"
+    [controlName]="'vat_responsible'"
+    class="col-12"
+  />
+  <app-checkbox-input
+    [label]="'¿Pertenece al régimen simple?'"
+    [control]="getControl('simple_regime')"
+    [controlName]="'simple_regime'"
+    class="col-12"
+  />
+</div>

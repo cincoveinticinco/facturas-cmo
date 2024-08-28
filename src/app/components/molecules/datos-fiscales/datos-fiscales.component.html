@@ -1,0 +1,34 @@
+<app-subtitle [subtitle]="'datos fiscales'" />
+<div class="row">
+  <app-select-input
+    [label]="'Código Actividad Económica CIIU (por favor tome el código que aparece en el rut)'"
+    [options]="lists?.economicActivities"
+    [optionName]="'ciiu'"
+    [optionValue]="'id'"
+    [control]="getControl('economic_activity_id')"
+    (change)="setEconomicActivity($event)"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Actividad económica principal'"
+    [control]="getControl('economic_activity')"
+    class="col-7"
+  />
+  <app-checkbox-input 
+    [label]="'¿Pertenece al régimen simple?'"
+    [control]="getControl('simple_regime')"
+    [controlName]="'simple_regime'"
+    class="col-12"/>
+  <app-checkbox-input 
+    [label]="'¿Es autoretenedor?'" 
+    class="col-12"
+    [control]="getControl('self_withholding')"
+    [controlName]="'self_withholding'"
+  />
+  <app-checkbox-input 
+    [label]="'¿Es gran contribuyente?'"
+    [control]="getControl('big_contributor')"
+    [controlName]="'big_contributor'"
+    class="col-12"
+  />
+</div>

@@ -1,0 +1,73 @@
+<app-subtitle [subtitle]="'datos del contratista'" />
+<div class="row">
+  <app-text-input
+    [label]="'Nombres y Apellidos Completos'"
+    [control]="getControl('name')"
+    [description]="'(Tal como aparece en su documento de identidad)'"
+    class="col-11"
+  />
+  <app-select-input
+    [label]="'Tipos de documento'"
+    [options]="lists?.documentTypes"
+    [optionName]="'document_type_esp'"
+    [optionValue]="'id'"
+    [control]="getControl('document_type_id')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Número de documento'"
+    [control]="getControl('document')"
+    [type]="'text'"
+    class="col-7"
+    [description]="'Escriba el documento con el que este registrado en la cuenta bancaria que registro para el pago'"
+  />
+  @if(showPepff()) {
+    <app-text-input
+      [label]="'Numero Permiso Especial de Permanencia para el Fomento de la Formalización (PEPFF)'"
+      [control]="getControl('pepff')"
+      class="col-11"
+    />
+  }
+  <app-select-input
+    [label]="'Código Actividad Económica CIIU (por favor tome el código que aparece en el rut)'"
+    [options]="lists?.economicActivities"
+    [optionName]="'ciiu'"
+    [optionValue]="'id'"
+    [control]="getControl('economic_activity_id')"
+    (change)="setEconomicActivity($event)"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Actividad económica principal'"
+    [control]="getControl('economic_activity')"
+    class="col-7"
+  />
+  <app-text-input
+    [label]="'Dirección de Residencia (NO utilizar caracteres especiales)'"
+    [control]="getControl('address')"
+    class="col-12"
+    [pattern]="addressRegexp"
+  />
+  <app-text-input
+    [label]="'Ciudad'"
+    [control]="getControl('city')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Departamento'"
+    [control]="getControl('department')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Celular / Teléfono de Contacto'"
+    [control]="getControl('telephone')"
+    class="col-4"
+    [pattern]="'^[0-9+-]+$'"
+  />
+  <app-text-input
+    [label]="'Correo Electrónico del Contratista'"
+    [control]="getControl('email')"
+    class="col-4"
+    [type]="'email'"
+  />
+</div>

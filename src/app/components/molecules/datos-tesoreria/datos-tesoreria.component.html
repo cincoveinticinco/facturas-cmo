@@ -1,0 +1,26 @@
+<app-subtitle [subtitle]="'datos tesorería'" />
+<div class="row">
+  <app-text-input
+    [label]="'Nombre y Apellidos Responsable'"
+    [control]="getControl('treassury_responsible_name')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Celular'"
+    [control]="getControl('treassury_responsible_telephone')"
+    class="col-4"
+    [pattern]="'^[0-9+-]+$'"
+  />
+  <app-text-input
+    [label]="'Correo electrónico'"
+    [control]="getControl('treassury_responsible_email')"
+    class="col-4"
+  />
+  <app-text-input
+    [label]="'Cargo'"
+    [control]="getControl('treassury_responsible_position')"
+    class="col-4"
+    [type]="'email'"
+  />
+
+</div>

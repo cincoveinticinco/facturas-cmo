@@ -1,0 +1,16 @@
+.form-container {
+  width: 650px;
+  margin: 100px auto;
+
+  .form-title {
+    margin: 0px;
+    height: 40px !important;
+  }
+
+  .form-subtitle {
+    color: var(--secondary-color);
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+  }
+}

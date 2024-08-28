@@ -1,0 +1,71 @@
+<app-subtitle [subtitle]="'información financiera'" />
+<div class="row">
+  <p class="col-12">
+    Último cierre contable
+  </p>
+  <app-text-input 
+    [label]="'Valor de los Activos'"
+    [control]="getControl('last_close_assets')"
+    class="col-4" 
+    [type]="'currency'"
+  />
+  <app-text-input 
+    [label]="'Valor de los pasivos'"
+    [control]="getControl('last_close_liabilities')" 
+    class="col-4"
+    [type]="'currency'"
+  />
+  <app-text-input 
+    [label]="'Valor de patrimonio'"
+    [control]="getControl('last_close_equity')" 
+    class="col-4"
+    [type]="'currency'"
+  />
+  <app-text-input 
+    [label]="'Ingresos'"
+    [control]="getControl('last_close_income')" 
+    class="col-4"
+    [type]="'currency'"
+  />
+  <app-text-input 
+    [label]="'Egresos'"
+    [control]="getControl('last_close_expense')" 
+    class="col-4"
+    [type]="'currency'"
+  />
+</div>
+<div class="row">
+  <p class="col-12">
+    Año anterior al último cierre contable
+  </p>
+  <app-text-input 
+    [label]="'Valor de los Activos'" 
+    [control]="getControl('last_year_assets')"
+    class="col-4"
+    [type]="'currency'"
+  />
+  <app-text-input 
+    [label]="'Valor de los pasivos'"
+    [control]="getControl('last_year_liabilities')" 
+    class="col-4"
+    [type]="'currency'"
+  />
+  <app-text-input  
+    [label]="'Valor de patrimonio'"
+    [control]="getControl('last_year_equity')" 
+    class="col-4"
+    [type]="'currency'"
+  />
+  <app-text-input 
+    [label]="'Ingresos'"
+    [control]="getControl('last_year_income')"
+    class="col-4"
+    [type]="'currency'"
+  />
+  <app-text-input 
+    [label]="'Egresos'"
+    [control]="getControl('last_year_expenses')" 
+    class="col-4"
+    [type]="'currency'"
+  />
+</div>

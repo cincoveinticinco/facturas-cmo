@@ -1,0 +1,115 @@
+<form [formGroup]="invoiceNaturalForm" (ngSubmit)="onSubmit()">
+  <app-subtitle [subtitle]="'DOCUMENTOS PRECARGADOS'"></app-subtitle>
+  
+  <ng-container *ngIf="thereArePrechargedDocs(); else sinDocumentos">
+    @if(getControl('socialSecurity')?.value?.url) {
+      <div class="link-wrapper">
+        <b><p>Seguridad social</p></b>
+        <a href="{{ getControl('socialSecurity')?.value.url }}" target="_blank">Ver documento</a>
+      </div>
+    }
+  
+    @if(getControl('afcContributionsFile')?.value?.url) {
+      <div class="link-wrapper">
+        <b><p>Aportes AFC</p></b>
+        <a href="{{ getControl('afcContributionsFile')?.value.url }}" target="_blank">Ver documento</a>
+      </div>
+    }
+  
+    @if(getControl('pensionContributionsFile')?.value?.url) {
+      <div class="link-wrapper">
+        <b><p>Aportes pensión</p></b>
+        <a href="{{ getControl('pensionContributionsFile')?.value.url }}" target="_blank">Ver documento</a>
+      </div>
+    }
+  
+    @if(getControl('medicalPrepaidFile')?.value?.url) {
+      <div class="link-wrapper">
+        <b><p>Medicina Prepagada</p></b>
+        <a href="{{ getControl('medicalPrepaidFile')?.value.url }}" target="_blank">Ver documento</a>
+      </div>
+    }
+  
+    @if(getControl('housingCreditFile')?.value?.url) {
+      <div class="link-wrapper">
+        <b><p>Credito vivienda</p></b>
+        <a href="{{ getControl('housingCreditFile')?.value.url }}" target="_blank">Ver documento</a>
+      </div>
+    }
+  
+    @if(dependentsInfo && dependentsInfo.controls && dependentsInfo.length > 0) {
+      <b><p>Personas a cargo</p></b>
+      @for(dependent of dependentsInfo.controls; track $index) {
+        <b><p>Persona a cargo {{ $index + 1 }}</p></b>
+        @if(dependent.get('minorChildrenFile')?.value?.url) {
+          <div class="link-wrapper">
+            <b><p>Menores de edad</p></b>
+            <a href="{{ dependent.get('minorChildrenFile')?.value.url }}" target="_blank">Ver documento</a>
+          </div>
+        }
+        @if(dependent.get('childrenStudyCertificateFile')?.value?.url) {
+          <div class="link-wrapper">
+            <b><p>Certificado de estudio</p></b>
+            <a href="{{ dependent.get('childrenStudyCertificateFile')?.value.url }}" target="_blank">Ver documento</a>
+          </div>
+        }
+        @if(dependent.get('childrenMedicineCertificateFile')?.value?.url) {
+          <div class="link-wrapper">
+            <b><p>Certificado Médico dependiente</p></b>
+            <a href="{{ dependent.get('childrenMedicineCertificateFile')?.value.url }}" target="_blank">Ver documento</a>
+          </div>
+        }
+        @if(dependent.get('partnerMedicineCertificateFile')?.value?.url) {
+          <div class="link-wrapper">
+            <b><p>Certificado Médico Conyugue</p></b>
+            <a href="{{ dependent.get('partnerMedicineCertificateFile')?.value.url }}" target="_blank">Ver documento</a>
+          </div>
+        }
+        @if(dependent.get('familyMedicineCertificateFile')?.value?.url) {
+          <div class="link-wrapper">
+            <b><p>Certificado Medico familiar</p></b>
+            <a href="{{ dependent.get('familyMedicineCertificateFile')?.value.url }}" target="_blank">Ver documento</a>
+          </div>
+        }
+      }
+    }
+  
+    @for(anexo of getOtherAnexesControls(); track $index) {
+      @if(anexo.value?.url) {
+        <div class="link-wrapper">
+          <b><p>Otros Anexos</p></b>
+          <a href="{{ anexo.value.url }}" target="_blank">Ver documento</a>
+        </div>
+      }
+    }
+  </ng-container>
+  
+  <ng-template #sinDocumentos>
+    <p>Todavía no hay documentos precargados para mostrar.</p>
+  </ng-template>
+  <app-subtitle [subtitle]="'Documentos solicitados'"></app-subtitle>
+
+  <label>Pago seguridad social mes vigente*</label>
+  <app-filebox [control]="getControl('socialSecurity')"></app-filebox>
+  @for(anexo of getOtherAnexesControls(); track $index) {
+    <div class="anexo-container">
+      @if($index > 0){
+        <button type="button" class="delete-button delete-button-anexo" (click)="deleteAnnex($index)">
+          <span class="material-symbols-outlined">
+            delete
+          </span>
+        </button>
+      }
+      <label>Otros Anexos*</label>
+      <app-filebox [control]="anexo" [id]="'otherAnexes-' + $index"></app-filebox>
+    </div>
+  }
+  <a (click)="addNewAnexFormGroup()">+ Agregar anexo</a>
+  <p class="col-12 margin-top margin-bottom">
+    <b>*Si no recibe ninguna notificacion del proceso de radicación se entiende que fue exitoso.</b>
+  </p>
+  <div class="row margin-top padding-bottom padding-bottom">
+    <button mat-raised-button type="button" class="col-6 btn-gray" (click)="handlePreviousStep()">REGRESAR</button>
+    <button class="col-6 btn-purpple" type="submit">Finalizar</button>
+  </div>
+</form>

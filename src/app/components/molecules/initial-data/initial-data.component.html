@@ -1,0 +1,17 @@
+<div class="row">
+  <app-text-input
+    [label]="'Tipo de Solicitud'"
+    [placeholder]="'VINCULACION'"
+    [description]="'Type of application'"
+    [control]="getControl('type')"
+    class="col-5"
+
+  ></app-text-input>
+
+  <app-text-input
+    [label]="'Fecha de Solicitud'"
+    [placeholder]="'21/03/2024'"
+    [control]="getControl('date')"
+    class="col-5"
+  ></app-text-input>
+</div>

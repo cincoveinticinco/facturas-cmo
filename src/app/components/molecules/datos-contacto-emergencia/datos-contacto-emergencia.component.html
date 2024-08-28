@@ -1,0 +1,18 @@
+<app-subtitle [subtitle]="'datos de contacto en caso de emergencia'"></app-subtitle>
+<div class="row">
+  <app-text-input 
+    [label]="'Nombre del contacto en caso de emergencia'" 
+    [control]="getControl('emergency_contact_name')"
+    class="col-4"
+  ></app-text-input>
+  <app-text-input 
+    [label]="'Teléfono de contacto'"
+    [control]="getControl('emergency_contact_telephone')"
+    [pattern]="'^[0-9+-]+$'"
+    class="col-4"></app-text-input>
+  <app-text-input 
+    [label]="'Parentesco'"
+    [control]="getControl('emergency_contact_kinship')"
+    class="col-4"
+  ></app-text-input>
+</div>

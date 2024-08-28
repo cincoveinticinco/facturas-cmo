@@ -1,0 +1,6 @@
+<div class="panel-buttons-container">
+  @if(!isOc){
+    <app-black-button name="guardar" (onClick)="saveForm.emit()"/>
+  }
+  <app-black-button name="cerrar sesion" (onClick)="logOut()" />
+</div>

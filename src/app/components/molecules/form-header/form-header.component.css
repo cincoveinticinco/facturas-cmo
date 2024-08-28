@@ -1,0 +1,14 @@
+.form-header {
+  display: flex;
+	flex-direction: column;
+	align-items: left;
+	width: max-content;
+	gap: 24px;
+	width: 800px;
+}
+
+@media (max-width: 800px) {
+	.form-header {
+		width: 100%;
+	}
+}

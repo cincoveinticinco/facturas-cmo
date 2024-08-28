@@ -1,0 +1,35 @@
+<app-subtitle [subtitle]="'datos de la empresa'" />
+<div class="row">
+  <app-text-input
+    [label]="'Razón Social'"
+    class="col-3"
+    [control]="getControl('name')"
+  />
+  <app-text-input
+    [label]="'NIT'"
+    class="col-3"
+    [control]="getControl('document')"
+  />
+  <app-text-input
+    [label]="'Dirección Empresa'"
+    class="col-6"
+    [control]="getControl('address')"
+  />
+  <app-text-input
+    [label]="'Ciudad donde está ubicada la empresa'"
+    class="col-4"
+    [control]="getControl('city')"
+  />
+  <app-text-input
+    [label]="'Teléfonos de contacto'"
+    class="col-4"
+    [control]="getControl('telephone')"
+    [pattern]="'^[0-9+-]+$'"
+  />
+  <app-text-input
+    [label]="'Correo electrónico'"
+    class="col-4"
+    [control]="getControl('email')"
+    [type]="'email'"
+  />
+</div>

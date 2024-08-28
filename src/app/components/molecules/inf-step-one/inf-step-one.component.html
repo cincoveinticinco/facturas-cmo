@@ -1,0 +1,155 @@
+<form [formGroup]="invoiceNaturalForm" (ngSubmit)="onSubmit()" id="invoice-natural-form">
+  @for(poControl of getPurchaseOrdersControls(); track poControl) {
+    <div class="row">
+      <app-select-input
+        [label]="'Orden de compra'"
+        [control]="poControl"
+        [options]="availableOptions[$index] || []"
+        [optionName]="'optionName'"
+        [optionValue]="'optionValue'"
+        class="col-6"
+        [id]="'purchaseOrder-' + $index"
+      ></app-select-input>
+      @if($index > 0) {
+        <a class="col-1 flex-column justify-end align-center" (click)="deletePurchaseOrderControl($index)">
+          <!-- icono de trash rojo de material angular -->
+           <mat-icon class="red">delete_outline</mat-icon>
+        </a>
+      }
+      @if($index === getPurchaseOrdersControls().length - 1 && selectOptionsPo && $index < selectOptionsPo.length - 1) {
+        <a class="col-5 flex-column justify-end align-center" (click)="addPurchaseOrderControl()">
+          + Agregar nuevo número de orden
+        </a>
+      }
+    </div>
+  }
+  <div class="row">
+    <app-text-input
+      [label]="'Tipo de persona'"
+      [control]="getControl('personType')"
+      [type]="'text'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Tipo de documento'"
+      [control]="getControl('documentType')"
+      [type]="'text'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Número de documento'"
+      [control]="getControl('documentNumber')"
+      [type]="'number'"
+      [pattern]="'^[0-9]+$'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Nombres y Apellidos'"
+      [control]="getControl('fullName')"
+      [type]="'text'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Dirección'"
+      [control]="getControl('address')"
+      [type]="'text'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Email'"
+      [control]="getControl('email')"
+      [type]="'email'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Position'"
+      [control]="getControl('position')"
+      [type] = "'text'"
+      class = "col-6"
+    ></app-text-input>
+  </div>
+  <app-subtitle [subtitle]="'DESCRIPCIÓN'"></app-subtitle>
+  <div class="row">
+    <table class="col-12">
+      <tr>
+        <th>
+          # OC
+        </th>
+        <th>
+          Descripción
+        </th>
+        <th>
+          IVA
+        </th>
+        <th>
+          Retención
+        </th>
+        <th>
+          Vr. Día
+        </th>
+        <th>
+          Vr. Total
+        </th>
+      </tr>
+      <!-- should iterate in selectedOrders -->
+      @for( order of getProjectionsForSelectedOrders(); track order) {
+        <tr>
+          <td>
+            {{ order.consecutive_code }}
+          </td>
+          <td>
+            {{ order.description }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.taxes_addition_value) }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.taxes_not_addition_value) }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.value) }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.total) }}
+          </td>
+        </tr>
+      }
+    </table>
+  </div>
+  <app-subtitle [subtitle]="'DATOS PARA EL PAGO'"></app-subtitle>
+  <div class="row">
+    <!-- bankBranch, bankKey, bankAccountType -->
+    <app-text-input
+      [label]="'Banco'"
+      [control]="getControl('bankBranch')"
+      [type]="'text'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Número de cuenta'"
+      [control]="getControl('bankKey')"
+      [type]="'text'"
+      class="col-6"
+    ></app-text-input>
+    <app-text-input
+      [label]="'Tipo de cuenta'"
+      [control]="getControl('bankAccountType')"
+      [type]="'text'"
+      class="col-6"
+    ></app-text-input>
+    <p class="col-12 margin-top">
+      Si requiere actualizar algún dato por favor envíe un correo a <br>
+      <a>tesoreria&#64;cmoproducciones.co</a>
+    </p>
+  </div>
+  <app-electronic-signature-auth 
+    [form]="invoiceNaturalForm"
+    [id]="'signatureAuth'"
+    [controlNames]="{
+      signature: 'signature',
+      signatureAuth: 'signatureAuth'
+    }"></app-electronic-signature-auth>
+  <div class="row margin-top buttons-wrapper">
+    <button mat-raised-button color="primary" type="submit" class="col-6 btn-black">CONTINUAR</button>
+  </div>
+</form>

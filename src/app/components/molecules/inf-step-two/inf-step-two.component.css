@@ -1,0 +1,76 @@
+form {
+  padding-bottom: 100px;
+}
+
+label {
+  text-wrap: nowrap
+}
+
+.input-choose-option {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.input-choose-option input[type="checkbox"] {
+  height: 24px;
+  width: 24px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border-radius: 100%;
+  border: 1px solid #CFD3D4 !important;
+  outline: none;
+  cursor: pointer;
+}
+
+.input-choose-option input[type="checkbox"]:checked {
+  background-color: var(--secondary-color) !important;
+  border-color: var(--secondary-color);
+}
+
+.input-choose-option input[type="checkbox"]:checked::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 24px;
+  text-align: center;
+  color: #fff;
+}
+
+.padding-bottom {
+  padding-bottom: 100px;
+}
+
+.add-dependent-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 20px;
+  color: red;
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dependent-form-container {
+  position: relative;
+
+  .delete-button {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    border: 0px solid black !important;
+  }
+}

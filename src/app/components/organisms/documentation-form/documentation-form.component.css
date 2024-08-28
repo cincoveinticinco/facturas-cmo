@@ -1,0 +1,14 @@
+.array-doc {
+  display: flex;
+  align-items: center;
+
+}
+
+.array-doc-file {
+  flex: 1;
+}
+
+.delete-button {
+  border: 0;
+  padding: 5px;
+}

@@ -1,0 +1,17 @@
+<app-panel-buttons></app-panel-buttons>
+
+<div class="center-content">
+    @if (!loading) {
+      <div class="content full-width">
+        <app-logo></app-logo>
+        <h2></h2>
+        <p class="align-center">
+           Gracias por realizar la carga de documentos, nuestro equipo realizará la revisión y te estaremos contactando próximamente.
+        </p>
+      </div>
+    } @else {
+      <div class="loader">
+          <div class="custom-loader"></div>
+      </div>
+  }
+</div>

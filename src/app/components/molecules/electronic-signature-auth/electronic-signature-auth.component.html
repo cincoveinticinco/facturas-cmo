@@ -1,0 +1,21 @@
+<app-subtitle [subtitle]="'AUTORIZACIÓN PARA FIRMA ELECTRÓNICA'"></app-subtitle>
+  <div class="row">
+    <div class="checkbox-container">
+      <input type="checkbox" class="col-1" [formControl]="getControl(controlNames.signatureAuth)">
+    </div>
+    <p class="col-11">
+      Las Partes aceptan que el presente documento será firmado electrónicamente haciendo uso de cualquier herramienta de firma electrónica. Bajo ese entendido, Las Partes declaran y aceptan que la firma electrónica que figure en este documento es una manifestación de su consentimiento y voluntad para obligarse en los términos y condiciones dispuestos en el presente documento. </p>
+    <p class="col-12">
+      La herramienta utilizada por las Partes deberá cumplir con lo dispuesto en el artículo 2.2.2.47.7 del Decreto 1074 de 2015 y en general con los requisitos previstos en la legislación vigente (Ley 527 de 1999) en materia de firma electrónica. Se entenderá como firma electronica, la firma electrónica propiamente dicha, la firma digital y la firma escaneada conforme a lo establecito en el artículo 5 del Decreto 2364 de 2012.
+    </p>
+  </div>
+  <div class="row">
+    
+    <div class="form-group col-6">
+      <p class="italic-signature margin-top">{{capitalizeString(getValue(controlNames.signature))}}</p>
+      <app-text-input [label]="'*Nombres y Apellidos'" [control]="getControl(controlNames.signature)" [type]="'text'" class="col-12"></app-text-input>
+    </div>
+  </div>
+
+  <div class="row margin-top">
+</div>
