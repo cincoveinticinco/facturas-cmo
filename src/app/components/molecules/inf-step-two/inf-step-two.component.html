@@ -4,7 +4,7 @@
 </div>
 } @else {@if (!renderDependentsForm) {
   <form [formGroup]="invoiceNaturalForm" (ngSubmit)="onSubmit()">
-      <app-subtitle [subtitle]="'DECLARACIÓN FUNDAMENTADA'"></app-subtitle>
+      <app-subtitle [subtitle]="'DECLARACIÓN JURAMENTADA'"></app-subtitle>
       <div class="row">
         <app-text-input
           label="Nombres y Apellidos"
@@ -66,7 +66,7 @@
           id="institutionalEmail"
         ></app-text-input>
       </div> 
-      <app-subtitle [subtitle]="'DECLARACIÓN FUNDAMENTADA'"></app-subtitle>
+      <app-subtitle [subtitle]="'DECLARACIÓN JURAMENTADA'"></app-subtitle>
       
       <app-checkbox-input
         label="1. Estoy obligado a presentar declaración de renta por el año gravable inmediatamente anterior:"
