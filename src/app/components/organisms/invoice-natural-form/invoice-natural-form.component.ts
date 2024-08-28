@@ -352,10 +352,10 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
             form: this.invoiceNaturalForm.value,
             cancelLoading: this.cancelLoading
           });
+          this.loading = false;
         } catch (error) {
           console.error('Error uploading files:', error);
         }
-        this.loading = false;
       } else if (firstInvalidControl) {
         this.scrollToError(firstInvalidControl);
         this.loading = false;
@@ -470,7 +470,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       )
       .subscribe((value) => {
         setTimeout(() => { 
-          this.loading = false;
+
         }, 3500);
       });
     }
