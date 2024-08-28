@@ -65,7 +65,7 @@ export class SendOcComponent {
   }
 
   backToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/']);
   }
 
   getControl(controlName: string) {
