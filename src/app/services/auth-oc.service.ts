@@ -34,7 +34,7 @@ export class AuthOcService {
   logOut() {
     this.route.params.subscribe((params: any) => {
       localStorage.clear();
-      window.location.href = this.loginApiUrl + 'facturascmo';
+      window.location.href = this.loginApiUrl + 'home';
     })
   }
 }

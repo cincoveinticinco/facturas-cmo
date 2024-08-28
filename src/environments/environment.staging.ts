@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
     apiUrl: 'https://stgapi.onewrapp.com/',
-    apiUrlFront: 'https://stgclients.onewrapp.com/onboarding-cmo/',
+    apiUrlFront: 'https://stgclients.onewrapp.com/radicacioncmo/',
     stage: 'staging'
 };

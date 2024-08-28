@@ -10,7 +10,7 @@ import { OcFormSuccessComponent } from './components/oc-form-success/oc-form-suc
 
 export const routes: Routes = [
     {
-      path: 'facturascmo',
+      path: 'home',
       component: InvoiceLodgingComponent,
     },
     {
@@ -27,7 +27,7 @@ export const routes: Routes = [
       component: OcFormsCmoComponent
     },
     {
-      path: 'facturascmo/:registerId',
+      path: 'home/:registerId',
       component: ValidateOcInfoComponent
     },
     {

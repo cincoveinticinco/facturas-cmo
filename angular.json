@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "onboarding-cmo": {
+    "facturas-cmo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -36,7 +36,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/onboarding-cmo",
+            "outputPath": "dist/facturas-cmo",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -121,10 +121,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "onboarding-cmo:build:production"
+              "buildTarget": "facturas-cmo:build:production"
             },
             "development": {
-              "buildTarget": "onboarding-cmo:build:development"
+              "buildTarget": "facturas-cmo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -132,7 +132,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "onboarding-cmo:build"
+            "buildTarget": "facturas-cmo:build"
           }
         }
       }

@@ -11,5 +11,5 @@ import { VinculacionNaturalComponent } from './components/organisms/vinculacion-
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'onboarding-cmo';
+  title = 'facturas-cmo';
 }

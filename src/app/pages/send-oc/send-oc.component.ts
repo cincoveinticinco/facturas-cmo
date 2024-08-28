@@ -65,7 +65,7 @@ export class SendOcComponent {
   }
 
   backToHome() {
-    this.router.navigate(['/facturascmo']);
+    this.router.navigate(['/home']);
   }
 
   getControl(controlName: string) {
