@@ -36,7 +36,7 @@ export class InfStepThreeComponent {
     this.dependentsInfo= this.invoiceNaturalForm?.get('dependentsInfo') as FormArray;
   }
 
-  getControl(controlName: string) {
+  getControl(controlName: string): any {
     return this.invoiceNaturalForm?.get(controlName) as FormControl;
   }
 

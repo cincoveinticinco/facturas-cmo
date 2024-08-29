@@ -120,19 +120,20 @@
   <div class="row">
     <!-- bankBranch, bankKey, bankAccountType -->
     <app-text-input
-      [label]="'Banco'"
+      [label]="'Banco *'"
       [control]="getControl('bankBranch')"
       [type]="'text'"
       class="col-6"
     ></app-text-input>
     <app-text-input
-      [label]="'Número de cuenta'"
+      [label]="'Número de cuenta *'"
       [control]="getControl('bankKey')"
-      [type]="'text'"
+      [pattern]="'^[0-9]+$'"
+      [type]="'number'"
       class="col-6"
     ></app-text-input>
     <app-text-input
-      [label]="'Tipo de cuenta'"
+      [label]="'Tipo de cuenta *'"
       [control]="getControl('bankAccountType')"
       [type]="'text'"
       class="col-6"
