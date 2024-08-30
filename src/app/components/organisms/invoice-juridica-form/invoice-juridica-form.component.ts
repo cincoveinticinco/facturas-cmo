@@ -95,11 +95,14 @@ export class InvoiceJuridicaFormComponent {
     await this.uploadFilesFromArrayOfControls(this.getOtherAnexesArray());
     this.ilsService.updateRegisterVendor(this.invoiceJuridicaForm.value);
     if(this.invoiceJuridicaForm.valid){
-      this.saveForm.emit();
+      this.saveForm.emit({
+        form: this.invoiceJuridicaForm.value,
+        cancelLoading: this.cancelLoading
+      });
     } else {
       this.loading = false;
       this.invoiceJuridicaForm.markAllAsTouched();
-      this.invoiceJuridicaForm.get('otherAnexes').markAllAsTouched();
+      this.getOtherAnexesArray().markAllAsTouched();
     }
     this.globalService.openSnackBar('Formulario enviado correctamente', '', 5000);
   }
