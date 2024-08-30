@@ -77,11 +77,11 @@ export class InvoiceJuridicaFormComponent {
       companyName: this.formBuilder.control({ value: '', disabled: true }),
       address: this.formBuilder.control({ value: '', disabled: true }),
       email: this.formBuilder.control({ value: '', disabled: true }),
-      electronicInvoice: this.formBuilder.control('', Validators.requiredTrue),
-      socialSecurity: this.formBuilder.control('', Validators.requiredTrue),
-      taxAuditorCertificate: this.formBuilder.control('', Validators.requiredTrue),
-      arlCertificate: this.formBuilder.control('', Validators.requiredTrue),
-      otherAnexes: this.formBuilder.array([]),
+      electronicInvoice: this.formBuilder.control('', Validators.required),
+      socialSecurity: this.formBuilder.control('', Validators.required),
+      taxAuditorCertificate: this.formBuilder.control('', Validators.required),
+      arlCertificate: this.formBuilder.control('', Validators.required),
+      otherAnexes: this.formBuilder.array([], Validators.required),
     });
   }
 
@@ -94,10 +94,13 @@ export class InvoiceJuridicaFormComponent {
     await this.uploadFiles(['electronicInvoice', 'socialSecurity', 'taxAuditorCertificate', 'arlCertificate']);
     await this.uploadFilesFromArrayOfControls(this.getOtherAnexesArray());
     this.ilsService.updateRegisterVendor(this.invoiceJuridicaForm.value);
-    this.saveForm.emit({
-      form: this.invoiceJuridicaForm.value,
-      cancelLoading: this.cancelLoading
-    });
+    if(this.invoiceJuridicaForm.valid){
+      this.saveForm.emit();
+    } else {
+      this.loading = false;
+      this.invoiceJuridicaForm.markAllAsTouched();
+      this.invoiceJuridicaForm.get('otherAnexes').markAllAsTouched();
+    }
     this.globalService.openSnackBar('Formulario enviado correctamente', '', 5000);
   }
 
@@ -114,7 +117,7 @@ export class InvoiceJuridicaFormComponent {
   }
 
   addNewAnexFormGroup() {
-    this.getOtherAnexesArray().push(new FormControl(''));
+    this.getOtherAnexesArray().push(new FormControl('', Validators.required));
   }
 
   fillPurchaseOrderControl(index: number, value: string) {
