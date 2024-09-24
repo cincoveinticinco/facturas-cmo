@@ -65,9 +65,9 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       address: this.formBuilder.control({ value: '', disabled: true }),
       email: this.formBuilder.control({ value: '', disabled: true }, Validators.email),
       position: this.formBuilder.control({ value: '', disabled: true }),
-      bankBranch: this.formBuilder.control('', Validators.required),
-      bankKey: this.formBuilder.control('', Validators.required),
-      bankAccountType: this.formBuilder.control('', Validators.required),
+      bankBranch: this.formBuilder.control({ value: '', disabled: true }),
+      bankKey: this.formBuilder.control({ value: '', disabled: true }),
+      bankAccountType: this.formBuilder.control({ value: '', disabled: true }),
       signatureAuth: this.formBuilder.control('', Validators.requiredTrue),
       signature: this.formBuilder.control('', Validators.required),
       contractNumber: this.formBuilder.control({ value: '', disabled: true }),
@@ -223,23 +223,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     } else {
       signatureAuth.setErrors(null);
     }
-
-    // Validate bank info
-    const bankControlsArray = ['bankBranch', 'bankKey', 'bankAccountType'];
-    for (let i = 0; i < bankControlsArray.length; i++) {
-      const control = this.getControl(bankControlsArray[i]);
-      if (!control.value) {
-        control.setErrors({ required: true });
-        control.markAsTouched();
-        if (isValid) {
-          firstInvalidControl = bankControlsArray[i];
-          isValid = false;
-        }
-      } else {
-        control.setErrors(null);
-      }
-    }
-  
     
     if (!signature.value) {
       signature.setErrors({ required: true });
