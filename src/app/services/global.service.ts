@@ -395,9 +395,9 @@ export class GlobalService {
       formValue.otherAnexes.forEach((anexo: any) => {
         console.log(anexo)
         params.vendor_documents.push({
-          document_type_id: OcFileTypes.ANEXO,
-          document: anexo.document_url,
-          document_id: anexo.document_id
+          document_type_id: OcFileTypes?.ANEXO,
+          document: anexo?.document_url,
+          document_id: anexo?.document_id
         });
       });
     }

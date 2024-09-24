@@ -351,6 +351,8 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
           this.loading = false;
         } catch (error) {
           console.error('Error uploading files:', error);
+        } finally {
+          this.loading = false;
         }
       } else if (firstInvalidControl) {
         this.scrollToError(firstInvalidControl);
