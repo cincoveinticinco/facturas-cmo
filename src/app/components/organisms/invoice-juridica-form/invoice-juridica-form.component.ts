@@ -41,6 +41,7 @@ export class InvoiceJuridicaFormComponent {
 
   invoiceJuridicaForm: any;
   availableOptions: any = [];
+  errorUploadingDocuments: string[] = [];
 
   ngOnInit(){
     this.globalService.fillInitialInvoiceJuridicaForm(this.invoiceJuridicaForm, this.vendorInfo);
@@ -91,10 +92,11 @@ export class InvoiceJuridicaFormComponent {
 
   async onSubmit() {
     this.loading = true;
+    this.errorUploadingDocuments = [];
     await this.uploadFiles(['electronicInvoice', 'socialSecurity', 'taxAuditorCertificate', 'arlCertificate']);
     await this.uploadFilesFromArrayOfControls(this.getOtherAnexesArray());
     this.ilsService.updateRegisterVendor(this.invoiceJuridicaForm.value);
-    if(this.invoiceJuridicaForm.valid){
+    if(this.invoiceJuridicaForm.valid && this.errorUploadingDocuments.length === 0) {
       this.saveForm.emit({
         form: this.invoiceJuridicaForm.value,
         cancelLoading: this.cancelLoading
@@ -185,10 +187,19 @@ export class InvoiceJuridicaFormComponent {
         return;
       }
 
-      this.ilsService.getPresignedPutURLOc(nameFile, vendorId, "register").pipe(
-        catchError((error) =>
-          of({ id: value, file: value, key: '', url: '' })
-        ),
+      this.ilsService.getPresignedPutURLOc(nameFile, vendorId, 'register')
+      this.ilsService.getPresignedPutURLOc(nameFile, vendorId, 'register')
+      .pipe(
+        catchError((error) => {
+          if (environment?.stage !== 'local') {
+            formControl.setValue(null, { emitEvent: false });
+            this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
+            this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+            return throwError(() => new Error('Error al subir el archivo.'));
+          } else {
+            return of({ ...value, url: '' });
+          }
+        }),
         map((putUrl: any) => ({
           ...putUrl,
           id: value,
@@ -210,9 +221,10 @@ export class InvoiceJuridicaFormComponent {
           return this.vendorService.uploadFileUrlPresigned(<File>blobFile, uploadFile.url, uploadFile.file.type)
             .pipe(
               catchError((_) => {
-                if (environment?.stage != 'local') {
+                if (environment?.stage !== 'local') {
                   formControl.setValue(null, { emitEvent: false });
                   this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+                  this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];     
                   return throwError(() => new Error('Error al subir el archivo.'));
                 } else {
                   return of({ ...value, url: '' });
@@ -239,6 +251,7 @@ export class InvoiceJuridicaFormComponent {
       .subscribe((value) => {
         setTimeout(() => { 
           this.loading = false;
+          this.errorUploadingDocuments = this.errorUploadingDocuments.filter((item) => item !== nameFile);
         }, 3500);
       });
     }

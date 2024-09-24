@@ -47,8 +47,8 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   @Output() saveForm = new EventEmitter<any>();
 
   loading = false;
-
   invoiceNaturalForm: FormGroup;
+  errorUploadingDocuments: any = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -309,8 +309,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
 
 
   async nextStep(): Promise<void> {
-    console.log('Form sent', this.globalService.setOcForm(this.invoiceNaturalForm.value, this.vendorInfo.id));
-  
+    this.errorUploadingDocuments = [];
     if (this.currentStep === 1) {
       this.loading = true;
       const { isValid, firstInvalidControl } = this.validateStepOne();
@@ -327,7 +326,9 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
         try {
           await this.uploadFilesForStepTwo();
           this.loading = false;
-          this.handleStepChange.emit('next');
+          if(this.errorUploadingDocuments.length === 0) {
+            this.handleStepChange.emit('next');
+          }     
         } finally {
           this.loading = false;
         }
@@ -341,10 +342,12 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       if (isValid) {
         try {
           await this.uploadFilesForStepThree();
-          this.saveForm.emit({
-            form: this.invoiceNaturalForm.value,
-            cancelLoading: this.cancelLoading
-          });
+          if(this.errorUploadingDocuments.length === 0) {
+            this.saveForm.emit({
+              form: this.invoiceNaturalForm.value,
+              cancelLoading: this.cancelLoading
+            });
+          }
           this.loading = false;
         } catch (error) {
           console.error('Error uploading files:', error);
@@ -388,7 +391,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     value: File;
     formControl: FormControl
   }) {
-    this.loading = true;
     const { value, formControl } = event;
   
     const vendorId: any = this.ilService.getVendorId();
@@ -406,10 +408,18 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
         console.log('File already uploaded', existingUrl);
         return
       };
-      this.ilService.getPresignedPutURLOc(nameFile, vendorId, 'register').pipe(
-        catchError((error: any) =>
-          of({ id: value.name, file: value, key: '', url: '' })
-        ),
+      this.ilService.getPresignedPutURLOc(nameFile, vendorId, 'register')
+      .pipe(
+        catchError((error) => {
+          if (environment?.stage !== 'local') {
+            formControl.setValue(null, { emitEvent: false });
+            this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
+            this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+            return throwError(() => new Error('Error al subir el archivo.'));
+          } else {
+            return of({ ...value, url: '' });
+          }
+        }),
         map((putUrl: any) => ({
           ...putUrl,
           id: value.name,
@@ -433,9 +443,10 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
           return this.vendorService.uploadFileUrlPresigned(<File>blobFile, uploadFile.url, uploadFile.file.type)
             .pipe(
               catchError((_) => {
-                if (environment?.stage != 'local') {
+                if (environment?.stage !== 'local') {
                   formControl.setValue(null, { emitEvent: false });
                   this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+                  this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
                   return throwError(() => new Error('Error al subir el archivo.'));
                 } else {
                   return of({ ...value, url: '' });
@@ -462,8 +473,8 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
         })
       )
       .subscribe((value) => {
-        setTimeout(() => { 
-
+        setTimeout(() => {
+          this.errorUploadingDocuments = this.errorUploadingDocuments.filter((item: any) => item !== nameFile);
         }, 3500);
       });
     }
