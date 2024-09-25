@@ -360,24 +360,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       }
     }
   }
-  
-  async uploadFilesForStepTwo(): Promise<void> {
-    const filesToUploadStepTwo = ['medicalPrepaidFile', 'housingCreditFile', 'afcContributionsFile', 'voluntaryPensionContributionsFile'];
-    await this.uploadFiles(filesToUploadStepTwo);
-  
-    const dependentsInfo = this.invoiceNaturalForm.get('dependentsInfo') as FormArray;
-    await Promise.all(dependentsInfo.controls.map(async (control: any) => {
-      const filesToUpload = ['minorChildrenFile', 'childrenStudyCertificateFile', 'childrenMedicineCertificateFile', 'partnerMedicineCertificateFile', 'familyMedicineCertificateFile'];
-      await this.uploadFilesFromFormGroup(control, filesToUpload);
-    }));
-  }
-  
-  async uploadFilesForStepThree(): Promise<void> {
-    const filesToUploadStepthree = ['socialSecurity'];
-    const anexesArray = this.invoiceNaturalForm.get('otherAnexes') as FormArray;
-    await this.uploadFilesFromArrayOfControls(anexesArray);
-    await this.uploadFiles(filesToUploadStepthree);
-  }
 
   scrollToError(controlName: string): void {
     console.log('Scrolling to', controlName);
@@ -389,149 +371,147 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     });
   }
 
-  submitFile(event: {
-    value: File;
-    formControl: FormControl
-  }) {
+  sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  
+  async uploadFilesForStepTwo(): Promise<void> {
+    const filesToUploadStepTwo = ['medicalPrepaidFile', 'housingCreditFile', 'afcContributionsFile', 'voluntaryPensionContributionsFile'];
+    await this.uploadFiles(filesToUploadStepTwo);
+  
+    const dependentsInfo = this.invoiceNaturalForm.get('dependentsInfo') as FormArray;
+    for (const control of dependentsInfo.controls) {
+      const filesToUpload = ['minorChildrenFile', 'childrenStudyCertificateFile', 'childrenMedicineCertificateFile', 'partnerMedicineCertificateFile', 'familyMedicineCertificateFile'];
+      await this.uploadFilesFromFormGroup(control as FormGroup, filesToUpload);
+    }
+  }
+  
+  async uploadFilesForStepThree(): Promise<void> {
+    const filesToUploadStepthree = ['socialSecurity'];
+    const anexesArray = this.invoiceNaturalForm.get('otherAnexes') as FormArray;
+    await this.uploadFilesFromArrayOfControls(anexesArray);
+    await this.uploadFiles(filesToUploadStepthree);
+  }
+  
+  async uploadFilesFromArrayOfControls(controlArray: FormArray): Promise<void> {
+    for (const control of controlArray.controls) {
+      const file = control.value?.file;
+      if (file) {
+        console.log('Submitting file', file);
+        await this.submitFile({ value: file, formControl: control as FormControl });
+        await this.sleep(3000); // Delay de 1 segundo entre subidas
+      }
+    }
+  }
+  
+  async uploadFilesFromFormGroup(form: FormGroup, filesControls: string[]): Promise<void> {
+    for (const controlName of filesControls) {
+      const control = form.get(controlName);
+      if (control && control.value) {
+        console.log('Submitting file', control.value);
+        await this.submitFile({ value: control.value?.file, formControl: control as FormControl });
+        await this.sleep(3000); // Delay de 1 segundo entre subidas
+      }
+    }
+  }
+  
+  async uploadFiles(controlNames: string[]): Promise<void> {
+    for (const controlName of controlNames) {
+      const control = this.getControl(controlName);
+      const file = control.value?.file;
+      console.log(control.value, 'CONTROL VALUE');
+      if (file) {
+        await this.submitFile({ value: file, formControl: control });
+        await this.sleep(3000); // Delay de 1 segundo entre subidas
+      }
+    }
+  }
+  
+  submitFile(event: { value: File; formControl: FormControl }) {
     const { value, formControl } = event;
   
     const vendorId: any = this.ilService.getVendorId();
   
     if (!value) {
       const documentId = formControl.value.document_id;
-      if(documentId) {
-        this.vendorService.deleteVendorDocument({ document_id: documentId })
+      if (documentId) {
+        this.vendorService.deleteVendorDocument({ document_id: documentId });
       }
-    }
-    else {
+    } else {
       const nameFile = this.globalService.normalizeString(value.name);
       const existingUrl = formControl.value.url;
-      if(existingUrl) {
+      if (existingUrl) {
         console.log('File already uploaded', existingUrl);
-        return
-      };
+        return;
+      }
       this.ilService.getPresignedPutURLOc(nameFile, vendorId, 'register')
-      .pipe(
-        catchError((error) => {
-          if (environment?.stage !== 'local') {
-            formControl.setValue(null, { emitEvent: false });
-            this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
-            this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
-            return throwError(() => new Error('Error al subir el archivo.'));
-          } else {
-            return of({ ...value, url: '' });
-          }
-        }),
-        map((putUrl: any) => ({
-          ...putUrl,
-          id: value.name,
-          file: value,
-        })),
-        switchMap((uploadFile: any) => {
-          console.log('Upload file', uploadFile);
-          if (!uploadFile.url) {
-            return of({ blobFile: null, uploadFile });
-          }
-          return new Promise(resolve => {
-            uploadFile.file.arrayBuffer().then((blobFile: File) => resolve({ blobFile, uploadFile }));
-          });
-        }),
-        switchMap((blobUpdateFile: any) => {
-          console.log('Blob update file', blobUpdateFile);
-          const { blobFile, uploadFile } = blobUpdateFile;
-          if (!blobFile) {
-            return of(uploadFile);
-          }
-          return this.vendorService.uploadFileUrlPresigned(<File>blobFile, uploadFile.url, uploadFile.file.type)
-            .pipe(
-              catchError((_) => {
-                if (environment?.stage !== 'local') {
-                  formControl.setValue(null, { emitEvent: false });
-                  this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
-                  this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
-                  return throwError(() => new Error('Error al subir el archivo.'));
-                } else {
-                  return of({ ...value, url: '' });
-                }
-              }),
-              map((value) => value.type == HttpEventType.Response ? uploadFile : null)
-            );
-        }),
-        switchMap((uploadFile: any) => {
-          if (!uploadFile) return of(false);
-         
-          const document_url = uploadFile?.url ? `${vendorId}/${nameFile}` : '';
-          const formControlCurrentValue = formControl.value;
-          this.ilService.signUrl(document_url).subscribe((res: any) => {
-            formControl.setValue({
-              document_id: formControlCurrentValue?.document_id,
-              name: value.name,
-              url: res.url,
-              document_url: document_url
+        .pipe(
+          catchError((error) => {
+            if (environment?.stage !== 'local') {
+              formControl.setValue(null, { emitEvent: false });
+              this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
+              this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+              return throwError(() => new Error('Error al subir el archivo.'));
+            } else {
+              return of({ ...value, url: '' });
+            }
+          }),
+          map((putUrl: any) => ({
+            ...putUrl,
+            id: value.name,
+            file: value,
+          })),
+          switchMap((uploadFile: any) => {
+            console.log('Upload file', uploadFile);
+            if (!uploadFile.url) {
+              return of({ blobFile: null, uploadFile });
+            }
+            return new Promise(resolve => {
+              uploadFile.file.arrayBuffer().then((blobFile: File) => resolve({ blobFile, uploadFile }));
             });
+          }),
+          switchMap((blobUpdateFile: any) => {
+            console.log('Blob update file', blobUpdateFile);
+            const { blobFile, uploadFile } = blobUpdateFile;
+            if (!blobFile) {
+              return of(uploadFile);
+            }
+            return this.vendorService.uploadFileUrlPresigned(<File>blobFile, uploadFile.url, uploadFile.file.type)
+              .pipe(
+                catchError((_) => {
+                  if (environment?.stage !== 'local') {
+                    formControl.setValue(null, { emitEvent: false });
+                    this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+                    this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
+                    return throwError(() => new Error('Error al subir el archivo.'));
+                  } else {
+                    return of({ ...value, url: '' });
+                  }
+                }),
+                map((value) => value.type == HttpEventType.Response ? uploadFile : null)
+              );
+          }),
+          switchMap((uploadFile: any) => {
+            if (!uploadFile) return of(false);
+  
+            const document_url = uploadFile?.url ? `${vendorId}/${nameFile}` : '';
+            const formControlCurrentValue = formControl.value;
+            this.ilService.signUrl(document_url).subscribe((res: any) => {
+              formControl.setValue({
+                document_id: formControlCurrentValue?.document_id,
+                name: value.name,
+                url: res.url,
+                document_url: document_url,
+              });
+            });
+            console.log(this.globalService.setOcForm(this.invoiceNaturalForm, vendorId), 'TEST CONTROL');
+            return of(true);
           })
-          console.log(this.globalService.setOcForm(this.invoiceNaturalForm, vendorId ), 'TEST CONTROL');
-          return of(true);
-        })
-      )
-      .subscribe((value) => {
-        setTimeout(() => {
-          this.errorUploadingDocuments = this.errorUploadingDocuments.filter((item: any) => item !== nameFile);
-        }, 3500);
-      });
+        )
+        .subscribe((value) => {
+  
+        });
     }
   }
 
-  async uploadFilesFromArrayOfControls(controlArray: FormArray): Promise<void> {
-    const uploadPromises = controlArray.controls.map((control: any) => {
-      return new Promise<void>((resolve) => {
-        const file = control.value?.file;
-        if (file) {
-          this.submitFile({ value: file, formControl: control });
-          // Asumimos que submitFile manejará internamente el loading state
-          setTimeout(() => resolve(), 3500); // Usamos el mismo timeout que submitFile
-        } else {
-          resolve();
-        }
-      });
-    });
-  
-    await Promise.all(uploadPromises);
-  }
-  
-  async uploadFilesFromFormGroup(form: FormGroup, filesControls: string[]): Promise<void> {
-    const uploadPromises = filesControls.map((controlName: string) => {
-      return new Promise<void>((resolve) => {
-        const control = form.get(controlName);
-        if (control && control.value) {
-          this.submitFile({ value: control.value?.file, formControl: control as FormControl });
-          setTimeout(() => resolve(), 3500);
-        } else {
-          resolve();
-        }
-      });
-    });
-  
-    await Promise.all(uploadPromises);
-  }
-  
-  async uploadFiles(controlNames: string[]): Promise<void> {
-    const uploadPromises = controlNames.map((controlName: string) => {
-      return new Promise<void>((resolve) => {
-        const control = this.getControl(controlName);
-        const file = control.value?.file;
-        console.log(control.value, 'CONTROL VALUE');
-        if (file) {
-          this.submitFile({ value: file, formControl: control });
-          setTimeout(() => resolve(), 3500);
-        } else {
-          resolve();
-        }
-      });
-    });
-  
-    await Promise.all(uploadPromises);
-  }
   previousStep(): void {
     this.handleStepChange.emit('previous');
   }

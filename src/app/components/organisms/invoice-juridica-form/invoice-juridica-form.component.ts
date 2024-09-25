@@ -164,10 +164,7 @@ export class InvoiceJuridicaFormComponent {
     return this.getPurchaseOrdersArray().controls as FormControl[];
   }
 
-  submitFile(event: {
-    value: File;
-    formControl: FormControl
-  }) {
+  submitFile(event: { value: File; formControl: FormControl }) {
     this.loading = true;
     const { value, formControl } = event;
   
@@ -175,19 +172,18 @@ export class InvoiceJuridicaFormComponent {
   
     if (!value) {
       const documentId = formControl.value.document_id;
-      if(documentId) {
+      if (documentId) {
         this.vendorService.deleteVendorDocument({ document_id: documentId });
       }
     } else {
       const nameFile = this.globalService.normalizeString(value.name);
       const existingUrl = formControl.value.url;
-      if(existingUrl) {
+      if (existingUrl) {
         console.log('File already uploaded', existingUrl);
         this.loading = false;
         return;
       }
-
-      this.ilsService.getPresignedPutURLOc(nameFile, vendorId, 'register')
+  
       this.ilsService.getPresignedPutURLOc(nameFile, vendorId, 'register')
       .pipe(
         catchError((error) => {
@@ -244,50 +240,38 @@ export class InvoiceJuridicaFormComponent {
               url: res.url,
               document_url: document_url
             });
-          })
+          });
           return of(true);
         })
       )
       .subscribe((value) => {
-        setTimeout(() => { 
-          this.loading = false;
-          this.errorUploadingDocuments = this.errorUploadingDocuments.filter((item) => item !== nameFile);
-        }, 3500);
       });
     }
   }
-
+  
   async uploadFiles(controlNames: string[]): Promise<void> {
-    const uploadPromises = controlNames.map((controlName: string) => {
-      return new Promise<void>((resolve) => {
-        const control = this.getControl(controlName);
-        const file = control.value?.file;
-        if (file) {
-          this.submitFile({ value: file, formControl: control });
-          setTimeout(() => resolve(), 3500);
-        } else {
-          resolve();
-        }
-      });
-    });
-  
-    await Promise.all(uploadPromises);
+    for (const controlName of controlNames) {
+      const control = this.getControl(controlName);
+      const file = control.value?.file;
+      if (file) {
+        await this.submitFile({ value: file, formControl: control });
+        await this.sleep(3000); // Delay de 1 segundo entre subidas
+      }
+    }
   }
-
-  async uploadFilesFromArrayOfControls(controlArray: FormArray): Promise<void> {
-    const uploadPromises = controlArray.controls.map((control: any) => {
-      return new Promise<void>((resolve) => {
-        const file = control.value?.file;
-        if (file) {
-          this.submitFile({ value: file, formControl: control });
-          setTimeout(() => resolve(), 3500);
-        } else {
-          resolve();
-        }
-      });
-    });
   
-    await Promise.all(uploadPromises);
+  async uploadFilesFromArrayOfControls(controlArray: FormArray): Promise<void> {
+    for (const control of controlArray.controls) {
+      const file = control.value?.file;
+      if (file) {
+        await this.submitFile({ value: file, formControl: control as FormControl });
+        await this.sleep(3000);
+      }
+    }
+  }
+  
+  sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   deleteAnnex(index: number) {
