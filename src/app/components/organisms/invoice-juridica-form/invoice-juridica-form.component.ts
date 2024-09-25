@@ -190,7 +190,7 @@ export class InvoiceJuridicaFormComponent {
           if (environment?.stage !== 'local') {
             formControl.setValue(null, { emitEvent: false });
             this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
-            this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+            this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}`, '', 5000);
             return throwError(() => new Error('Error al subir el archivo.'));
           } else {
             return of({ ...value, url: '' });
@@ -219,7 +219,7 @@ export class InvoiceJuridicaFormComponent {
               catchError((_) => {
                 if (environment?.stage !== 'local') {
                   formControl.setValue(null, { emitEvent: false });
-                  this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+                  this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}`, '', 5000);
                   this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];     
                   return throwError(() => new Error('Error al subir el archivo.'));
                 } else {

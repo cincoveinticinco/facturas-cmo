@@ -445,10 +445,10 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       this.ilService.getPresignedPutURLOc(nameFile, vendorId, 'register')
         .pipe(
           catchError((error) => {
-            if (environment?.stage !== 'local') {
+            if (environment?.stage === 'local') {
               formControl.setValue(null, { emitEvent: false });
               this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
-              this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+              this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}, intente de nuevo`, '', 5000);
               return throwError(() => new Error('Error al subir el archivo.'));
             } else {
               return of({ ...value, url: '' });
@@ -477,9 +477,9 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
             return this.vendorService.uploadFileUrlPresigned(<File>blobFile, uploadFile.url, uploadFile.file.type)
               .pipe(
                 catchError((_) => {
-                  if (environment?.stage !== 'local') {
+                  if (environment?.stage === 'local') {
                     formControl.setValue(null, { emitEvent: false });
-                    this.globalService.openSnackBar('Fallo al guardar el documento, intente de nuevo', '', 5000);
+                    this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}, intente de nuevo`, '', 5000);
                     this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
                     return throwError(() => new Error('Error al subir el archivo.'));
                   } else {
