@@ -219,18 +219,25 @@ export class InvoiceJuridicaFormComponent {
               catchError((_) => {
                 if (environment?.stage !== 'local') {
                   formControl.setValue(null, { emitEvent: false });
-                  this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}`, '', 5000);
-                  this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];     
+                  this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}, intente de nuevo`, '', 5000);
+                  this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
                   return throwError(() => new Error('Error al subir el archivo.'));
                 } else {
                   return of({ ...value, url: '' });
                 }
               }),
-              map((value) => value.type == HttpEventType.Response ? uploadFile : null)
+              map((value) => {
+                if(uploadFile?.url) {
+                  return value.type === HttpEventType.Response ? uploadFile : null;
+                } else {
+                  return throwError(() => new Error('Error al subir el archivo.'));
+                }
+              })
             );
         }),
-        switchMap((uploadFile: any) => {
-          if (!uploadFile) return of(false);
+      )
+      .subscribe({
+         next: (uploadFile: any) => {
           const document_url = uploadFile?.url ? `${vendorId}/${nameFile}` : '';
           const formControlCurrentValue = formControl.value;
           this.ilsService.signUrl(document_url).subscribe((res: any) => {
@@ -238,13 +245,16 @@ export class InvoiceJuridicaFormComponent {
               document_id: formControlCurrentValue?.document_id,
               name: value.name,
               url: res.url,
-              document_url: document_url
+              document_url: document_url,
             });
           });
-          return of(true);
-        })
-      )
-      .subscribe((value) => {
+         },
+         error: (error) => {
+          formControl.setValue(null, { emitEvent: false });
+          this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}, intente de nuevo`, '', 5000);
+          this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
+          return throwError(() => new Error('Error al subir el archivo.'));
+         }
       });
     }
   }
