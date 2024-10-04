@@ -12,6 +12,7 @@
     <div class="label-content">
       <img src="./assets/images/Upload.svg" alt="upload" class="upload">
       <p>Arrastre y suelte el archivo aquí o <a>Haga clic para examinar los archivos</a></p>
+      <p> {{ onlyPdf ? 'Formatos Permitidos: (PDF *)' : '(Pdf*, Jpg*, Png*, Jpeg*)' }}</p>
     </div>
     <input
       type="file"

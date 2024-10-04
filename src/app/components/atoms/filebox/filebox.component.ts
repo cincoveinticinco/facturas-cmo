@@ -14,7 +14,7 @@ import { DialogComponent } from '../../../shared/components/dialog/dialog.compon
 })
 export class FileboxComponent implements ControlValueAccessor, Validator, OnInit, OnDestroy {
 
-  @Input() onlyPdf = false;
+  @Input() onlyPdf = true;
   @Input() control: FormControl = new FormControl();
   @Input() allowedExtensions: string[] = ['pdf', 'PDF', 'jpeg', 'jpg', 'png'];
 
