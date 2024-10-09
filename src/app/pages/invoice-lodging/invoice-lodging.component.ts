@@ -12,6 +12,7 @@ import { ValidateOcInfoComponent } from '../validate-oc-info/validate-oc-info.co
 import { delay, tap } from 'rxjs';
 import { AuthOcService } from '../../services/auth-oc.service';
 import { SelectOption } from '../../components/molecules/inf-step-one/inf-step-one.component';
+import { REQUEST_TYPES } from '../../shared/interfaces/request_types.enum';
 
 @Component({
   selector: 'app-invoice-lodging',
@@ -39,11 +40,18 @@ export class InvoiceLodgingComponent implements OnInit {
   userEmail: string = '';
   purchaseOrdersIds: string[] = [];
   validationPending: boolean = false;
+  REQUEST_TYPES = REQUEST_TYPES
+
+  formattedRequestTypes = [
+    {optionName: "Orden de compra", optionValue: REQUEST_TYPES.PURCHASE_ORDER},
+    {optionName: "Anticipo", optionValue: REQUEST_TYPES.ANTICIPO}
+  ]
 
   constructor(public fb: FormBuilder, public router: Router, private iS: InvoiceLodgingService, private auth: AuthOcService) {
     this.invoiceLodgingForm = fb.group({
       personType: new FormControl(TIPOPERSONA.Natural, [Validators.required]),
       documentType: new FormControl('', [Validators.required]),
+      requestType: new FormControl(REQUEST_TYPES.PURCHASE_ORDER),
       documentNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
       orderNumber: new FormControl('', [Validators.required]),
     });
@@ -126,15 +134,17 @@ export class InvoiceLodgingComponent implements OnInit {
   validatyDocumentTypeAndNumber() {
     const documentType = this.getControl('documentType').value;
     const documentNumber = this.getControl('documentNumber').value;
+    const requestType = this.getControl('requestType').value
   
-    if(documentType && documentNumber) {
+    if(documentType && documentNumber && requestType) {
       this.validationPending = true;
       return true;
     } else {
       this.getControl('documentType').markAsTouched();
       this.getControl('documentNumber').markAsTouched();
+      this.getControl('requestType').markAllAsTouched()
       
-      const error = 'Por favor, complete los campos de tipo de documento y número de documento para recibir la orden de compra';
+      const error = 'Por favor, complete los campos de tipo de documento, número de documento y tipo de solicitud para recibir la orden de compra';
       this.formErrors.push(error);
       setTimeout(() => {
         this.formErrors = this.formErrors.filter((item) => item !== error);
@@ -155,7 +165,8 @@ export class InvoiceLodgingComponent implements OnInit {
   receivePurchaseOrders() {
     if(this.validatyDocumentTypeAndNumber()) {
       const vendorDocument = this.getControl('documentNumber').value;
-      this.iS.getPurchaseOrders(vendorDocument).subscribe(
+      const requestType = this.getControl('requestType').value
+      this.iS.getPurchaseOrders(vendorDocument, requestType).subscribe(
         (response: any) => {
           setTimeout(() => {
             this.validationPending = false;

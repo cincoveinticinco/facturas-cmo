@@ -42,8 +42,20 @@
           [pattern]="getDocumentPattern()"
           class="col-12"
         ></app-text-input>
+        <app-select-input
+          [label]="'Tipo de solicitud'"
+          [control]="getControl('requestType')"
+          [options]="formattedRequestTypes"
+          [optionName]="'optionName'"
+          [optionValue]="'optionValue'"
+          class="col-12"
+        ></app-select-input>
         <p class="col-1 justify-end">
-          <b>OC-</b>
+          @if (getControl('requestType').value == 1) {
+            <b>OC-</b>
+          } @else {
+            <b>AV-</b>
+          }
         </p>
         <app-text-input
           [label]="'Número de orden'"          

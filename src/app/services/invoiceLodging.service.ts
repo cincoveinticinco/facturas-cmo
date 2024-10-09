@@ -33,11 +33,12 @@ export class InvoiceLodgingService {
   }
 
   // This function will retrieve three keys, purchaseOrders that haves an array of purchaseOrders ids, vendorEmail and the status of the request
-  getPurchaseOrders(vendorDocument: number) {
+  getPurchaseOrders(vendorDocument: number, requestType: string) {
     // send in params vendor_document
     return this.http.get(`${environment.apiUrl}cmo/get_purchase_orders`, {
       params: {
-        vendor_document: vendorDocument.toString()
+        vendor_document: vendorDocument.toString(), 
+        f_request_has_project_types_id: requestType
       }
     });
   }
@@ -74,12 +75,14 @@ export class InvoiceLodgingService {
   authenticateUser(form: {
     documentType: string,
     documentNumber: string,
-    orderNumber: string
+    orderNumber: string,
+    requestType: string
   }) {
     const params = {
       f_document_type_id: form.documentType,
       document_number: form.documentNumber,
-      order_number: form.orderNumber
+      order_number: form.orderNumber,
+      f_request_has_project_types_id: form.requestType
     }
 
     return this.http.get(`${environment.apiUrl}cmo/authenticate_oc_user`, {
