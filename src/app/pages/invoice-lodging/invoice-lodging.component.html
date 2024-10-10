@@ -11,7 +11,7 @@
     <div class="invoice-lodging-header">
       <app-logo></app-logo>
       <h1>BIENVENIDO AL MODULO DE RADICACIÓN</h1>
-      <p>En esta plataforma podrá radicar de manera fácil y segura los documentos y facturas correspondientes a las órdenes de compra recibidas.</p>
+      <p>En esta plataforma podrá radicar de manera fácil y segura los documentos y facturas correspondientes.</p>
     </div>
     <div class="invoice-lodging-tabs-container">
       <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="mat-tabs-group" (selectedTabChange)="onTabChange($event)">
@@ -54,11 +54,11 @@
           @if (getControl('requestType').value == 1) {
             <b>OC-</b>
           } @else {
-            <b>AV-</b>
+            <b>ADV-</b>
           }
         </p>
         <app-text-input
-          [label]="'Número de orden'"          
+          [label]="'Número de orden'"
           [control]="getControl('orderNumber')"
           class="col-11"
         ></app-text-input>
