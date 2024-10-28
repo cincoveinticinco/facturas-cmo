@@ -52,7 +52,7 @@ export class InvoiceLodgingComponent implements OnInit {
       personType: new FormControl(TIPOPERSONA.Natural, [Validators.required]),
       documentType: new FormControl('', [Validators.required]),
       requestType: new FormControl(REQUEST_TYPES.PURCHASE_ORDER),
-      documentNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]),
+      documentNumber: new FormControl('', [Validators.required]),
       orderNumber: new FormControl('', [Validators.required]),
     });
   }
@@ -87,7 +87,7 @@ export class InvoiceLodgingComponent implements OnInit {
   }
 
   getDocumentPattern() {
-    return this.getControl('personType').value === TIPOPERSONA.Natural ? '^[0-9]*$' : '^[0-9]{1,9}$';
+    return this.getControl('personType').value === TIPOPERSONA.Natural && this.getControl('documentType')?.value != TIPODOCUMENTO.CE ? '^[0-9]*$' : '^[a-zA-Z0-9]+$';
   }
 
   filterDocumentTypes(typePersonId: TIPOPERSONA) {
