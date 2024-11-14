@@ -49,7 +49,7 @@ export class InfStepThreeComponent {
   }
 
   addNewAnexFormGroup() {
-    this.getOtherAnexesArray().push(new FormControl('', [Validators.required]));
+    this.getOtherAnexesArray().push(new FormControl(''));
   }
 
   handlePreviousStep() {
