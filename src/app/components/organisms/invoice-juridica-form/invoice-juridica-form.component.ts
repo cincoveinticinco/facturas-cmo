@@ -82,7 +82,7 @@ export class InvoiceJuridicaFormComponent {
       socialSecurity: this.formBuilder.control('', Validators.required),
       taxAuditorCertificate: this.formBuilder.control('', Validators.required),
       arlCertificate: this.formBuilder.control('', Validators.required),
-      otherAnexes: this.formBuilder.array([], Validators.required),
+      otherAnexes: this.formBuilder.array([]),
     });
   }
 
@@ -122,7 +122,7 @@ export class InvoiceJuridicaFormComponent {
   }
 
   addNewAnexFormGroup() {
-    this.getOtherAnexesArray().push(new FormControl('', Validators.required));
+    this.getOtherAnexesArray().push(new FormControl(''));
   }
 
   fillPurchaseOrderControl(index: number, value: string) {
