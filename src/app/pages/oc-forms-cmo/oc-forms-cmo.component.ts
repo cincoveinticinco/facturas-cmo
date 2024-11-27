@@ -33,6 +33,7 @@ export class OcFormsCmoComponent implements OnInit {
   purchaseOrdersProjections: any[] = [];
   PERSON_TYPES = TIPOPERSONA;
   registerCode: string | null = null;
+  registerDate: string | null = null;
   registerStatus: number | undefined;
   REGISTER_STATUSES = REGISTER_STATUSES;
 
@@ -60,7 +61,7 @@ export class OcFormsCmoComponent implements OnInit {
       || this.registerStatus === REGISTER_STATUSES.APROBADO_CONTABILIDAD
     ) {
       this.router.navigate(['/oc-forms-cmo/success/' + this.registerCode], {
-        state: { radicado: this.registerCode }
+        state: { radicado: this.registerCode, date: this.registerDate }
       });
     }
   }
@@ -75,6 +76,7 @@ export class OcFormsCmoComponent implements OnInit {
         this.selectedPurchaseOrders = response.selectedOrders;
         this.purchaseOrdersProjections = response.poProjections;
         this.registerCode = response.registerCode;
+        this.registerDate = response.registerDate;
         this.registerStatus = response.fRegisterStatusId;
         this.redirectWhenRadicated();
         this.loading = false;
@@ -98,7 +100,7 @@ export class OcFormsCmoComponent implements OnInit {
       this.invoiceLodgingService.updateRegisterVendor(formattedForm).subscribe(
         (response: any) => {
           this.router.navigate(['/oc-forms-cmo/success/' + response.registerId], {
-            state: { radicado: response.radicado, url: response.url }
+            state: { radicado: response.radicado, url: response.url, date: response.registerDate }
           });
           this.loading = false;
         },
