@@ -485,7 +485,7 @@ p.lbl-eng {
   width: 100%;
   min-height: 100vh;
   display: grid;
-  position: fixed;
+  position: fixed !important;
   top: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 0.8);

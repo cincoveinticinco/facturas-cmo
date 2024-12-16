@@ -4,37 +4,48 @@
   <div class="loader">
       <div class="custom-loader"></div>
   </div>
-} @else if (personType === PERSON_TYPES.Natural){
+}
+
+@if (personType === PERSON_TYPES.Natural){
 <app-panel-buttons [isOc]="true"></app-panel-buttons>
 <div class="form-container">
   <app-logo></app-logo>
   <h1 class="form-title">CONFIRMACIÓN DE RADICACIÓN</h1>
   <h3 class="form-subtitle"> PASO {{currentStep}}/3</h3>
   <p>Para continuar con el proceso de radicación, por favor complete el siguiente formulario</p>
-  <app-invoice-natural-form 
-    [vendorInfo]="vendorInfo" 
-    [currentStep]="currentStep" 
+  <app-invoice-natural-form
+    [vendorInfo]="vendorInfo"
+    [currentStep]="currentStep"
     (handleStepChange)="handleStepChange($event)"
-    (saveForm)="saveForm($event)" 
-    [purchaseOrders]="purchaseOrders" 
+    (saveForm)="saveForm($event)"
+    [purchaseOrders]="purchaseOrders"
     [selectedPurchaseOrders]="selectedPurchaseOrders"
     [poProjections]="purchaseOrdersProjections"
   ></app-invoice-natural-form>
 </div>
 } @else if (personType === PERSON_TYPES.Juridica){
-  
+
   <app-panel-buttons [isOc]="true"></app-panel-buttons>
   <div class="form-container">
     <app-logo></app-logo>
     <h1 class="form-title">CONFIRMACIÓN DE RADICACIÓN</h1>
     <h3 class="form-subtitle"> PASO {{currentStep}}/1</h3>
     <p>Para continuar con el proceso de radicación, por favor complete el siguiente formulario</p>
-    <app-invoice-juridica-form 
+    <app-invoice-juridica-form
       [vendorInfo]="vendorInfo"
-      [purchaseOrders]="purchaseOrders" 
+      [purchaseOrders]="purchaseOrders"
       [selectedPurchaseOrders]="selectedPurchaseOrders"
       [selectOptionsPo]="getFormattedOcOptions(purchaseOrders)"
-      (saveForm)="saveForm($event)" 
+      (saveForm)="saveForm($event)"
     ></app-invoice-juridica-form>
   </div>
+}
+
+@if (view == 'error-save-form') {
+  <app-dialog
+    type="alert"
+    title="Error al guardar formulario"
+    [message]="errorMsg"
+    (closeModal)="changeView()">
+  </app-dialog>
 }

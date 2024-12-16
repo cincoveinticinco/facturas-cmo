@@ -135,7 +135,7 @@ export class InvoiceLodgingService {
   updateRegisterVendor(formParams: OcNaturalParams) {
     this.setHeaders();
     const params = formParams;
-    
+
     return this.http.post(`${environment.apiUrl}cmo/update_register`, params, {
       headers: this.headers
     });

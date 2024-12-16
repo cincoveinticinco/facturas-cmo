@@ -93,19 +93,23 @@ export class InvoiceJuridicaFormComponent {
   async onSubmit() {
     this.loading = true;
     this.errorUploadingDocuments = [];
+
     await this.uploadFiles(['electronicInvoice', 'socialSecurity', 'taxAuditorCertificate', 'arlCertificate']);
     await this.uploadFilesFromArrayOfControls(this.getOtherAnexesArray());
-    this.ilsService.updateRegisterVendor(this.invoiceJuridicaForm.value);
+
     if(this.invoiceJuridicaForm.valid && this.errorUploadingDocuments.length === 0) {
       this.saveForm.emit({
         form: this.invoiceJuridicaForm.value,
         cancelLoading: this.cancelLoading
       });
+
+      this.loading = false;
     } else {
       this.loading = false;
       this.invoiceJuridicaForm.markAllAsTouched();
       this.getOtherAnexesArray().markAllAsTouched();
     }
+
     this.globalService.openSnackBar('Formulario enviado correctamente', '', 5000);
   }
 

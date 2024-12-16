@@ -347,6 +347,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
               form: this.invoiceNaturalForm.value,
               cancelLoading: this.cancelLoading
             });
+            this.loading = false;
           }
           this.loading = false;
         } catch (error) {

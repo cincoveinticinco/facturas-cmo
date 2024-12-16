@@ -9,6 +9,8 @@ import { TIPOPERSONA } from '../../shared/interfaces/typo_persona';
 import { InvoiceJuridicaFormComponent } from '../../components/organisms/invoice-juridica-form/invoice-juridica-form.component';
 import { GlobalService } from '../../services/global.service';
 import { REGISTER_STATUSES } from '../../shared/interfaces/register_types';
+import { DialogComponent } from '../../shared/components/dialog/dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export interface PurchaseOrders {
   id: number,
@@ -19,11 +21,19 @@ export interface PurchaseOrders {
 @Component({
   selector: 'app-oc-forms-cmo',
   standalone: true,
-  imports: [PanelButtonsComponent, LogoComponent, InvoiceNaturalFormComponent, InvoiceJuridicaFormComponent],
+  imports: [
+    PanelButtonsComponent,
+    LogoComponent,
+    InvoiceNaturalFormComponent,
+    InvoiceJuridicaFormComponent,
+    DialogComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './oc-forms-cmo.component.html',
   styleUrls: ['./oc-forms-cmo.component.css']
 })
 export class OcFormsCmoComponent implements OnInit {
+
   loading = false;
   vendorInfo: any = {};
   currentStep = 1
@@ -36,9 +46,11 @@ export class OcFormsCmoComponent implements OnInit {
   registerDate: string | null = null;
   registerStatus: number | undefined;
   REGISTER_STATUSES = REGISTER_STATUSES;
+  view: string = '';
+  errorMsg: string = '';
 
   constructor(
-    private authService: AuthOcService, 
+    private authService: AuthOcService,
     private invoiceLodgingService: InvoiceLodgingService,
     private globalService: GlobalService,
     private router: Router
@@ -52,6 +64,10 @@ export class OcFormsCmoComponent implements OnInit {
         this.loadFormInitialData();
       }
     });
+  }
+
+  changeView(view: string = ''): void {
+    this.view = view;
   }
 
   redirectWhenRadicated(): void {
@@ -92,23 +108,28 @@ export class OcFormsCmoComponent implements OnInit {
   saveForm(event: {
     form: any, cancelLoading: any
   }): void {
-      const { form, cancelLoading } = event
-      this.loading = true;
-      const register = this.registerCode ? parseInt(this.registerCode) : null;
-      const formattedForm = this.globalService.setOcForm(form, this.vendorInfo.id, register)
-      console.log(formattedForm, 'FORMATED FORM')
-      this.invoiceLodgingService.updateRegisterVendor(formattedForm).subscribe(
-        (response: any) => {
-          this.router.navigate(['/oc-forms-cmo/success/' + response.registerId], {
-            state: { radicado: response.radicado, url: response.url, date: response.registerDate }
-          });
+    const { form, cancelLoading } = event
+    this.loading = true;
+    const register = this.registerCode ? parseInt(this.registerCode) : null;
+    const formattedForm = this.globalService.setOcForm(form, this.vendorInfo.id, register)
+    console.log(formattedForm, 'FORMATED FORM')
+    this.invoiceLodgingService.updateRegisterVendor(formattedForm).subscribe({
+      next: (response: any) => {
+        if (!!response?.error) {
+          this.errorMsg = response?.msg;
+          this.changeView('error-save-form');
           this.loading = false;
-        },
-        () => {
-          console.log('Error');
+          return;
         }
-      );
-    }
+
+        this.router.navigate(['/oc-forms-cmo/success/' + response.registerId], {
+          state: { radicado: response.radicado, url: response.url, date: response.registerDate }
+        });
+
+        this.loading = false;
+      }
+    });
+  }
 
   handleStepChange(event: 'next' | 'previous', form: any = null): void {
     if (event === 'next' && this.currentStep <= 3) {
@@ -122,7 +143,7 @@ export class OcFormsCmoComponent implements OnInit {
   getFormattedOcOptions(purchaseOrders: PurchaseOrders[]): any[] {
     return purchaseOrders.map((order: any) => ({
       optionValue: order.id,
-      optionName: order.consecutiveCodes   
+      optionName: order.consecutiveCodes
     })) || [];
   }
 }
