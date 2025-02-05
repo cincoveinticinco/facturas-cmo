@@ -16,5 +16,11 @@
 } @else if (currentStep === 2) {
   <app-inf-step-two [invoiceNaturalForm]="invoiceNaturalForm" [vendorInfo]="vendorInfo" (formSubmit)="sendForm()" (previousStep)="previousStep()" [validateStep]="validateStepTwo" [loading]="loading"></app-inf-step-two>
 } @else if (currentStep == 3) {
-  <app-inf-step-three [invoiceNaturalForm]="invoiceNaturalForm" [vendorInfo]="vendorInfo" (formSubmit)="sendForm()" (previousStep)="previousStep()"></app-inf-step-three>
+  <app-inf-step-three
+  [invoiceNaturalForm]="invoiceNaturalForm"
+  [vendorInfo]="vendorInfo"
+  [poProjections]="poProjections"
+  (formSubmit)="sendForm()"
+  (previousStep)="previousStep()">
+</app-inf-step-three>
 }

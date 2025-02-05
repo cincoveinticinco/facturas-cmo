@@ -1,0 +1,62 @@
+<div class="full-screen">
+  <div class="form-container">
+    <h1 class="form-title">CONFIRMACIÓN DE RADICACIÓN</h1>
+
+    <div class="row">
+      <p class="col-12">
+        Las siguientes ordenes de compra serán radicadas:
+      </p>
+    </div>
+
+    <table class="col-12">
+      <tr>
+        <th>
+          # de Orden
+        </th>
+        <th>
+          Descripción
+        </th>
+        <th>
+          IVA
+        </th>
+        <th>
+          Retención
+        </th>
+        <th>
+          Vr. Día
+        </th>
+        <th>
+          Vr. Total
+        </th>
+      </tr>
+      <!-- should iterate in selectedOrders -->
+      @for( order of getProjectionsForSelectedOrders(); track order) {
+        <tr>
+          <td>
+            {{ order.consecutive_code }}
+          </td>
+          <td>
+            {{ order.description }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.taxes_addition_value) }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.taxes_not_addition_value) }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.value) }}
+          </td>
+          <td>
+            {{ fromNumberToCop(order.total) }}
+          </td>
+        </tr>
+      }
+    </table>
+
+    <div class="row margin-top buttons-wrapper">
+      <button mat-raised-button type="button" class="col-6 btn-gray" (click)="close()">REGRESAR</button>
+      <button mat-raised-button type="submit" class="col-6 btn-purpple" (click)="notify()">CONTINUAR</button>
+    </div>
+  </div>
+</div>

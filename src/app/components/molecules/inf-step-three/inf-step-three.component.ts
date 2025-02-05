@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } fr
 import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
 import { FileboxComponent } from '../../atoms/filebox/filebox.component';
 import { CommonModule } from '@angular/common';
+import { PoOrdersComponent } from '../inf-step-one/po-orders/po-orders.component';
 
 @Component({
   selector: 'app-inf-step-three',
@@ -11,21 +12,34 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     SubtitleComponent,
     FileboxComponent,
-    CommonModule
+    CommonModule,
+    PoOrdersComponent,
   ],
   templateUrl: './inf-step-three.component.html',
   styleUrl: './inf-step-three.component.css'
 })
 export class InfStepThreeComponent {
+
   @Input() invoiceNaturalForm!: FormGroup;
   @Input() vendorInfo: any;
+  @Input() poProjections: any[] = [];
+
   @Output() formSubmit = new EventEmitter<void>();
   @Output() previousStep = new EventEmitter<void>();
 
   dependentsInfo: FormArray | undefined;
+  view: string = '';
 
 
   onSubmit() {
+    if (this.invoiceNaturalForm.invalid) {
+      this.submitForm();
+    } else {
+      this.changeView('confirm-po-orders');
+    }
+  }
+
+  submitForm() {
     this.formSubmit.emit();
   }
 
@@ -102,4 +116,9 @@ export class InfStepThreeComponent {
 
     return false;
   }
+
+  changeView(view: string = '') {
+    this.view = view;
+  }
+
 }
