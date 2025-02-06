@@ -139,3 +139,12 @@
     <button class="col-12 btn-purpple margin-top" type="submit">Finalizar</button>
   </div>
 </form>
+
+@if (view == 'confirm-po-orders') {
+  <app-po-orders
+  [invoiceNaturalForm]="invoiceJuridicaForm"
+  [poProjections]="poProjections"
+  (onClose)="changeView()"
+  (onNotify)="submitForm()">
+  </app-po-orders>
+}

@@ -14,6 +14,7 @@ import { InvoiceLodgingService } from '../../../services/invoiceLodging.service'
 import { environment } from '../../../../environments/environment';
 import { VendorService } from '../../../services/vendor.service';
 import { HttpEventType } from '@angular/common/http';
+import { PoOrdersComponent } from '../../molecules/inf-step-one/po-orders/po-orders.component';
 
 @Component({
   selector: 'app-invoice-juridica-form',
@@ -24,7 +25,8 @@ import { HttpEventType } from '@angular/common/http';
     TextInputComponent,
     FileboxComponent,
     SelectInputComponent,
-    MatIconModule
+    MatIconModule,
+    PoOrdersComponent,
   ],
   templateUrl: './invoice-juridica-form.component.html',
   styleUrls: ['./invoice-juridica-form.component.css']
@@ -34,6 +36,7 @@ export class InvoiceJuridicaFormComponent {
   @Input() purchaseOrders: PurchaseOrders[] | undefined;
   @Input() selectedPurchaseOrders: PurchaseOrders[] | undefined;
   @Input() selectOptionsPo?: SelectOption[];
+  @Input() poProjections: any[] = [];
 
   @Output() saveForm = new EventEmitter();
 
@@ -42,6 +45,7 @@ export class InvoiceJuridicaFormComponent {
   invoiceJuridicaForm: any;
   availableOptions: any = [];
   errorUploadingDocuments: string[] = [];
+  view: string = '';
 
   ngOnInit(){
     this.globalService.fillInitialInvoiceJuridicaForm(this.invoiceJuridicaForm, this.vendorInfo);
@@ -86,11 +90,24 @@ export class InvoiceJuridicaFormComponent {
     });
   }
 
+  changeView(view: string = '') {
+    this.view = view;
+  }
+
   cancelLoading() {
     this.loading = false;
   }
 
-  async onSubmit() {
+  onSubmit() {
+    if (this.invoiceJuridicaForm.valid && this.errorUploadingDocuments.length === 0) {
+      this.changeView('confirm-po-orders');
+    } else {
+      this.invoiceJuridicaForm.markAllAsTouched();
+      this.getOtherAnexesArray().markAllAsTouched();
+    }
+  }
+
+  async submitForm() {
     this.loading = true;
     this.errorUploadingDocuments = [];
 
