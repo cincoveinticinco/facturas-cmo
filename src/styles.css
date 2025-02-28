@@ -253,7 +253,7 @@ p.lbl-eng {
 		margin: 6px 0;
 		width: 100%;
 	}
-  
+
   input::placeholder {
     padding: 12px 0px;
   }
@@ -537,6 +537,7 @@ p.lbl-eng {
   width: 100%;
   height: 100%;
   background-color: white;
+  overflow: auto;
 }
 
 .uppercase {
