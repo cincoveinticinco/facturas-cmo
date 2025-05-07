@@ -116,6 +116,12 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     }
   }
 
+  requiredDocuments() {
+    if (true) {
+      this.invoiceNaturalForm.get('socialSecurity')?.clearValidators();
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['vendorInfo'] && this.vendorInfo) {
       this.globalService.fillInitialInvoiceNaturalForm(this.invoiceNaturalForm, this.vendorInfo);

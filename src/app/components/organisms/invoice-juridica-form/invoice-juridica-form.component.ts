@@ -90,6 +90,14 @@ export class InvoiceJuridicaFormComponent {
     });
   }
 
+  requiredDocuments() {
+    if (true) {
+      this.invoiceJuridicaForm.get('socialSecurity')?.clearValidators();
+      this.invoiceJuridicaForm.get('taxAuditorCertificate')?.clearValidators();
+      this.invoiceJuridicaForm.get('arlCertificate')?.clearValidators();
+    }
+  }
+
   changeView(view: string = '') {
     this.view = view;
   }
