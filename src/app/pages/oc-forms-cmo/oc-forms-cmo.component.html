@@ -21,6 +21,7 @@
     [purchaseOrders]="purchaseOrders"
     [selectedPurchaseOrders]="selectedPurchaseOrders"
     [poProjections]="purchaseOrdersProjections"
+    [notRequiredDocuments]="notRequiredDocuments"
   ></app-invoice-natural-form>
 </div>
 } @else if (personType === PERSON_TYPES.Juridica){
@@ -36,6 +37,7 @@
       [purchaseOrders]="purchaseOrders"
       [selectedPurchaseOrders]="selectedPurchaseOrders"
       [poProjections]="purchaseOrdersProjections"
+      [notRequiredDocuments]="notRequiredDocuments"
       [selectOptionsPo]="getFormattedOcOptions(purchaseOrders)"
       (saveForm)="saveForm($event)"
     ></app-invoice-juridica-form>

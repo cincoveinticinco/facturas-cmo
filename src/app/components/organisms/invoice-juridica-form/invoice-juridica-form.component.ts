@@ -37,6 +37,7 @@ export class InvoiceJuridicaFormComponent {
   @Input() selectedPurchaseOrders: PurchaseOrders[] | undefined;
   @Input() selectOptionsPo?: SelectOption[];
   @Input() poProjections: any[] = [];
+  @Input() notRequiredDocuments: boolean = false;
 
   @Output() saveForm = new EventEmitter();
 
@@ -52,19 +53,19 @@ export class InvoiceJuridicaFormComponent {
     const anexesLength = this.vendorInfo?.anexes?.length || 0;
     if(anexesLength === 0){
       this.addNewAnexFormGroup();
-    } 
+    }
     this.selectedPurchaseOrders?.forEach((po: PurchaseOrders, index: number) => {
       this.addPurchaseOrderControl();
       this.fillPurchaseOrderControl(index, po.id.toString());
     });
 
-    console.log(this.selectOptionsPo);
+    this.validateRequiredDocuments();
   }
 
   getFormattedOcOptions(purchaseOrders: PurchaseOrders[]): SelectOption[] {
     return purchaseOrders.map((order: any) => ({
       optionValue: order.id,
-      optionName: order.consecutive_codes   
+      optionName: order.consecutive_codes
     })) || [];
   }
 
@@ -90,8 +91,8 @@ export class InvoiceJuridicaFormComponent {
     });
   }
 
-  requiredDocuments() {
-    if (true) {
+  validateRequiredDocuments() {
+    if (this.notRequiredDocuments) {
       this.invoiceJuridicaForm.get('socialSecurity')?.clearValidators();
       this.invoiceJuridicaForm.get('taxAuditorCertificate')?.clearValidators();
       this.invoiceJuridicaForm.get('arlCertificate')?.clearValidators();
@@ -196,9 +197,9 @@ export class InvoiceJuridicaFormComponent {
   submitFile(event: { value: File; formControl: FormControl }) {
     this.loading = true;
     const { value, formControl } = event;
-  
+
     const vendorId: any = this.ilsService.getVendorId();
-  
+
     if (!value) {
       const documentId = formControl.value.document_id;
       if (documentId) {
@@ -212,7 +213,7 @@ export class InvoiceJuridicaFormComponent {
         this.loading = false;
         return;
       }
-  
+
       this.ilsService.getPresignedPutURLOc(nameFile, vendorId, 'register')
       .pipe(
         catchError((error) => {
@@ -249,7 +250,7 @@ export class InvoiceJuridicaFormComponent {
                 if (environment?.stage !== 'local') {
                   formControl.setValue(null, { emitEvent: false });
                   this.globalService.openSnackBar(`Fallo al guardar el documento ${nameFile}`, '', 5000);
-                  this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];     
+                  this.errorUploadingDocuments = [...this.errorUploadingDocuments, nameFile];
                   return throwError(() => new Error('Error al subir el archivo.'));
                 } else {
                   return of({ ...value, url: '' });
@@ -277,7 +278,7 @@ export class InvoiceJuridicaFormComponent {
       });
     }
   }
-  
+
   async uploadFiles(controlNames: string[]): Promise<void> {
     for (const controlName of controlNames) {
       const control = this.getControl(controlName);
@@ -288,7 +289,7 @@ export class InvoiceJuridicaFormComponent {
       }
     }
   }
-  
+
   async uploadFilesFromArrayOfControls(controlArray: FormArray): Promise<void> {
     for (const control of controlArray.controls) {
       const file = control.value?.file;
@@ -298,7 +299,7 @@ export class InvoiceJuridicaFormComponent {
       }
     }
   }
-  
+
   sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -314,13 +315,13 @@ export class InvoiceJuridicaFormComponent {
       'taxAuditorCertificate',
       'arlCertificate'
     ];
-  
+
     for (const control of controlsToCheck) {
       if (this.getControl(control)?.value?.url) {
         return true;
       }
     }
-  
+
     if (this.getOtherAnexesControls().length > 0) {
       for (const anexo of this.getOtherAnexesControls()) {
         if (anexo.value?.url) {
@@ -328,7 +329,7 @@ export class InvoiceJuridicaFormComponent {
         }
       }
     }
-  
+
     return false;
   }
 }

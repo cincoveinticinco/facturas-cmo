@@ -48,6 +48,7 @@ export class OcFormsCmoComponent implements OnInit {
   REGISTER_STATUSES = REGISTER_STATUSES;
   view: string = '';
   errorMsg: string = '';
+  notRequiredDocuments: boolean = false;
 
   constructor(
     private authService: AuthOcService,
@@ -94,6 +95,7 @@ export class OcFormsCmoComponent implements OnInit {
         this.registerCode = response.registerCode;
         this.registerDate = response.registerDate;
         this.registerStatus = response.fRegisterStatusId;
+        this.notRequiredDocuments = !!response?.cmo_reponse_checkbox;
         this.redirectWhenRadicated();
         this.loading = false;
       },

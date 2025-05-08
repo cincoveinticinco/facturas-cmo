@@ -40,6 +40,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   @Input() currentStep?: number;
   @Input() vendorInfo: any;
   @Input() purchaseOrders?: PurchaseOrders[];
+  @Input() notRequiredDocuments: boolean = false;
   @Input() selectedPurchaseOrders?: PurchaseOrders[];
   @Output() handleStepChange = new EventEmitter<'next' | 'previous'>();
   formattedOcOptions: SelectOption[] = [];
@@ -103,10 +104,11 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     if(this.purchaseOrders && this.purchaseOrders.length > 0){
       this.initializeForm();
     }
+
+    this.validateRequiredDocuments();
   }
 
   initializeForm() {
-    console.log('Selected POs', this.selectedPurchaseOrders);
     if (this.selectedPurchaseOrders && this.selectedPurchaseOrders.length > 0 && this.getOrderIds().length === 0) {
       this.selectedPurchaseOrders.forEach((po: PurchaseOrders, index: number) => {
         this.addOrderId();
@@ -116,8 +118,8 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     }
   }
 
-  requiredDocuments() {
-    if (true) {
+  validateRequiredDocuments() {
+    if (this.notRequiredDocuments) {
       this.invoiceNaturalForm.get('socialSecurity')?.clearValidators();
     }
   }
@@ -160,8 +162,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       optionValue: parseInt(order.id),
       optionName: order.consecutiveCodes
     }));
-    console.log('Purchase orders', purchaseOrders);
-    console.log('Formatted PO', formattedPo);
     return formattedPo;
   }
 
@@ -183,7 +183,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   }
 
   fillPurchaseOrderControl(index: number, value: number): void {
-    console.log('Filling purchase order control', index, value);
     this.getOrderIds().at(index).setValue(value.toString());
   }
 
@@ -202,9 +201,9 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     let firstInvalidControl: string | null = null;
     const signatureAuth = this.getControl('signatureAuth');
     const signature = this.getControl('signature');
-  
+
     const orderIdsControls = this.getOrderIds().controls as FormControl[];
-  
+
     for (let i = 0; i < orderIdsControls.length; i++) {
       const control = orderIdsControls[i];
       if (!control.value) {
@@ -217,7 +216,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
         control.setErrors(null);
       }
     }
-  
+
     // Validate signatureAuth
     if (!signatureAuth.value) {
       signatureAuth.setErrors({ required: true });
@@ -229,7 +228,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     } else {
       signatureAuth.setErrors(null);
     }
-    
+
     if (!signature.value) {
       signature.setErrors({ required: true });
       signature.markAsTouched();
@@ -240,7 +239,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
     } else {
       signature.setErrors(null);
     }
-  
+
     return { isValid, firstInvalidControl };
   }
 
@@ -334,7 +333,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
           this.loading = false;
           if(this.errorUploadingDocuments.length === 0) {
             this.handleStepChange.emit('next');
-          }     
+          }
         } finally {
           this.loading = false;
         }
@@ -369,7 +368,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   }
 
   scrollToError(controlName: string): void {
-    console.log('Scrolling to', controlName);
     setTimeout(() => {
       const element = document.getElementById(controlName);
       if (element) {
@@ -379,64 +377,61 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   }
 
   sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-  
+
   async uploadFilesForStepTwo(): Promise<void> {
     const filesToUploadStepTwo = ['medicalPrepaidFile', 'housingCreditFile', 'afcContributionsFile', 'voluntaryPensionContributionsFile'];
     await this.uploadFiles(filesToUploadStepTwo);
-  
+
     const dependentsInfo = this.invoiceNaturalForm.get('dependentsInfo') as FormArray;
     for (const control of dependentsInfo.controls) {
       const filesToUpload = ['minorChildrenFile', 'childrenStudyCertificateFile', 'childrenMedicineCertificateFile', 'partnerMedicineCertificateFile', 'familyMedicineCertificateFile'];
       await this.uploadFilesFromFormGroup(control as FormGroup, filesToUpload);
     }
   }
-  
+
   async uploadFilesForStepThree(): Promise<void> {
     const filesToUploadStepthree = ['socialSecurity'];
     const anexesArray = this.invoiceNaturalForm.get('otherAnexes') as FormArray;
     await this.uploadFilesFromArrayOfControls(anexesArray);
     await this.uploadFiles(filesToUploadStepthree);
   }
-  
+
   async uploadFilesFromArrayOfControls(controlArray: FormArray): Promise<void> {
     for (const control of controlArray.controls) {
       const file = control.value?.file;
       if (file) {
-        console.log('Submitting file', file);
         await this.submitFile({ value: file, formControl: control as FormControl });
         await this.sleep(3000); // Delay de 1 segundo entre subidas
       }
     }
   }
-  
+
   async uploadFilesFromFormGroup(form: FormGroup, filesControls: string[]): Promise<void> {
     for (const controlName of filesControls) {
       const control = form.get(controlName);
       if (control && control.value) {
-        console.log('Submitting file', control.value);
         await this.submitFile({ value: control.value?.file, formControl: control as FormControl });
         await this.sleep(3000); // Delay de 1 segundo entre subidas
       }
     }
   }
-  
+
   async uploadFiles(controlNames: string[]): Promise<void> {
     for (const controlName of controlNames) {
       const control = this.getControl(controlName);
       const file = control.value?.file;
-      console.log(control.value, 'CONTROL VALUE');
       if (file) {
         await this.submitFile({ value: file, formControl: control });
         await this.sleep(3000); // Delay de 1 segundo entre subidas
       }
     }
   }
-  
+
   submitFile(event: { value: File; formControl: FormControl }) {
     const { value, formControl } = event;
-  
+
     const vendorId: any = this.ilService.getVendorId();
-  
+
     if (!value) {
       const documentId = formControl.value.document_id;
       if (documentId) {
@@ -467,7 +462,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
             file: value,
           })),
           switchMap((uploadFile: any) => {
-            console.log('Upload file', uploadFile);
             if (!uploadFile.url) {
               return of({ blobFile: null, uploadFile });
             }
@@ -476,7 +470,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
             });
           }),
           switchMap((blobUpdateFile: any) => {
-            console.log('Blob update file', blobUpdateFile);
             const { blobFile, uploadFile } = blobUpdateFile;
             if (!blobFile) {
               return of(uploadFile);
@@ -498,7 +491,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
           }),
           switchMap((uploadFile: any) => {
             if (!uploadFile) return of(false);
-  
+
             const document_url = uploadFile?.url ? `${vendorId}/${nameFile}` : '';
             const formControlCurrentValue = formControl.value;
             this.ilService.signUrl(document_url).subscribe((res: any) => {
@@ -514,7 +507,7 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
           })
         )
         .subscribe((value) => {
-  
+
         });
     }
   }
@@ -522,5 +515,5 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   previousStep(): void {
     this.handleStepChange.emit('previous');
   }
-  
+
 }
