@@ -6,6 +6,7 @@ import { CheckboxInputComponent } from '../../atoms/checkbox-input/checkbox-inpu
 import { ElectronicSignatureAuthComponent } from '../electronic-signature-auth/electronic-signature-auth.component';
 import { SelectInputComponent } from '../../atoms/select-input/select-input.component';
 import { MatIconModule } from '@angular/material/icon';
+import { CurrencyPipe } from '@angular/common';
 
 export interface SelectOption {
   optionName: string;
@@ -17,25 +18,34 @@ export interface SelectOption {
   templateUrl: './inf-step-one.component.html',
   standalone: true,
   imports: [
-    TextInputComponent, 
-    ReactiveFormsModule, 
-    SubtitleComponent, 
-    CheckboxInputComponent, 
-    ElectronicSignatureAuthComponent, 
+    TextInputComponent,
+    ReactiveFormsModule,
+    SubtitleComponent,
+    CheckboxInputComponent,
+    ElectronicSignatureAuthComponent,
     SelectInputComponent,
-    MatIconModule
-    
+    MatIconModule,
+    CurrencyPipe,
   ],
   styleUrls: ['./inf-step-one.component.css']
 })
 
 export class InfStepOneComponent {
+
   @Input() invoiceNaturalForm!: FormGroup;
   @Input() vendorInfo: any;
   @Input() selectOptionsPo?: SelectOption[];
   @Input() poProjections: any[] = [];
+
   @Output() formSubmit = new EventEmitter<void>();
+
   availableOptions: any = [];
+  poOrdersTotals = {
+    taxes_addition_value: 0,
+    taxes_not_addition_value: 0,
+    value: 0,
+    total: 0
+  }
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -100,7 +110,20 @@ export class InfStepOneComponent {
     const ids = this.invoiceNaturalForm.get('orderIds')?.value;
     const projections = this.poProjections.filter((projection: any) => ids.includes(projection.f_purchase_order_id.toString()
     ));
+
+    this.poOrdersTotals.taxes_addition_value = this.getTotalProjections(projections, 'taxes_addition_value');
+    this.poOrdersTotals.taxes_not_addition_value = this.getTotalProjections(projections, 'taxes_not_addition_value');
+    this.poOrdersTotals.value = this.getTotalProjections(projections, 'value');
+    this.poOrdersTotals.total = this.getTotalProjections(projections, 'total');
+
     return projections
+  }
+
+  getTotalProjections(projections: any[], property: string) {
+    return projections.reduce((acc: number, projection: any) => {
+      const value = parseFloat(projection[property]);
+      return acc + (isNaN(value) ? 0 : value);
+    }, 0);
   }
 
   fromNumberToCop(number: number) {

@@ -52,6 +52,25 @@
           </td>
         </tr>
       }
+
+      <tr>
+        <th>
+        </th>
+        <th>
+        </th>
+        <th>
+          {{ poOrdersTotals.taxes_addition_value | currency }}
+        </th>
+        <th>
+          {{ poOrdersTotals.taxes_not_addition_value | currency }}
+        </th>
+        <th>
+          {{ poOrdersTotals.value | currency }}
+        </th>
+        <th>
+          {{ poOrdersTotals.total | currency }}
+        </th>
+      </tr>
     </table>
 
     <div class="row margin-top buttons-wrapper">
