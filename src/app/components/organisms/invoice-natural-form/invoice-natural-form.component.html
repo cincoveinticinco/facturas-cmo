@@ -14,7 +14,15 @@
     [selectOptionsPo]="formattedOcOptions">
   </app-inf-step-one>
 } @else if (currentStep === 2) {
-  <app-inf-step-two [invoiceNaturalForm]="invoiceNaturalForm" [vendorInfo]="vendorInfo" (formSubmit)="sendForm()" (previousStep)="previousStep()" [validateStep]="validateStepTwo" [loading]="loading"></app-inf-step-two>
+  <app-inf-step-two
+    [invoiceNaturalForm]="invoiceNaturalForm"
+    [vendorInfo]="vendorInfo"
+    (formSubmit)="sendForm()"
+    (previousStep)="previousStep()"
+    [validateStep]="validateStepTwo"
+    [notRequiredDocuments]="notRequiredDocuments"
+    [loading]="loading">
+  </app-inf-step-two>
 } @else if (currentStep == 3) {
   <app-inf-step-three
   [invoiceNaturalForm]="invoiceNaturalForm"

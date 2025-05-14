@@ -23,9 +23,12 @@ import { TIPODOCUMENTO } from '../../../shared/interfaces/typo_documentos';
   styleUrl: './inf-dependent-certification.component.css'
 })
 export class InfdependentCertificationComponent {
+
   @Input() dependentForm!: FormGroup;
   @Input() loading: boolean = false;
   @Input() dependentIndex: number = 0;
+  @Input() notRequiredDocuments: boolean = false;
+
   documentTypesOptions: any = [];
 
   constructor(private ils: InvoiceLodgingService) {}

@@ -25,10 +25,13 @@ import { InfdependentCertificationComponent } from '../inf-dependent-certificati
 })
 
 export class InfStepTwoComponent implements OnInit {
+
   @Input() invoiceNaturalForm!: FormGroup;
   @Input() vendorInfo: any;
   @Input() validateStep: any;
   @Input() loading: boolean = false;
+  @Input() notRequiredDocuments: boolean = false;
+
   @Output() formSubmit = new EventEmitter<void>();
   @Output() previousStep = new EventEmitter<void>();
 
@@ -143,6 +146,7 @@ export class InfStepTwoComponent implements OnInit {
           if (this.isCheckboxControl(controlName)) {
             if (!control.value) {
               isValid = false;
+              console.log(`Checkbox ${controlName} is required`);
               control.setErrors({ 'required': true });
             } else {
               control.setErrors(null);

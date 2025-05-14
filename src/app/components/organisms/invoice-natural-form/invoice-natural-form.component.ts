@@ -121,6 +121,11 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   validateRequiredDocuments() {
     if (this.notRequiredDocuments) {
       this.invoiceNaturalForm.get('socialSecurity')?.clearValidators();
+      this.invoiceNaturalForm.get('medicalPrepaidFile')?.clearValidators();
+      this.invoiceNaturalForm.get('housingCreditFile')?.clearValidators();
+      this.invoiceNaturalForm.get('afcContributionsFile')?.clearValidators();
+      this.invoiceNaturalForm.get('voluntaryPensionContributionsFile')?.clearValidators();
+      console.log(this.invoiceNaturalForm);
     }
   }
 
@@ -175,11 +180,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
 
   getValue(controlName: string): any {
     return this.invoiceNaturalForm.get(controlName)?.value;
-  }
-
-  addPurchaseOrderControl(): void {
-    this.getOrderIds().push(this.formBuilder.control('', [Validators.required]));
-    this.updateFormattedOcOptions();
   }
 
   fillPurchaseOrderControl(index: number, value: number): void {

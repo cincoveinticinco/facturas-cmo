@@ -27,6 +27,7 @@ export class CheckboxInputComponent {
   @Input() boldLabel: boolean = true;
   @Input() controlersWhenTrue: string[] = [];
   @Input() customName: string | undefined;
+  @Input() notRequiredDocuments: boolean = false;
 
   ngOnInit() {
     this.handleChange(this.control.value);
@@ -50,7 +51,7 @@ export class CheckboxInputComponent {
       const descriptionControl = this.form.get(`${nameControl}_description`);
       const isChecked = value === '1';
 
-      if (isChecked) {
+      if (isChecked && !this.notRequiredDocuments) {
         descriptionControl?.setValidators(Validators.required);
       } else {
         descriptionControl?.clearValidators();
@@ -60,7 +61,7 @@ export class CheckboxInputComponent {
       if (this.controlersWhenTrue.length > 0) {
         this.controlersWhenTrue.forEach(controlName => {
           const dependentControl = this.form?.get(controlName);
-          if (isChecked) {
+          if (isChecked && !this.notRequiredDocuments) {
             dependentControl?.setValidators(Validators.required);
           } else {
             dependentControl?.clearValidators();
@@ -76,7 +77,7 @@ export class CheckboxInputComponent {
       const fileControl = this.form.get(`${nameControl}File`);
       const isChecked = value === '1';
 
-      if (isChecked) {
+      if (isChecked && !this.notRequiredDocuments) {
         fileControl?.setValidators(Validators.required);
       } else {
         fileControl?.clearValidators();

@@ -93,6 +93,7 @@ export class InvoiceJuridicaFormComponent {
 
   validateRequiredDocuments() {
     if (this.notRequiredDocuments) {
+      this.invoiceJuridicaForm.get('electronicInvoice')?.clearValidators();
       this.invoiceJuridicaForm.get('socialSecurity')?.clearValidators();
       this.invoiceJuridicaForm.get('taxAuditorCertificate')?.clearValidators();
       this.invoiceJuridicaForm.get('arlCertificate')?.clearValidators();

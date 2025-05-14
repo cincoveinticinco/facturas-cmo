@@ -56,6 +56,7 @@
     [customName]="'minorChildren-' + dependentIndex"
     [form]="dependentForm"
     [id]="'minorChildren'"
+    [notRequiredDocuments]="notRequiredDocuments"
   ></app-checkbox-input>
   @if(getValue('minorChildren') === '1') {
     <app-filebox
@@ -72,6 +73,7 @@
     [form]="dependentForm"
     [customName]="'childrenStudyCertificate-' + dependentIndex"
     [id]="'childrenStudyCertificate-' + dependentIndex"
+    [notRequiredDocuments]="notRequiredDocuments"
   ></app-checkbox-input>
   @if(getValue('childrenStudyCertificate') === '1') {
     <app-filebox
@@ -87,6 +89,7 @@
     [customName]="'childrenMedicineCertificate-' + dependentIndex"
     [form]="dependentForm"
     [id]="'childrenMedicineCertificate-' + dependentIndex"
+    [notRequiredDocuments]="notRequiredDocuments"
   ></app-checkbox-input>
   @if(getValue('childrenMedicineCertificate') === '1') {
     <app-filebox
@@ -102,6 +105,7 @@
     [customName]="'partnerMedicineCertificate-' + dependentIndex"
     [form]="dependentForm"
     [id]="'partnerMedicineCertificate-' + dependentIndex"
+    [notRequiredDocuments]="notRequiredDocuments"
   ></app-checkbox-input>
   @if(getValue('partnerMedicineCertificate') === '1') {
     <app-filebox
@@ -117,6 +121,7 @@
     [customName]="'familyMedicineCertificate-' + dependentIndex"
     [form]="dependentForm"
     [id]="'familyMedicineCertificate-' + dependentIndex"
+    [notRequiredDocuments]="notRequiredDocuments"
   ></app-checkbox-input>
   @if(getValue('familyMedicineCertificate') === '1') {
     <app-filebox

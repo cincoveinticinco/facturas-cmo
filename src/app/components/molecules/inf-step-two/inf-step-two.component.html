@@ -107,6 +107,7 @@
         [form]="invoiceNaturalForm"
         [boldLabel]="false"
         id="medicalPrepaid"
+        [notRequiredDocuments]="notRequiredDocuments"
       ></app-checkbox-input>
       @if (getValue('medicalPrepaid') === '1') {
         <label>*Adjuntar soporte</label>
@@ -123,6 +124,7 @@
         [boldLabel]="false"
         [controlersWhenTrue]="['housingCreditFile']"
         id="housingCredit"
+        [notRequiredDocuments]="notRequiredDocuments"
       ></app-checkbox-input>
       @if (getValue('housingCredit') === '1') {
         <label>*Adjuntar soporte</label>
@@ -149,6 +151,7 @@
         [controlersWhenTrue]="['afcContributionsFile']"
         [form]="invoiceNaturalForm"
         [boldLabel]="false"
+        [notRequiredDocuments]="notRequiredDocuments"
       ></app-checkbox-input>
       
       @if(getValue('afcContributions') === '1') {
@@ -170,6 +173,7 @@
         [boldLabel]="false"
         [controlersWhenTrue]="['voluntaryPensionContributionsFile']"
         id="voluntaryPensionContributions"
+        [notRequiredDocuments]="notRequiredDocuments"
       ></app-checkbox-input>
       @if(getValue('voluntaryPensionContributions') === '1') {
         <div class="row">
@@ -206,6 +210,7 @@
         <app-inf-dependent-certification
           [dependentForm]="dependent"
           [dependentIndex]="$index + 1"
+          [notRequiredDocuments]="notRequiredDocuments"
         ></app-inf-dependent-certification>
     </div>
     }    
