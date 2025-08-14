@@ -66,9 +66,9 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       address: this.formBuilder.control({ value: '', disabled: true }),
       email: this.formBuilder.control({ value: '', disabled: true }, Validators.email),
       position: this.formBuilder.control({ value: '', disabled: true }),
-      bankBranch: this.formBuilder.control(''),
-      bankKey: this.formBuilder.control(''),
-      bankAccountType: this.formBuilder.control(''),
+      bankBranch: this.formBuilder.control('', Validators.required),
+      bankKey: this.formBuilder.control('', Validators.required),
+      bankAccountType: this.formBuilder.control('', Validators.required),
       signatureAuth: this.formBuilder.control('', Validators.requiredTrue),
       signature: this.formBuilder.control('', Validators.required),
       contractNumber: this.formBuilder.control({ value: '', disabled: true }),
@@ -125,7 +125,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       this.invoiceNaturalForm.get('housingCreditFile')?.clearValidators();
       this.invoiceNaturalForm.get('afcContributionsFile')?.clearValidators();
       this.invoiceNaturalForm.get('voluntaryPensionContributionsFile')?.clearValidators();
-      console.log(this.invoiceNaturalForm);
     }
   }
 
@@ -162,7 +161,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   }
 
   getFormattedOcOptions(purchaseOrders: any): SelectOption[] {
-    console.log('Purchase orderssssss', purchaseOrders);
     const formattedPo = purchaseOrders.map((order: any) => ({
       optionValue: parseInt(order.id),
       optionName: order.consecutiveCodes
@@ -240,6 +238,11 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       signature.setErrors(null);
     }
 
+    if (!this.getControl('bankBranch').value || !this.getControl('bankKey').value || !this.getControl('bankAccountType').value) {
+      firstInvalidControl = 'bankBranch';
+      isValid = false;
+    }
+
     return { isValid, firstInvalidControl };
   }
 
@@ -255,7 +258,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       const control = this.getControl(controlsToValidate[i]);
       if ((control.invalid) && control) {
         control.markAsTouched();
-        console.log('ERROR IN CONTROL', controlsToValidate[i]);
         if (isValid) {
           firstInvalidControl = controlsToValidate[i];
           isValid = false;
@@ -278,7 +280,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       const control = otherAnexes.at(i);
       if (control.invalid) {
         control.markAsTouched();
-        console.log('ERROR IN CONTROL', control);
         if (isValid) {
           firstInvalidControl = `otherAnexes-${i}`;
           isValid = false;
@@ -295,7 +296,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       const control = this.getControl(controlsToValidate[i]);
       if ((control.invalid) && control) {
         control.markAsTouched();
-        console.log('ERROR IN CONTROL', controlsToValidate[i]);
         if (isValid) {
           firstInvalidControl = controlsToValidate[i];
           isValid = false;
@@ -356,7 +356,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
           }
           this.loading = false;
         } catch (error) {
-          console.error('Error uploading files:', error);
         } finally {
           this.loading = false;
         }
@@ -441,7 +440,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       const nameFile = this.globalService.normalizeString(value.name);
       const existingUrl = formControl.value.url;
       if (existingUrl) {
-        console.log('File already uploaded', existingUrl);
         return;
       }
       this.ilService.getPresignedPutURLOc(nameFile, vendorId, 'register')
@@ -502,7 +500,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
                 document_url: document_url,
               });
             });
-            console.log(this.globalService.setOcForm(this.invoiceNaturalForm, vendorId), 'TEST CONTROL');
             return of(true);
           })
         )
