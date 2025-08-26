@@ -27,8 +27,7 @@ export class PoOrdersComponent {
 
   getProjectionsForSelectedOrders() {
     const ids = this.invoiceNaturalForm.get('orderIds')?.value;
-    const projections = this.poProjections.filter((projection: any) => ids.includes(projection.f_purchase_order_id.toString()
-    ));
+    const projections = this.poProjections.filter((projection: any) => ids.includes(projection.f_purchase_order_id.toString()));
 
     this.poOrdersTotals.taxes_addition_value = this.getTotalProjections(projections, 'taxes_addition_value');
     this.poOrdersTotals.taxes_not_addition_value = this.getTotalProjections(projections, 'taxes_not_addition_value');

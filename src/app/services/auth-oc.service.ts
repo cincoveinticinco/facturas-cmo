@@ -14,7 +14,6 @@ export class AuthOcService {
 
   async getSession() {
     let sessionToken = await this.getToken();
-    console.log(sessionToken);
     if (sessionToken) return true;
     else return false;
   }

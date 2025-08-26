@@ -23,7 +23,6 @@ export class ValidateOcInfoComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params: any) => {
       this.registerId = params.registerId;
-      console.log('registerId', this.registerId);
       if (this.registerId) {
         this.authenticateUser();
       }
@@ -35,13 +34,10 @@ export class ValidateOcInfoComponent implements OnInit {
       .pipe(
         delay(2000),
         tap((response: any) => {
-          console.log('Response received:', response);
           if (response.status === 200) {
-            console.log('Authentication successful');
             const vendorId = response.vendor_id;
             this.router.navigate(['/oc-forms', vendorId]);
           } else {
-            console.log('Authentication failed');
             this.router.navigate(['/oc-error']);
           }
         })

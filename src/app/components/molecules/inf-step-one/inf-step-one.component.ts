@@ -54,7 +54,6 @@ export class InfStepOneComponent {
       this.availableOptions[index] = this.selectOptionsPo;
     })
     this.getProjectionsForSelectedOrders();
-    console.log(this.invoiceNaturalForm.value)
   }
 
   getControl(controlName: string) {

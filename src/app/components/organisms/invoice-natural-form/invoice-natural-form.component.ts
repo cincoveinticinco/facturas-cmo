@@ -125,7 +125,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
       this.invoiceNaturalForm.get('housingCreditFile')?.clearValidators();
       this.invoiceNaturalForm.get('afcContributionsFile')?.clearValidators();
       this.invoiceNaturalForm.get('voluntaryPensionContributionsFile')?.clearValidators();
-      console.log(this.invoiceNaturalForm);
     }
   }
 
@@ -162,7 +161,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   }
 
   getFormattedOcOptions(purchaseOrders: any): SelectOption[] {
-    console.log('Purchase orderssssss', purchaseOrders);
     const formattedPo = purchaseOrders.map((order: any) => ({
       optionValue: parseInt(order.id),
       optionName: order.consecutiveCodes
@@ -502,7 +500,6 @@ export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
                 document_url: document_url,
               });
             });
-            console.log(this.globalService.setOcForm(this.invoiceNaturalForm, vendorId), 'TEST CONTROL');
             return of(true);
           })
         )

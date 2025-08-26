@@ -30,7 +30,6 @@ export class GlobalService {
   }
 
   fillInitialInvoiceNaturalForm(form: any, data: any) {
-    console.log(data, form);
     form.get('personType')?.setValue(data?.personType || '');
     form.get('documentType')?.setValue(data?.documentTypeEsp || '');
     form.get('documentNumber')?.setValue(data?.documentNumber || '');
@@ -54,7 +53,6 @@ export class GlobalService {
     form.get('signatureTwo')?.setValue(data?.signature || '');
     form.get('phone')?.setValue(data?.telephone || '');
     form.get('institutionalEmail')?.setValue(data?.institutionalEmail || '');
-    console.log('contract number', data?.contract_code);
     form.get('contractNumber')?.setValue(data?.contract_code);
     form.get('orderIds')?.setValue(data?.selected_orders || []);
   
@@ -203,7 +201,6 @@ export class GlobalService {
     form.get('companyName')?.setValue(data?.companyName || '');
     form.get('address')?.setValue(data?.address || '');
     form.get('email')?.setValue(data?.email || '');
-    console.log('contract number', data?.contract_code);
     form.get('contractNumber')?.setValue(data?.contract_code);
     form.get('orderIds')?.setValue(data?.selected_orders || []);
 
@@ -233,7 +230,6 @@ export class GlobalService {
   }
 
   setOcForm(formValue: any, vendorId: number, registerNumber: number | null = null): OcNaturalParams {
-    console.log(formValue);
     const params: any = {
       consecutive_number: registerNumber,
       sign_text: formValue?.signature,
@@ -393,7 +389,6 @@ export class GlobalService {
     // Añadir otros anexos si existen
     if (formValue.otherAnexes && formValue.otherAnexes.length > 0) {
       formValue.otherAnexes.forEach((anexo: any) => {
-        console.log(anexo)
         params.vendor_documents.push({
           document_type_id: OcFileTypes?.ANEXO,
           document: anexo?.document_url,

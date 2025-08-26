@@ -210,7 +210,6 @@ export class InvoiceJuridicaFormComponent {
       const nameFile = this.globalService.normalizeString(value.name);
       const existingUrl = formControl.value.url;
       if (existingUrl) {
-        console.log('File already uploaded', existingUrl);
         this.loading = false;
         return;
       }

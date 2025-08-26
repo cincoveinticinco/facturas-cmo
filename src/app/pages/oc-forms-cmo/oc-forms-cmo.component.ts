@@ -114,7 +114,6 @@ export class OcFormsCmoComponent implements OnInit {
     this.loading = true;
     const register = this.registerCode ? parseInt(this.registerCode) : null;
     const formattedForm = this.globalService.setOcForm(form, this.vendorInfo.id, register)
-    console.log(formattedForm, 'FORMATED FORM')
     this.invoiceLodgingService.updateRegisterVendor(formattedForm).subscribe({
       next: (response: any) => {
         if (!!response?.error) {
@@ -136,7 +135,6 @@ export class OcFormsCmoComponent implements OnInit {
   handleStepChange(event: 'next' | 'previous', form: any = null): void {
     if (event === 'next' && this.currentStep <= 3) {
       this.currentStep++;
-      console.log('Current step', this.currentStep);
     } else if (event === 'previous' && this.currentStep > 1) {
       this.currentStep--;
     }
