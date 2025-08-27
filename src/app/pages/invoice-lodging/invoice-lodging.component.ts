@@ -66,7 +66,6 @@ export class InvoiceLodgingComponent implements OnInit {
     this.auth.getSession().then((isLoggedIn: any) => {
       if (isLoggedIn) {
         const vendor_id = this.iS.getVendorId();
-        console.log('vendor_id', vendor_id);
         if (vendor_id) {
           this.router.navigate(['/oc-forms', vendor_id]);
         }
@@ -81,7 +80,6 @@ export class InvoiceLodgingComponent implements OnInit {
     this.iS.getDocumentTypes().subscribe((data: any) => {
       this.documentTypes = data;
       this.loading = false;
-      console.log(this.documentTypes);
       this.filterDocumentTypes(this.getControl('personType').value);
     });
   }
@@ -109,7 +107,6 @@ export class InvoiceLodgingComponent implements OnInit {
         delay(2000),
         tap((response) => {
           if (response.status === 200) {
-            console.log('SENDING')
             const vendorId = response.vendor_id;
             this.router.navigate(['/oc-forms', vendorId]);
           } else {

@@ -52,7 +52,6 @@ export class InfStepTwoComponent implements OnInit {
     const dependentsControl = this.getControl('dependents');
     dependentsControl.valueChanges.subscribe((value) => {
       if (value === '0') {
-        console.log('clear dependents info....');
         this.clearDependentsInfo();
       }
     });

@@ -10,7 +10,6 @@ export const authoOcGuard: CanActivateFn = (route, state) => {
   return new Promise((resolve, reject) => {
     authoOc.getSession().then((isLoggedIn: any) => {
       if (isLoggedIn) {
-        console.log('is logged in')
         resolve(true)
         return
       }
