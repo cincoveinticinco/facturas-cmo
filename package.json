@@ -10,7 +10,8 @@
     "serve:ssr:facturas-cmo": "node dist/facturas-cmo/server/server.mjs",
     "production": "ng build --base-href /radicacioncmo/ --configuration production",
     "staging": "ng build --base-href /radicacioncmo/ --configuration staging",
-    "testing": "ng build --base-href /radicacioncmo/ --configuration testing"
+    "testing": "ng build --base-href /radicacioncmo/ --configuration testing",
+    "development": "ng build --base-href /radicacioncmo/ --configuration development-server"
   },
   "private": true,
   "dependencies": {
