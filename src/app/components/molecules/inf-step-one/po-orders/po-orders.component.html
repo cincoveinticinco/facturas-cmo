@@ -17,13 +17,13 @@
           Descripción
         </th>
         <th>
+          Vr. Día
+        </th>
+        <th>
           IVA
         </th>
         <th>
           Retención
-        </th>
-        <th>
-          Vr. Día
         </th>
         <th>
           Vr. Total
@@ -39,13 +39,13 @@
             {{ order.description }}
           </td>
           <td>
+            {{ fromNumberToCop(order.value) }}
+          </td>
+          <td>
             {{ fromNumberToCop(order.taxes_addition_value) }}
           </td>
           <td>
             {{ fromNumberToCop(order.taxes_not_addition_value) }}
-          </td>
-          <td>
-            {{ fromNumberToCop(order.value) }}
           </td>
           <td>
             {{ fromNumberToCop(order.total) }}
@@ -59,13 +59,13 @@
         <th>
         </th>
         <th>
+          {{ poOrdersTotals.value | currency }}
+        </th>
+        <th>
           {{ poOrdersTotals.taxes_addition_value | currency }}
         </th>
         <th>
           {{ poOrdersTotals.taxes_not_addition_value | currency }}
-        </th>
-        <th>
-          {{ poOrdersTotals.value | currency }}
         </th>
         <th>
           {{ poOrdersTotals.total | currency }}
