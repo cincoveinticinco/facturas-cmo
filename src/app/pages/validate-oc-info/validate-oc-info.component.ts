@@ -37,6 +37,8 @@ export class ValidateOcInfoComponent implements OnInit {
           if (response.status === 200) {
             const vendorId = response.vendor_id;
             this.router.navigate(['/oc-forms', vendorId]);
+          } else if (response?.expiration_nulled) {
+            this.router.navigate(['/expiration-error']);
           } else {
             this.router.navigate(['/oc-error']);
           }

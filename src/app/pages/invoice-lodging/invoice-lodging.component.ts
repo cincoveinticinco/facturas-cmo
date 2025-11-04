@@ -18,7 +18,7 @@ import { REQUEST_TYPES } from '../../shared/interfaces/request_types.enum';
   selector: 'app-invoice-lodging',
   standalone: true,
   imports: [
-    LogoComponent, 
+    LogoComponent,
     MatTabsModule,
     ReactiveFormsModule,
     FormsModule,
@@ -109,6 +109,8 @@ export class InvoiceLodgingComponent implements OnInit {
           if (response.status === 200) {
             const vendorId = response.vendor_id;
             this.router.navigate(['/oc-forms', vendorId]);
+          } else if (response?.expiration_nulled) {
+            this.router.navigate(['/expiration-error']);
           } else {
             this.router.navigate(['/oc-error']);
           }
@@ -132,7 +134,7 @@ export class InvoiceLodgingComponent implements OnInit {
     const documentType = this.getControl('documentType').value;
     const documentNumber = this.getControl('documentNumber').value;
     const requestType = this.getControl('requestType').value
-  
+
     if(documentType && documentNumber && requestType) {
       this.validationPending = true;
       return true;
@@ -140,7 +142,7 @@ export class InvoiceLodgingComponent implements OnInit {
       this.getControl('documentType').markAsTouched();
       this.getControl('documentNumber').markAsTouched();
       this.getControl('requestType').markAllAsTouched()
-      
+
       const error = 'Por favor, complete los campos de tipo de documento, número de documento y tipo de solicitud para recibir la orden de compra';
       this.formErrors.push(error);
       setTimeout(() => {
@@ -167,18 +169,16 @@ export class InvoiceLodgingComponent implements OnInit {
         (response: any) => {
           setTimeout(() => {
             this.validationPending = false;
-          }, 2000);
-          if (response.status === 200) {
-            setTimeout(() => {
-              this.router.navigate(['/sent-oc'], { 
-                state: { email: response.vendorEmail, purchaseOrdersIds: response.purchaseOrders, document: vendorDocument } 
+            if (response.status === 200) {
+              this.router.navigate(['/sent-oc'], {
+                state: { email: response.vendorEmail, purchaseOrdersIds: response.purchaseOrders, document: vendorDocument }
               });
-            }, 2000);
-          } else {
-            setTimeout(() => {
+            } else if (response?.expiration_nulled) {
+              this.router.navigate(['/expiration-error']);
+            } else {
               this.router.navigate(['/oc-error']);
-            }, 2000);
-          }
+            }
+          }, 2000);
         },
         (error) => {
           this.validationPending = false;

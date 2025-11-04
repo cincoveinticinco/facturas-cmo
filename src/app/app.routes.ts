@@ -7,6 +7,7 @@ import { OcInfoErrorComponent } from './pages/oc-info-error/oc-info-error.compon
 import { authoOcGuard } from './guards/auth-oc.guard';
 import { OcFormsCmoComponent } from './pages/oc-forms-cmo/oc-forms-cmo.component';
 import { OcFormSuccessComponent } from './components/oc-form-success/oc-form-success.component';
+import { ExpirationErrorComponent } from './pages/expiration-error/expiration-error.component';
 
 export const routes: Routes = [
     {
@@ -33,6 +34,10 @@ export const routes: Routes = [
     {
       path: 'oc-error',
       component: OcInfoErrorComponent
+    },
+    {
+      path: 'expiration-error',
+      component: ExpirationErrorComponent
     },
     {
       path: ':registerId',
