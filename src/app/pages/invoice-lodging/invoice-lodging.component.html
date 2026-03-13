@@ -26,6 +26,7 @@
           </ng-template>
         </mat-tab>
       </mat-tab-group>
+
       <form [formGroup]="invoiceLodgingForm" (ngSubmit)="sendForm()" class="row align-end" id="invoice-lodging-form">
         <app-select-input
           [label]="'Tipo de documento'"
@@ -36,7 +37,7 @@
           class="col-12"
         ></app-select-input>
         <app-text-input
-          [label]="'Número de documento'"
+          [label]="getControl('documentType').value == TIPODOCUMENTO.NIT ? 'Número de documento (Sin dígito de verificación)' : 'Número de documento'"
           [control]="getControl('documentNumber')"
           [type]="'text'"
           [pattern]="getDocumentPattern()"
