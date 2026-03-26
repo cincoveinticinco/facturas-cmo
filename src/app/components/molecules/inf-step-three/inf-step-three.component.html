@@ -101,7 +101,7 @@
         </button>
       }
       <label>Otros Anexos</label>
-      <app-filebox [control]="anexo" [id]="'otherAnexes-' + $index"></app-filebox>
+      <app-filebox [control]="anexo" [id]="'otherAnexes-' + $index" [onlyPdf]="false" [allowedExtensions]="['pdf', 'xlsx']"></app-filebox>
     </div>
   }
   <a (click)="addNewAnexFormGroup()">+ Agregar anexo</a>

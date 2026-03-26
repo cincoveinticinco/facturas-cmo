@@ -1,9 +1,9 @@
 // File: filebox.component.ts
-import { Component, Input, Optional, Self, OnDestroy, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { DragAndDropFileDirective } from '../../../shared/directives/drag-and-drop-file.directive';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
+import { DragAndDropFileDirective } from '../../../shared/directives/drag-and-drop-file.directive';
 
 @Component({
   selector: 'app-filebox',
@@ -16,7 +16,7 @@ export class FileboxComponent implements ControlValueAccessor, Validator, OnInit
 
   @Input() onlyPdf = true;
   @Input() control: FormControl = new FormControl();
-  @Input() allowedExtensions: string[] = ['pdf', 'PDF', 'jpeg', 'jpg', 'png'];
+  @Input() allowedExtensions: string[] = ['pdf', 'jpeg', 'jpg', 'png'];
 
   @Output() onChanges = new EventEmitter<any>()
 
@@ -36,7 +36,7 @@ export class FileboxComponent implements ControlValueAccessor, Validator, OnInit
   }
 
   setAllowedExtensions() {
-    if (this.onlyPdf) this.allowedExtensions = ['pdf', 'PDF'];
+    if (this.onlyPdf) this.allowedExtensions = ['pdf'];
     this.acceptAllowedExtensions = this.allowedExtensions.map(ext => `.${ext}`).join(', ');
   }
 
