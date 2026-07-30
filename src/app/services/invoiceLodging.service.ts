@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { map, tap } from 'rxjs';
-import { AuthOcService } from './auth-oc.service';
+import { environment } from '../../environments/environment';
 import { OcNaturalParams } from '../shared/interfaces/natural_params_form.interface';
+import { AuthOcService } from './auth-oc.service';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +29,7 @@ export class InvoiceLodgingService {
   }
 
   saveSession(tokenSession: string) {
-    localStorage.setItem('id_vendor_oc_token', tokenSession);
+    sessionStorage.setItem('id_vendor_oc_token', tokenSession);
   }
 
   // This function will retrieve three keys, purchaseOrders that haves an array of purchaseOrders ids, vendorEmail and the status of the request
@@ -57,7 +57,7 @@ export class InvoiceLodgingService {
     });
   }
   getVendorId() {
-    return localStorage.getItem('id_vendor_oc_id');
+    return sessionStorage.getItem('id_vendor_oc_id');
   }
 
   getPresignedPutURLOc(filename: string, vendor_id: string, folder?: string ) {
@@ -91,7 +91,7 @@ export class InvoiceLodgingService {
       tap((res: any) => {
         if(res.status === 200) {
           this.saveSession(res.vendor_token);
-          localStorage.setItem('id_vendor_oc_id', res.vendor_id);
+          sessionStorage.setItem('id_vendor_oc_id', res.vendor_id);
         }
       })
     )
@@ -108,7 +108,7 @@ export class InvoiceLodgingService {
       tap((res: any) => {
         if(res.status === 200) {
           this.saveSession(res.vendor_token);
-          localStorage.setItem('id_vendor_oc_id', res.vendor_id);
+          sessionStorage.setItem('id_vendor_oc_id', res.vendor_id);
         }
       })
     )

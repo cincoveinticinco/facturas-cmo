@@ -19,12 +19,12 @@ export class AuthOcService {
   }
 
   async getToken() {
-    const value = localStorage.getItem('id_vendor_oc_token');
+    const value = sessionStorage.getItem('id_vendor_oc_token');
     return value;
   }
 
   getValueToken() {
-    const value = localStorage.getItem('id_vendor_oc_token');
+    const value = sessionStorage.getItem('id_vendor_oc_token');
     if (value)
     return value;
     else return null;
@@ -32,7 +32,7 @@ export class AuthOcService {
 
   logOut() {
     this.route.params.subscribe((params: any) => {
-      localStorage.clear();
+      sessionStorage.clear();
       window.location.href = this.loginApiUrl;
     })
   }
