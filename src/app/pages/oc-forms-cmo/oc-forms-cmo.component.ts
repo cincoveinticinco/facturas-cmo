@@ -18,6 +18,8 @@ export interface PurchaseOrders {
   projectId: number,
 }
 
+export const SAVE_FORM_ERROR = 'No fue posible completar la radicación, por favor vuelva a intentarlo.';
+
 @Component({
   selector: 'app-oc-forms-cmo',
   standalone: true,
@@ -114,12 +116,12 @@ export class OcFormsCmoComponent implements OnInit {
     this.loading = true;
     const register = this.registerCode ? parseInt(this.registerCode) : null;
     const formattedForm = this.globalService.setOcForm(form, this.vendorInfo.id, register)
+
     this.invoiceLodgingService.updateRegisterVendor(formattedForm).subscribe({
       next: (response: any) => {
-        if (!!response?.error) {
-          this.errorMsg = response?.msg;
-          this.changeView('error-save-form');
-          this.loading = false;
+        // Solo se considera radicada si el back lo confirma y devuelve el registro
+        if (!this.isSuccessfulRegister(response)) {
+          this.showSaveFormError(response?.msg || SAVE_FORM_ERROR);
           return;
         }
 
@@ -128,8 +130,27 @@ export class OcFormsCmoComponent implements OnInit {
         });
 
         this.loading = false;
+      },
+      error: (error: any) => {
+        if (error?.status === 401) {
+          this.authService.logOut();
+          return;
+        }
+        this.showSaveFormError(error?.error?.msg || SAVE_FORM_ERROR);
       }
     });
+  }
+
+  private isSuccessfulRegister(response: any): boolean {
+    if (!response || response.error) return false;
+    if (response.status !== undefined && response.status !== 200) return false;
+    return !!response.registerId;
+  }
+
+  private showSaveFormError(message: string): void {
+    this.errorMsg = message;
+    this.changeView('error-save-form');
+    this.loading = false;
   }
 
   handleStepChange(event: 'next' | 'previous', form: any = null): void {

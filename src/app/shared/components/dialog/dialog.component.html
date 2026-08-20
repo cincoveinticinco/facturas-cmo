@@ -1,5 +1,10 @@
 <div class="dialog-cotainer" (click)="containerClose()">
-	<div class="dialog-body">
+	<div class="dialog-body" [class.dialog-error]="type === 'error'">
+		@if (type === 'error') {
+			<div class="dialog-error-icon">
+				<img src="assets/images/fi_alert-circle.svg" alt="error">
+			</div>
+		}
 		<h1 class="uppercase">
             {{title}}
         </h1>
@@ -22,6 +27,9 @@
                 }
                 @case ('alert') {
                     <button mat-raised-button class="submit small btn-purpple" (click)="close()">{{'Ok'}}</button>
+                }
+                @case ('error') {
+                    <button mat-raised-button class="submit small btn-error" (click)="close()">{{confirmText}}</button>
                 }
             }
         </div>

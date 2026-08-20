@@ -46,8 +46,9 @@
 
 @if (view == 'error-save-form') {
   <app-dialog
-    type="alert"
-    title="Error al guardar formulario"
+    type="error"
+    title="Error al radicar"
+    confirmText="Entendido"
     [message]="errorMsg"
     (closeModal)="changeView()">
   </app-dialog>

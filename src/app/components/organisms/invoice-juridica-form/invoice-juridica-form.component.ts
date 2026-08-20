@@ -136,8 +136,6 @@ export class InvoiceJuridicaFormComponent {
       this.invoiceJuridicaForm.markAllAsTouched();
       this.getOtherAnexesArray().markAllAsTouched();
     }
-
-    this.globalService.openSnackBar('Formulario enviado correctamente', '', 5000);
   }
 
   getControl(controlName: string) {

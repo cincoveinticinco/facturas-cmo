@@ -28,3 +28,42 @@
 h1 {
     line-height: 1;
 }
+
+.dialog-body.dialog-error {
+    background: #FFFFFF;
+    border: 2px solid var(--alert-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        color: var(--alert-color);
+    }
+
+    p {
+        color: var(--alert-color);
+        font-weight: 600;
+    }
+}
+
+.dialog-error-icon {
+    height: 70px;
+    width: 70px;
+    border-radius: 100%;
+    background-color: #FCF3F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+
+    img {
+        height: 34px;
+        width: 34px;
+    }
+}
+
+.btn-error {
+    background-color: var(--alert-color) !important;
+    border-color: var(--alert-color);
+    color: #FFFFFF !important;
+}
