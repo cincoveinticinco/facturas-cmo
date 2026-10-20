@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from './../../environments/environment';
 import { shareReplay, tap } from 'rxjs';
@@ -12,7 +12,7 @@ export class AuthService {
   private loginApiUrl: string = environment.apiUrlFront;
   vendorId: any = null;
  
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
  
   loginVendor(email: string, token: string, vendor_id: any){
     return this.http.post(`${environment.apiUrl}cmo/validate_token`, {token: token, email: email, id: vendor_id}).pipe(

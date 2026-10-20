@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from './../../environments/environment';
 
@@ -10,7 +10,7 @@ export class AuthOcService {
   
   private loginApiUrl: string = environment.apiUrlFront;
  
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { }
 
   async getSession() {
     let sessionToken = await this.getToken();
