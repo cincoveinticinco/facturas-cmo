@@ -1,42 +1,37 @@
 <form [formGroup]="invoiceNaturalForm" (ngSubmit)="onSubmit()">
   <app-subtitle [subtitle]="'DOCUMENTOS PRECARGADOS'"></app-subtitle>
-  
-  <ng-container *ngIf="thereArePrechargedDocs(); else sinDocumentos">
+
+  @if (thereArePrechargedDocs()) {
     @if(getControl('socialSecurity')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Seguridad social</p></b>
         <a href="{{ getControl('socialSecurity')?.value.url }}" target="_blank">Ver documento</a>
       </div>
     }
-  
     @if(getControl('afcContributionsFile')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Aportes AFC</p></b>
         <a href="{{ getControl('afcContributionsFile')?.value.url }}" target="_blank">Ver documento</a>
       </div>
     }
-  
     @if(getControl('pensionContributionsFile')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Aportes pensión</p></b>
         <a href="{{ getControl('pensionContributionsFile')?.value.url }}" target="_blank">Ver documento</a>
       </div>
     }
-  
     @if(getControl('medicalPrepaidFile')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Medicina Prepagada</p></b>
         <a href="{{ getControl('medicalPrepaidFile')?.value.url }}" target="_blank">Ver documento</a>
       </div>
     }
-  
     @if(getControl('housingCreditFile')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Credito vivienda</p></b>
         <a href="{{ getControl('housingCreditFile')?.value.url }}" target="_blank">Ver documento</a>
       </div>
     }
-  
     @if(dependentsInfo && dependentsInfo.controls && dependentsInfo.length > 0) {
       <b><p>Personas a cargo</p></b>
       @for(dependent of dependentsInfo.controls; track $index) {
@@ -73,7 +68,6 @@
         }
       }
     }
-  
     @for(anexo of getOtherAnexesControls(); track $index) {
       @if(anexo.value?.url) {
         <div class="link-wrapper">
@@ -82,11 +76,10 @@
         </div>
       }
     }
-  </ng-container>
-  
-  <ng-template #sinDocumentos>
+  } @else {
     <p>Todavía no hay documentos precargados para mostrar.</p>
-  </ng-template>
+  }
+
   <app-subtitle [subtitle]="'Documentos solicitados'"></app-subtitle>
 
   <label>Pago seguridad social mes vigente*</label>
@@ -116,9 +109,9 @@
 
 @if (view == 'confirm-po-orders') {
   <app-po-orders
-  [invoiceNaturalForm]="invoiceNaturalForm"
-  [poProjections]="poProjections"
-  (onClose)="changeView()"
-  (onNotify)="submitForm()">
+    [invoiceNaturalForm]="invoiceNaturalForm"
+    [poProjections]="poProjections"
+    (onClose)="changeView()"
+    (onNotify)="submitForm()">
   </app-po-orders>
 }

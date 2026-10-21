@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
     selector: 'app-text-input',
-    imports: [ReactiveFormsModule, CommonModule, NgxMaskDirective],
+    imports: [ReactiveFormsModule, NgxMaskDirective],
     providers: [
         provideNgxMask(),
     ],

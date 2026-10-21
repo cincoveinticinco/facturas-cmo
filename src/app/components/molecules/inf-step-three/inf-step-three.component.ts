@@ -2,18 +2,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
 import { FileboxComponent } from '../../atoms/filebox/filebox.component';
-import { CommonModule } from '@angular/common';
+
 import { PoOrdersComponent } from '../inf-step-one/po-orders/po-orders.component';
 
 @Component({
     selector: 'app-inf-step-three',
     imports: [
-        ReactiveFormsModule,
-        SubtitleComponent,
-        FileboxComponent,
-        CommonModule,
-        PoOrdersComponent,
-    ],
+    ReactiveFormsModule,
+    SubtitleComponent,
+    FileboxComponent,
+    PoOrdersComponent
+],
     templateUrl: './inf-step-three.component.html',
     styleUrl: './inf-step-three.component.css'
 })

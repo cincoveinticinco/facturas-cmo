@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,12 +15,11 @@ import { InfStepTwoComponent } from '../../molecules/inf-step-two/inf-step-two.c
 @Component({
     selector: 'app-invoice-natural-form',
     imports: [
-        ReactiveFormsModule,
-        CommonModule,
-        InfStepOneComponent,
-        InfStepTwoComponent,
-        InfStepThreeComponent,
-    ],
+    ReactiveFormsModule,
+    InfStepOneComponent,
+    InfStepTwoComponent,
+    InfStepThreeComponent
+],
     templateUrl: './invoice-natural-form.component.html',
     styleUrls: ['./invoice-natural-form.component.css']
 })
