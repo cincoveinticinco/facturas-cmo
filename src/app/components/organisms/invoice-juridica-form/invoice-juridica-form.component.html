@@ -71,28 +71,28 @@
     @if (invoiceJuridicaForm.get('electronicInvoice')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Factura Electrónica</p></b>
-        <a [href]="$safeNavigationMigration(invoiceJuridicaForm.get('electronicInvoice')?.value.url)" target="_blank">Ver documento</a>
+        <a [href]="invoiceJuridicaForm.get('electronicInvoice')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
     @if (invoiceJuridicaForm.get('socialSecurity')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Pago seguridad social mes vigente</p></b>
-        <a [href]="$safeNavigationMigration(invoiceJuridicaForm.get('socialSecurity')?.value.url)" target="_blank">Ver documento</a>
+        <a [href]="invoiceJuridicaForm.get('socialSecurity')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
     @if (invoiceJuridicaForm.get('taxAuditorCertificate')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Planilla seguridad Social con Riesgo Laboral del Empleado</p></b>
-        <a [href]="$safeNavigationMigration(invoiceJuridicaForm.get('taxAuditorCertificate')?.value.url)" target="_blank">Ver documento</a>
+        <a [href]="invoiceJuridicaForm.get('taxAuditorCertificate')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
     @if (invoiceJuridicaForm.get('arlCertificate')?.value?.url) {
       <div class="link-wrapper">
         <b><p>Certificado ARL / Contratista con Vinculación</p></b>
-        <a [href]="$safeNavigationMigration(invoiceJuridicaForm.get('arlCertificate')?.value.url)" target="_blank">Ver documento</a>
+        <a [href]="invoiceJuridicaForm.get('arlCertificate')?.value.url" target="_blank">Ver documento</a>
       </div>
     }
 
