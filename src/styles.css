@@ -382,10 +382,6 @@ p.lbl-eng {
     .content {
         max-width: 380px;
 
-        &.full-width {
-            max-width: 500px;
-        }
-
         h2 {
             margin-bottom: 0.5rem;
         }
@@ -396,6 +392,10 @@ p.lbl-eng {
             line-height: 1.2;
         }
     }
+}
+
+.center-content .content.full-width {
+    max-width: 500px;
 }
 
 .title-logo{
@@ -434,10 +434,10 @@ p.lbl-eng {
   min-width: auto;
   padding: 0;
   cursor: pointer;
+}
 
-  &:hover{
-    background-color: #f88f1e36;
-  }
+.delete-button:hover{
+  background-color: #f88f1e36;
 }
 
 .validation-label {
@@ -634,11 +634,10 @@ p.lbl-eng {
   cursor: pointer;
   font-size: 14px;
   font-weight: normal;
+}
 
-
-  &:hover {
-    background-color: var(--secondary-color);
-  }
+.btn-purpple:hover {
+  background-color: var(--secondary-color);
 }
 
 .btn-black {
@@ -650,10 +649,10 @@ p.lbl-eng {
   cursor: pointer;
   font-size: 14px;
   font-weight: normal;
+}
 
-  &:hover {
-    background-color: #333333;
-  }
+.btn-black:hover {
+  background-color: #333333;
 }
 
 .btn-gray {
@@ -665,18 +664,18 @@ p.lbl-eng {
   cursor: pointer;
   font-size: 14px;
   font-weight: normal;
+}
 
-  &:hover {
-    background-color: #333333;
-  }
+.btn-gray:hover {
+  background-color: #333333;
 }
 
 a {
   cursor: pointer;
+}
 
-  &:hover {
-    color: var(--secondary-color) !important;
-  }
+a:hover {
+  color: var(--secondary-color) !important;
 }
 
 .margin-top {
