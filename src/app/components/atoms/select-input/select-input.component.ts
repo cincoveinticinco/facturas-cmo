@@ -4,11 +4,10 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import {  } from 'stream';
 
 @Component({
-  selector: 'app-select-input',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './select-input.component.html',
-  styleUrl: './select-input.component.css'
+    selector: 'app-select-input',
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './select-input.component.html',
+    styleUrl: './select-input.component.css'
 })
 
 export class SelectInputComponent {

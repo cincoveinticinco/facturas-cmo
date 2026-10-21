@@ -21,18 +21,17 @@ export interface PurchaseOrders {
 export const SAVE_FORM_ERROR = 'No fue posible completar la radicación, por favor vuelva a intentarlo.';
 
 @Component({
-  selector: 'app-oc-forms-cmo',
-  standalone: true,
-  imports: [
-    PanelButtonsComponent,
-    LogoComponent,
-    InvoiceNaturalFormComponent,
-    InvoiceJuridicaFormComponent,
-    DialogComponent,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './oc-forms-cmo.component.html',
-  styleUrls: ['./oc-forms-cmo.component.css']
+    selector: 'app-oc-forms-cmo',
+    imports: [
+        PanelButtonsComponent,
+        LogoComponent,
+        InvoiceNaturalFormComponent,
+        InvoiceJuridicaFormComponent,
+        DialogComponent,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './oc-forms-cmo.component.html',
+    styleUrls: ['./oc-forms-cmo.component.css']
 })
 export class OcFormsCmoComponent implements OnInit {
 

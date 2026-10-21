@@ -4,11 +4,10 @@ import { InvoiceLodgingService } from '../../services/invoiceLodging.service';
 import { delay, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-validate-oc-info',
-  standalone: true,
-  imports: [],
-  templateUrl: './validate-oc-info.component.html',
-  styleUrl: './validate-oc-info.component.css'
+    selector: 'app-validate-oc-info',
+    imports: [],
+    templateUrl: './validate-oc-info.component.html',
+    styleUrl: './validate-oc-info.component.css'
 })
 
 export class ValidateOcInfoComponent implements OnInit {

@@ -6,11 +6,10 @@ import { AuthOcService } from '../../services/auth-oc.service';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-oc-form-success',
-  standalone: true,
-  imports: [LogoComponent, DatePipe],
-  templateUrl: './oc-form-success.component.html',
-  styleUrl: './oc-form-success.component.css'
+    selector: 'app-oc-form-success',
+    imports: [LogoComponent, DatePipe],
+    templateUrl: './oc-form-success.component.html',
+    styleUrl: './oc-form-success.component.css'
 })
 export class OcFormSuccessComponent {
   radicado: string = '';

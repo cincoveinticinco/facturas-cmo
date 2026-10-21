@@ -4,11 +4,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { TextInputComponent } from '../text-input/text-input.component';
 
 @Component({
-  selector: 'app-checkbox-input',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TextInputComponent],
-  templateUrl: './checkbox-input.component.html',
-  styleUrls: ['./checkbox-input.component.css']
+    selector: 'app-checkbox-input',
+    imports: [ReactiveFormsModule, CommonModule, TextInputComponent],
+    templateUrl: './checkbox-input.component.html',
+    styleUrls: ['./checkbox-input.component.css']
 })
 export class CheckboxInputComponent {
 

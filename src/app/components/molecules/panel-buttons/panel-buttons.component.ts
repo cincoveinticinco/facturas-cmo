@@ -5,13 +5,12 @@ import { VendorService } from '../../../services/vendor.service';
 import { AuthOcService } from '../../../services/auth-oc.service';
 
 @Component({
-  selector: 'app-panel-buttons',
-  standalone: true,
-  imports: [
-    BlackButtonComponent,
-  ],
-  templateUrl: './panel-buttons.component.html',
-  styleUrl: './panel-buttons.component.css'
+    selector: 'app-panel-buttons',
+    imports: [
+        BlackButtonComponent,
+    ],
+    templateUrl: './panel-buttons.component.html',
+    styleUrl: './panel-buttons.component.css'
 })
 export class PanelButtonsComponent {
   @Output() saveForm: EventEmitter<any> = new EventEmitter();

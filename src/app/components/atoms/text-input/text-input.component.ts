@@ -4,14 +4,13 @@ import { CommonModule } from '@angular/common';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
-  selector: 'app-text-input',
-  standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgxMaskDirective],
-  providers: [
-    provideNgxMask(),
-  ],
-  templateUrl: './text-input.component.html',
-  styleUrls: ['./text-input.component.css']
+    selector: 'app-text-input',
+    imports: [ReactiveFormsModule, CommonModule, NgxMaskDirective],
+    providers: [
+        provideNgxMask(),
+    ],
+    templateUrl: './text-input.component.html',
+    styleUrls: ['./text-input.component.css']
 })
 export class TextInputComponent implements OnInit {
 

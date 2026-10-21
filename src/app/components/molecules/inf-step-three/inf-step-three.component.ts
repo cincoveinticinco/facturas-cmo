@@ -6,17 +6,16 @@ import { CommonModule } from '@angular/common';
 import { PoOrdersComponent } from '../inf-step-one/po-orders/po-orders.component';
 
 @Component({
-  selector: 'app-inf-step-three',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    SubtitleComponent,
-    FileboxComponent,
-    CommonModule,
-    PoOrdersComponent,
-  ],
-  templateUrl: './inf-step-three.component.html',
-  styleUrl: './inf-step-three.component.css'
+    selector: 'app-inf-step-three',
+    imports: [
+        ReactiveFormsModule,
+        SubtitleComponent,
+        FileboxComponent,
+        CommonModule,
+        PoOrdersComponent,
+    ],
+    templateUrl: './inf-step-three.component.html',
+    styleUrl: './inf-step-three.component.css'
 })
 export class InfStepThreeComponent {
 

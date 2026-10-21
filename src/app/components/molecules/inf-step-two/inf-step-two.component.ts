@@ -8,20 +8,19 @@ import { ElectronicSignatureAuthComponent } from '../electronic-signature-auth/e
 import { InfdependentCertificationComponent } from '../inf-dependent-certification/inf-dependent-certification.component';
 
 @Component({
-  selector: 'app-inf-step-two',
-  standalone: true,
-  imports: [
-    SubtitleComponent, 
-    ReactiveFormsModule, 
-    TextInputComponent, 
-    CheckboxInputComponent, 
-    SubtitleComponent,
-    FileboxComponent,
-    ElectronicSignatureAuthComponent,
-    InfdependentCertificationComponent
-  ],
-  templateUrl: './inf-step-two.component.html',
-  styleUrl: './inf-step-two.component.css'
+    selector: 'app-inf-step-two',
+    imports: [
+        SubtitleComponent,
+        ReactiveFormsModule,
+        TextInputComponent,
+        CheckboxInputComponent,
+        SubtitleComponent,
+        FileboxComponent,
+        ElectronicSignatureAuthComponent,
+        InfdependentCertificationComponent
+    ],
+    templateUrl: './inf-step-two.component.html',
+    styleUrl: './inf-step-two.component.css'
 })
 
 export class InfStepTwoComponent implements OnInit {

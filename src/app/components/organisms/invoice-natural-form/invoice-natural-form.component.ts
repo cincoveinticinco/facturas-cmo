@@ -19,22 +19,21 @@ import { ValidateOcInfoComponent } from '../../../pages/validate-oc-info/validat
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-invoice-natural-form',
-  standalone: true,
-  imports: [
-    SubtitleComponent,
-    ReactiveFormsModule,
-    CheckboxInputComponent,
-    CommonModule,
-    TextInputComponent,
-    InfStepOneComponent,
-    InfStepTwoComponent,
-    InfStepThreeComponent,
-    FileboxComponent,
-    ValidateOcInfoComponent
-  ],
-  templateUrl: './invoice-natural-form.component.html',
-  styleUrls: ['./invoice-natural-form.component.css']
+    selector: 'app-invoice-natural-form',
+    imports: [
+        SubtitleComponent,
+        ReactiveFormsModule,
+        CheckboxInputComponent,
+        CommonModule,
+        TextInputComponent,
+        InfStepOneComponent,
+        InfStepTwoComponent,
+        InfStepThreeComponent,
+        FileboxComponent,
+        ValidateOcInfoComponent
+    ],
+    templateUrl: './invoice-natural-form.component.html',
+    styleUrls: ['./invoice-natural-form.component.css']
 })
 export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
   @Input() currentStep?: number;

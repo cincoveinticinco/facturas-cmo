@@ -8,17 +8,16 @@ import { InvoiceLodgingService } from '../../services/invoiceLodging.service';
 import { ValidateOcInfoComponent } from '../validate-oc-info/validate-oc-info.component';
 
 @Component({
-  selector: 'app-send-oc',
-  standalone: true,
-  imports: [
-    LogoComponent, 
-    TextInputComponent,
-    ReactiveFormsModule,
-    FormsModule,
-    ValidateOcInfoComponent
-  ],
-  templateUrl: './send-oc.component.html',
-  styleUrl: './send-oc.component.css'
+    selector: 'app-send-oc',
+    imports: [
+        LogoComponent,
+        TextInputComponent,
+        ReactiveFormsModule,
+        FormsModule,
+        ValidateOcInfoComponent
+    ],
+    templateUrl: './send-oc.component.html',
+    styleUrl: './send-oc.component.css'
 })
 export class SendOcComponent {
   sendOcForm: FormGroup;

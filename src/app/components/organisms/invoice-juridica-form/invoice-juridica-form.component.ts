@@ -17,19 +17,18 @@ import { HttpEventType } from '@angular/common/http';
 import { PoOrdersComponent } from '../../molecules/inf-step-one/po-orders/po-orders.component';
 
 @Component({
-  selector: 'app-invoice-juridica-form',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    SubtitleComponent,
-    TextInputComponent,
-    FileboxComponent,
-    SelectInputComponent,
-    MatIconModule,
-    PoOrdersComponent,
-  ],
-  templateUrl: './invoice-juridica-form.component.html',
-  styleUrls: ['./invoice-juridica-form.component.css']
+    selector: 'app-invoice-juridica-form',
+    imports: [
+        ReactiveFormsModule,
+        SubtitleComponent,
+        TextInputComponent,
+        FileboxComponent,
+        SelectInputComponent,
+        MatIconModule,
+        PoOrdersComponent,
+    ],
+    templateUrl: './invoice-juridica-form.component.html',
+    styleUrls: ['./invoice-juridica-form.component.css']
 })
 export class InvoiceJuridicaFormComponent {
   @Input() vendorInfo: any;

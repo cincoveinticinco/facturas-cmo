@@ -4,11 +4,10 @@ import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
 import { TextInputComponent } from '../../atoms/text-input/text-input.component';
 
 @Component({
-  selector: 'app-electronic-signature-auth',
-  standalone: true,
-  imports: [ReactiveFormsModule, SubtitleComponent, TextInputComponent],
-  templateUrl: './electronic-signature-auth.component.html',
-  styleUrl: './electronic-signature-auth.component.css'
+    selector: 'app-electronic-signature-auth',
+    imports: [ReactiveFormsModule, SubtitleComponent, TextInputComponent],
+    templateUrl: './electronic-signature-auth.component.html',
+    styleUrl: './electronic-signature-auth.component.css'
 })
 export class ElectronicSignatureAuthComponent {
   @Input() form: FormGroup | undefined;

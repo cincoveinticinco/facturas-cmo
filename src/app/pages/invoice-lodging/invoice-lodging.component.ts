@@ -15,19 +15,18 @@ import { SelectOption } from '../../components/molecules/inf-step-one/inf-step-o
 import { REQUEST_TYPES } from '../../shared/interfaces/request_types.enum';
 
 @Component({
-  selector: 'app-invoice-lodging',
-  standalone: true,
-  imports: [
-    LogoComponent,
-    MatTabsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    SelectInputComponent,
-    TextInputComponent,
-    ValidateOcInfoComponent
-  ],
-  templateUrl: './invoice-lodging.component.html',
-  styleUrl: './invoice-lodging.component.css'
+    selector: 'app-invoice-lodging',
+    imports: [
+        LogoComponent,
+        MatTabsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        SelectInputComponent,
+        TextInputComponent,
+        ValidateOcInfoComponent
+    ],
+    templateUrl: './invoice-lodging.component.html',
+    styleUrl: './invoice-lodging.component.css'
 })
 export class InvoiceLodgingComponent implements OnInit {
   invoiceLodgingForm: FormGroup;

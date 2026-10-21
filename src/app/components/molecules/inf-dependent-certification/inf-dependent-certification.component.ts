@@ -9,18 +9,17 @@ import { InvoiceLodgingService } from '../../../services/invoiceLodging.service'
 import { TIPODOCUMENTO } from '../../../shared/interfaces/typo_documentos';
 
 @Component({
-  selector: 'app-inf-dependent-certification',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    SubtitleComponent,
-    TextInputComponent,
-    SelectInputComponent,
-    CheckboxInputComponent,
-    FileboxComponent
-  ],
-  templateUrl: './inf-dependent-certification.component.html',
-  styleUrl: './inf-dependent-certification.component.css'
+    selector: 'app-inf-dependent-certification',
+    imports: [
+        ReactiveFormsModule,
+        SubtitleComponent,
+        TextInputComponent,
+        SelectInputComponent,
+        CheckboxInputComponent,
+        FileboxComponent
+    ],
+    templateUrl: './inf-dependent-certification.component.html',
+    styleUrl: './inf-dependent-certification.component.css'
 })
 export class InfdependentCertificationComponent {
 

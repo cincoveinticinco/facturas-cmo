@@ -6,11 +6,10 @@ import { DialogComponent } from '../../../shared/components/dialog/dialog.compon
 import { DragAndDropFileDirective } from '../../../shared/directives/drag-and-drop-file.directive';
 
 @Component({
-  selector: 'app-filebox',
-  standalone: true,
-  imports: [DragAndDropFileDirective, DialogComponent, ReactiveFormsModule],
-  templateUrl: './filebox.component.html',
-  styleUrls: ['./filebox.component.css']
+    selector: 'app-filebox',
+    imports: [DragAndDropFileDirective, DialogComponent, ReactiveFormsModule],
+    templateUrl: './filebox.component.html',
+    styleUrls: ['./filebox.component.css']
 })
 export class FileboxComponent implements ControlValueAccessor, Validator, OnInit, OnDestroy {
 

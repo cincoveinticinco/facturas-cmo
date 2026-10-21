@@ -14,20 +14,19 @@ export interface SelectOption {
 }
 
 @Component({
-  selector: 'app-inf-step-one',
-  templateUrl: './inf-step-one.component.html',
-  standalone: true,
-  imports: [
-    TextInputComponent,
-    ReactiveFormsModule,
-    SubtitleComponent,
-    CheckboxInputComponent,
-    ElectronicSignatureAuthComponent,
-    SelectInputComponent,
-    MatIconModule,
-    CurrencyPipe,
-  ],
-  styleUrls: ['./inf-step-one.component.css']
+    selector: 'app-inf-step-one',
+    templateUrl: './inf-step-one.component.html',
+    imports: [
+        TextInputComponent,
+        ReactiveFormsModule,
+        SubtitleComponent,
+        CheckboxInputComponent,
+        ElectronicSignatureAuthComponent,
+        SelectInputComponent,
+        MatIconModule,
+        CurrencyPipe,
+    ],
+    styleUrls: ['./inf-step-one.component.css']
 })
 
 export class InfStepOneComponent {

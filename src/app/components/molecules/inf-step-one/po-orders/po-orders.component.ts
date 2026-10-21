@@ -3,11 +3,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-po-orders',
-  standalone: true,
-  imports: [CurrencyPipe],
-  templateUrl: './po-orders.component.html',
-  styleUrl: './po-orders.component.css'
+    selector: 'app-po-orders',
+    imports: [CurrencyPipe],
+    templateUrl: './po-orders.component.html',
+    styleUrl: './po-orders.component.css'
 })
 export class PoOrdersComponent {
 
