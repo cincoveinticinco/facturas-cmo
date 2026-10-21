@@ -1,11 +1,12 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-select-input',
     imports: [ReactiveFormsModule],
     templateUrl: './select-input.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './select-input.component.css'
 })
 

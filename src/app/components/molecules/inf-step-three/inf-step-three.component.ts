@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
 import { FileboxComponent } from '../../atoms/filebox/filebox.component';
@@ -14,6 +14,7 @@ import { PoOrdersComponent } from '../inf-step-one/po-orders/po-orders.component
     PoOrdersComponent
 ],
     templateUrl: './inf-step-three.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './inf-step-three.component.css'
 })
 export class InfStepThreeComponent {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
 import { TextInputComponent } from '../../atoms/text-input/text-input.component';
@@ -20,6 +20,7 @@ import { InfdependentCertificationComponent } from '../inf-dependent-certificati
         InfdependentCertificationComponent
     ],
     templateUrl: './inf-step-two.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './inf-step-two.component.css'
 })
 

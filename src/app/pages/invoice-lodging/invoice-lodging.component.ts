@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { LogoComponent } from '../../components/atoms/logo/logo.component';
 import { MatTabChangeEvent, MatTabsModule } from '@angular/material/tabs';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -26,6 +26,7 @@ import { REQUEST_TYPES } from '../../shared/interfaces/request_types.enum';
         ValidateOcInfoComponent
     ],
     templateUrl: './invoice-lodging.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './invoice-lodging.component.css'
 })
 export class InvoiceLodgingComponent implements OnInit {

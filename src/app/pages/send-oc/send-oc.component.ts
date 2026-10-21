@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LogoComponent } from '../../components/atoms/logo/logo.component';
@@ -14,6 +14,7 @@ import { ValidateOcInfoComponent } from '../validate-oc-info/validate-oc-info.co
         ValidateOcInfoComponent
     ],
     templateUrl: './send-oc.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './send-oc.component.css'
 })
 export class SendOcComponent {

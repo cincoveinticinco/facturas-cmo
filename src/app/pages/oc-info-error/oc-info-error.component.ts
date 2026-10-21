@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router'; // Import the correct module for Router
 
 @Component({
     selector: 'app-oc-info-error',
     imports: [],
     templateUrl: './oc-info-error.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './oc-info-error.component.css'
 })
 export class OcInfoErrorComponent {

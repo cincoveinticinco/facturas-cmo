@@ -1,5 +1,5 @@
 import { CurrencyPipe } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { SelectInputComponent } from '../../atoms/select-input/select-input.component';
@@ -24,6 +24,7 @@ export interface SelectOption {
         MatIconModule,
         CurrencyPipe,
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./inf-step-one.component.css']
 })
 

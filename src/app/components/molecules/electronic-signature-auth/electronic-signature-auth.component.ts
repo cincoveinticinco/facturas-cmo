@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
 import { TextInputComponent } from '../../atoms/text-input/text-input.component';
@@ -7,6 +7,7 @@ import { TextInputComponent } from '../../atoms/text-input/text-input.component'
     selector: 'app-electronic-signature-auth',
     imports: [ReactiveFormsModule, SubtitleComponent, TextInputComponent],
     templateUrl: './electronic-signature-auth.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './electronic-signature-auth.component.css'
 })
 export class ElectronicSignatureAuthComponent {

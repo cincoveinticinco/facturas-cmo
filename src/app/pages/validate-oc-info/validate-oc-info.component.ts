@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { InvoiceLodgingService } from '../../services/invoiceLodging.service';
 import { delay, tap } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { delay, tap } from 'rxjs/operators';
     selector: 'app-validate-oc-info',
     imports: [],
     templateUrl: './validate-oc-info.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './validate-oc-info.component.css'
 })
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GlobalService } from '../../../services/global.service';
 import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
@@ -28,6 +28,7 @@ import { PoOrdersComponent } from '../../molecules/inf-step-one/po-orders/po-ord
         PoOrdersComponent,
     ],
     templateUrl: './invoice-juridica-form.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./invoice-juridica-form.component.css']
 })
 export class InvoiceJuridicaFormComponent {

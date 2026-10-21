@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { PanelButtonsComponent } from '../../components/molecules/panel-buttons/panel-buttons.component';
 import { LogoComponent } from '../../components/atoms/logo/logo.component';
@@ -31,6 +31,7 @@ export const SAVE_FORM_ERROR = 'No fue posible completar la radicación, por fav
         ReactiveFormsModule,
     ],
     templateUrl: './oc-forms-cmo.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./oc-forms-cmo.component.css']
 })
 export class OcFormsCmoComponent implements OnInit {

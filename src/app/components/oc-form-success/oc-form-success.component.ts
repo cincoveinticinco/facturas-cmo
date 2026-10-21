@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { LogoComponent } from '../atoms/logo/logo.component';
 import { Router } from '@angular/router';
 import { GlobalService } from '../../services/global.service';
@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
     selector: 'app-oc-form-success',
     imports: [LogoComponent, DatePipe],
     templateUrl: './oc-form-success.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './oc-form-success.component.css'
 })
 export class OcFormSuccessComponent {

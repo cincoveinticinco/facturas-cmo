@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-black-button',
     imports: [],
     templateUrl: './black-button.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './black-button.component.css'
 })
 export class BlackButtonComponent {

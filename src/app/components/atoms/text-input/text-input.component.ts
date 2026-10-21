@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
@@ -10,6 +10,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         provideNgxMask(),
     ],
     templateUrl: './text-input.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./text-input.component.css']
 })
 export class TextInputComponent implements OnInit {

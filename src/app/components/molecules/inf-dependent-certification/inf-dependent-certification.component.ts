@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
 import { TextInputComponent } from '../../atoms/text-input/text-input.component';
@@ -19,6 +19,7 @@ import { TIPODOCUMENTO } from '../../../shared/interfaces/typo_documentos';
         FileboxComponent
     ],
     templateUrl: './inf-dependent-certification.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './inf-dependent-certification.component.css'
 })
 export class InfdependentCertificationComponent {

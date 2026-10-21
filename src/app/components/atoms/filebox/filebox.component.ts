@@ -1,5 +1,5 @@
 // File: filebox.component.ts
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self, ChangeDetectionStrategy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule, ValidationErrors, Validator } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from '../../../shared/components/dialog/dialog.component';
@@ -9,6 +9,7 @@ import { DragAndDropFileDirective } from '../../../shared/directives/drag-and-dr
     selector: 'app-filebox',
     imports: [DragAndDropFileDirective, DialogComponent, ReactiveFormsModule],
     templateUrl: './filebox.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./filebox.component.css']
 })
 export class FileboxComponent implements ControlValueAccessor, Validator, OnInit, OnDestroy {

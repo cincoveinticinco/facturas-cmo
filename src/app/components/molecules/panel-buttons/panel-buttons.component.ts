@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input, ChangeDetectionStrategy } from '@angular/core';
 import { BlackButtonComponent } from '../../atoms/black-button/black-button.component';
 import { AuthService } from '../../../services/auth.service';
 import { VendorService } from '../../../services/vendor.service';
@@ -10,6 +10,7 @@ import { AuthOcService } from '../../../services/auth-oc.service';
         BlackButtonComponent,
     ],
     templateUrl: './panel-buttons.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './panel-buttons.component.css'
 })
 export class PanelButtonsComponent {

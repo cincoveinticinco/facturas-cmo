@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-checkbox-input',
     imports: [ReactiveFormsModule, CommonModule],
     templateUrl: './checkbox-input.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./checkbox-input.component.css']
 })
 export class CheckboxInputComponent {

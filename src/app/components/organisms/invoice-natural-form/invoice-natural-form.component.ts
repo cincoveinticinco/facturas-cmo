@@ -1,6 +1,6 @@
 
 import { HttpEventType } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { catchError, map, of, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -21,6 +21,7 @@ import { InfStepTwoComponent } from '../../molecules/inf-step-two/inf-step-two.c
     InfStepThreeComponent
 ],
     templateUrl: './invoice-natural-form.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./invoice-natural-form.component.css']
 })
 export class InvoiceNaturalFormComponent implements OnInit, OnChanges {
