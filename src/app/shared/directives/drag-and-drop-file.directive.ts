@@ -11,8 +11,8 @@ export class DragAndDropFileDirective {
   @Output() onChangeFile: EventEmitter<File[]> = new EventEmitter();
   @Output() onInvalidFile: EventEmitter<File[]> = new EventEmitter();
 
-  @HostBinding('style.background') private colorFondo = 'var(--light-box)';
-  @HostBinding('style.borderColor') private colorBorde = 'var(--light-border-box)';
+  @HostBinding('style.background') protected colorFondo = 'var(--light-box)';
+  @HostBinding('style.borderColor') protected colorBorde = 'var(--light-border-box)';
 
   constructor() { }
 
