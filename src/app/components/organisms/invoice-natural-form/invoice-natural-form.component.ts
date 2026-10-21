@@ -1,36 +1,25 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { GlobalService } from '../../../services/global.service';
-import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
-import { CheckboxInputComponent } from '../../atoms/checkbox-input/checkbox-input.component';
 import { CommonModule } from '@angular/common';
-import { TextInputComponent } from '../../atoms/text-input/text-input.component';
-import { InfStepOneComponent } from '../../molecules/inf-step-one/inf-step-one.component';
-import { InfStepTwoComponent } from '../../molecules/inf-step-two/inf-step-two.component';
-import { FileboxComponent } from '../../atoms/filebox/filebox.component';
-import { InfStepThreeComponent } from '../../molecules/inf-step-three/inf-step-three.component';
-import { SelectOption } from '../../molecules/inf-step-one/inf-step-one.component';
+import { HttpEventType } from '@angular/common/http';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { catchError, map, of, switchMap, throwError } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { PurchaseOrders } from '../../../pages/oc-forms-cmo/oc-forms-cmo.component';
+import { GlobalService } from '../../../services/global.service';
 import { InvoiceLodgingService } from '../../../services/invoiceLodging.service';
 import { VendorService } from '../../../services/vendor.service';
-import { catchError, filter, from, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { HttpEventType } from '@angular/common/http';
-import { ValidateOcInfoComponent } from '../../../pages/validate-oc-info/validate-oc-info.component';
-import { environment } from '../../../../environments/environment';
+import { InfStepOneComponent, SelectOption } from '../../molecules/inf-step-one/inf-step-one.component';
+import { InfStepThreeComponent } from '../../molecules/inf-step-three/inf-step-three.component';
+import { InfStepTwoComponent } from '../../molecules/inf-step-two/inf-step-two.component';
 
 @Component({
     selector: 'app-invoice-natural-form',
     imports: [
-        SubtitleComponent,
         ReactiveFormsModule,
-        CheckboxInputComponent,
         CommonModule,
-        TextInputComponent,
         InfStepOneComponent,
         InfStepTwoComponent,
         InfStepThreeComponent,
-        FileboxComponent,
-        ValidateOcInfoComponent
     ],
     templateUrl: './invoice-natural-form.component.html',
     styleUrls: ['./invoice-natural-form.component.css']

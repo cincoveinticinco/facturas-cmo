@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { LogoComponent } from '../../components/atoms/logo/logo.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TextInputComponent } from '../../components/atoms/text-input/text-input.component';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { LogoComponent } from '../../components/atoms/logo/logo.component';
 import { InvoiceLodgingService } from '../../services/invoiceLodging.service';
 import { ValidateOcInfoComponent } from '../validate-oc-info/validate-oc-info.component';
 
@@ -11,7 +9,6 @@ import { ValidateOcInfoComponent } from '../validate-oc-info/validate-oc-info.co
     selector: 'app-send-oc',
     imports: [
         LogoComponent,
-        TextInputComponent,
         ReactiveFormsModule,
         FormsModule,
         ValidateOcInfoComponent

@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TextInputComponent } from '../text-input/text-input.component';
 
 @Component({
     selector: 'app-checkbox-input',
-    imports: [ReactiveFormsModule, CommonModule, TextInputComponent],
+    imports: [ReactiveFormsModule, CommonModule],
     templateUrl: './checkbox-input.component.html',
     styleUrls: ['./checkbox-input.component.css']
 })

@@ -1,12 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TextInputComponent } from '../../atoms/text-input/text-input.component';
-import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
-import { CheckboxInputComponent } from '../../atoms/checkbox-input/checkbox-input.component';
-import { ElectronicSignatureAuthComponent } from '../electronic-signature-auth/electronic-signature-auth.component';
-import { SelectInputComponent } from '../../atoms/select-input/select-input.component';
-import { MatIconModule } from '@angular/material/icon';
 import { CurrencyPipe } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { SelectInputComponent } from '../../atoms/select-input/select-input.component';
+import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
+import { TextInputComponent } from '../../atoms/text-input/text-input.component';
+import { ElectronicSignatureAuthComponent } from '../electronic-signature-auth/electronic-signature-auth.component';
 
 export interface SelectOption {
   optionName: string;
@@ -20,7 +19,6 @@ export interface SelectOption {
         TextInputComponent,
         ReactiveFormsModule,
         SubtitleComponent,
-        CheckboxInputComponent,
         ElectronicSignatureAuthComponent,
         SelectInputComponent,
         MatIconModule,
